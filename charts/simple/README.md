@@ -34,7 +34,7 @@ For complete resources list support see [resources](docs/resources.md).
 Add the [Helm](https://helm.sh/) repository:
 
 ```shell
-helm repo add iponweb https://iponweb.github.io/charts
+helm repo add iponweb https://iponweb.github.io/charts/
 ```
 
 Add the [values.schema.full.json](values.schema.full.json) schema to your

@@ -4,7 +4,7 @@ Add the [IPONWEB](https://iponweb.com) mainained [Helm](https://helm.sh/)
 Charts repository:
 
 ```shell
-helm repo add iponweb https://iponweb.github.io/charts
+helm repo add iponweb https://iponweb.github.io/charts/
 ```
 
 ## Kicked off by

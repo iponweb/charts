@@ -10,7 +10,7 @@ operator custom resources
 Add the [Helm](https://helm.sh/) repository:
 
 ```shell
-helm repo add iponweb https://iponweb.github.io/charts
+helm repo add iponweb https://iponweb.github.io/charts/
 ```
 
 Add the [values.schema.json](values.schema.json) file to your favourite IDE
