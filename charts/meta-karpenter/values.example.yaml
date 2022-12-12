@@ -1,0 +1,28 @@
+#:
+#: The values file explains how the scenario from the
+#: https://karpenter.sh/v0.19.1/getting-started/getting-started-with-eksctl/
+#: can be done using the Chart
+#:
+
+awsnodetemplate:
+  main:
+    spec:
+      subnetSelector:
+        karpenter.sh/discovery: ${CLUSTER_NAME}
+      securityGroupSelector:
+        karpenter.sh/discovery: ${CLUSTER_NAME}
+
+provisioners:
+  main:
+    spec:
+      requirements:
+        - key: karpenter.sh/capacity-type
+          operator: In
+          values: ["spot"]
+      limits:
+        resources:
+          cpu: "1000"
+      providerRef:
+        #: Reference to the previously defined `awsnodetemplate` resource
+        name: '{{ include "metachart.fullname" $ }}-main'
+      ttlSecondsAfterEmpty: 30

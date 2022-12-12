@@ -1,0 +1,1279 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "definitions": {
+    "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ExternalDocumentation": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON": {},
+    "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps": {
+      "additionalProperties": false,
+      "properties": {
+        "$ref": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        },
+        "additionalItems": {
+          "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrBool"
+        },
+        "additionalProperties": {
+          "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrBool"
+        },
+        "allOf": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps"
+          },
+          "type": "array"
+        },
+        "anyOf": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps"
+          },
+          "type": "array"
+        },
+        "default": {
+          "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON"
+        },
+        "definitions": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps"
+          },
+          "type": "object"
+        },
+        "dependencies": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrStringArray"
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
+        },
+        "enum": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON"
+          },
+          "type": "array"
+        },
+        "example": {
+          "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON"
+        },
+        "exclusiveMaximum": {
+          "type": "boolean"
+        },
+        "exclusiveMinimum": {
+          "type": "boolean"
+        },
+        "externalDocs": {
+          "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ExternalDocumentation"
+        },
+        "format": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "items": {
+          "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrArray"
+        },
+        "maxItems": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "maxLength": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "maxProperties": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "maximum": {
+          "format": "double",
+          "type": "number"
+        },
+        "minItems": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "minLength": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "minProperties": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "minimum": {
+          "format": "double",
+          "type": "number"
+        },
+        "multipleOf": {
+          "format": "double",
+          "type": "number"
+        },
+        "not": {
+          "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps"
+        },
+        "nullable": {
+          "type": "boolean"
+        },
+        "oneOf": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps"
+          },
+          "type": "array"
+        },
+        "pattern": {
+          "type": "string"
+        },
+        "patternProperties": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps"
+          },
+          "type": "object"
+        },
+        "properties": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps"
+          },
+          "type": "object"
+        },
+        "required": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "uniqueItems": {
+          "type": "boolean"
+        },
+        "x-kubernetes-embedded-resource": {
+          "type": "boolean"
+        },
+        "x-kubernetes-int-or-string": {
+          "type": "boolean"
+        },
+        "x-kubernetes-list-map-keys": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "x-kubernetes-list-type": {
+          "type": "string"
+        },
+        "x-kubernetes-map-type": {
+          "type": "string"
+        },
+        "x-kubernetes-preserve-unknown-fields": {
+          "type": "boolean"
+        },
+        "x-kubernetes-validations": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ValidationRule"
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "rule"
+          ],
+          "x-kubernetes-list-type": "map",
+          "x-kubernetes-patch-merge-key": "rule",
+          "x-kubernetes-patch-strategy": "merge"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrArray": {},
+    "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrBool": {},
+    "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrStringArray": {},
+    "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ValidationRule": {
+      "additionalProperties": false,
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "rule": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule"
+      ],
+      "type": "object"
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector": {
+      "additionalProperties": false,
+      "properties": {
+        "matchExpressions": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "matchLabels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "default": "",
+          "type": "string",
+          "x-kubernetes-patch-merge-key": "key",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "operator": {
+          "default": "",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "key",
+        "operator"
+      ],
+      "type": "object"
+    },
+    "metachart.api.meta.v1.ObjectMeta": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "checksums": {
+          "$ref": "#/definitions/metachart.interface.checksums"
+        },
+        "finalizers": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.sh.gatekeeper.apis.config.v1alpha1.Config": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.config.v1alpha1.ConfigSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.sh.gatekeeper.apis.expansion.v1alpha1.ExpansionTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.expansion.v1alpha1.ExpansionTemplateSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.sh.gatekeeper.apis.mutations.v1.Assign": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.AssignSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.sh.gatekeeper.apis.mutations.v1.AssignMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.AssignMetadataSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.sh.gatekeeper.apis.mutations.v1.ModifySet": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.ModifySetSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.sh.gatekeeper.apis.status.v1beta1.ConstraintPodStatus": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.sh.gatekeeper.frameworks.constraint.pkg.apis.externaldata.v1alpha1.Provider": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/sh.gatekeeper.frameworks.constraint.pkg.apis.externaldata.v1alpha1.ProviderSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.ConstraintTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.ConstraintTemplateSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.interface.FQDNitem": {
+      "pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
+      "type": "string"
+    },
+    "metachart.interface.boolean": {
+      "type": "boolean"
+    },
+    "metachart.interface.checksumEntryList": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/definitions/metachart.interface.FQDNitem"
+          },
+          "type": "array"
+        },
+        {
+          "enum": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "metachart.interface.checksums": {
+      "properties": {
+        "assign": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "assignmetadata": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "configs": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "constraintpodstatuses": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "constrainttemplatepodstatuses": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "constrainttemplates": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "expansiontemplate": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "modifyset": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "mutatorpodstatuses": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "providers": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.config.v1alpha1.ConfigSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "match": {
+          "items": {
+            "$ref": "#/definitions/sh.gatekeeper.apis.config.v1alpha1.MatchEntry",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "readiness": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.config.v1alpha1.ReadinessSpec",
+          "default": {}
+        },
+        "sync": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.config.v1alpha1.Sync",
+          "default": {}
+        },
+        "validation": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.config.v1alpha1.Validation",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.config.v1alpha1.GVK": {
+      "additionalProperties": false,
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.config.v1alpha1.MatchEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "excludedNamespaces": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "processes": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.config.v1alpha1.ReadinessSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "statsEnabled": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.config.v1alpha1.Sync": {
+      "additionalProperties": false,
+      "properties": {
+        "syncOnly": {
+          "items": {
+            "$ref": "#/definitions/sh.gatekeeper.apis.config.v1alpha1.SyncOnlyEntry",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.config.v1alpha1.SyncOnlyEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.config.v1alpha1.Trace": {
+      "additionalProperties": false,
+      "properties": {
+        "dump": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.config.v1alpha1.GVK",
+          "default": {}
+        },
+        "user": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.config.v1alpha1.Validation": {
+      "additionalProperties": false,
+      "properties": {
+        "traces": {
+          "items": {
+            "$ref": "#/definitions/sh.gatekeeper.apis.config.v1alpha1.Trace",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.expansion.v1alpha1.ExpansionTemplateSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "applyTo": {
+          "items": {
+            "$ref": "#/definitions/sh.gatekeeper.pkg.mutation.match.ApplyTo",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "enforcementAction": {
+          "type": "string"
+        },
+        "generatedGVK": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.expansion.v1alpha1.GeneratedGVK",
+          "default": {}
+        },
+        "templateSource": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.expansion.v1alpha1.GeneratedGVK": {
+      "additionalProperties": false,
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.mutations.v1.AssignField": {
+      "additionalProperties": false,
+      "properties": {
+        "externalData": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.ExternalData"
+        },
+        "fromMetadata": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.FromMetadata"
+        },
+        "value": {
+          "$ref": "#/definitions/sh.gatekeeper.pkg.mutation.types.Anything"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.mutations.v1.AssignMetadataSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "location": {
+          "type": "string"
+        },
+        "match": {
+          "$ref": "#/definitions/sh.gatekeeper.pkg.mutation.match.Match",
+          "default": {}
+        },
+        "parameters": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.MetadataParameters",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.mutations.v1.AssignSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "applyTo": {
+          "items": {
+            "$ref": "#/definitions/sh.gatekeeper.pkg.mutation.match.ApplyTo",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "location": {
+          "type": "string"
+        },
+        "match": {
+          "$ref": "#/definitions/sh.gatekeeper.pkg.mutation.match.Match",
+          "default": {}
+        },
+        "parameters": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.Parameters",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.mutations.v1.ExternalData": {
+      "additionalProperties": false,
+      "properties": {
+        "dataSource": {
+          "type": "string"
+        },
+        "default": {
+          "type": "string"
+        },
+        "failurePolicy": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.mutations.v1.FromMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.mutations.v1.MetadataParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "assign": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.AssignField",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.mutations.v1.ModifySetParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "operation": {
+          "type": "string"
+        },
+        "pathTests": {
+          "items": {
+            "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.PathTest",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "values": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.Values",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.mutations.v1.ModifySetSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "applyTo": {
+          "items": {
+            "$ref": "#/definitions/sh.gatekeeper.pkg.mutation.match.ApplyTo",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "location": {
+          "type": "string"
+        },
+        "match": {
+          "$ref": "#/definitions/sh.gatekeeper.pkg.mutation.match.Match",
+          "default": {}
+        },
+        "parameters": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.ModifySetParameters",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.mutations.v1.Parameters": {
+      "additionalProperties": false,
+      "properties": {
+        "assign": {
+          "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.AssignField",
+          "default": {}
+        },
+        "pathTests": {
+          "items": {
+            "$ref": "#/definitions/sh.gatekeeper.apis.mutations.v1.PathTest",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.mutations.v1.PathTest": {
+      "additionalProperties": false,
+      "properties": {
+        "condition": {
+          "type": "string"
+        },
+        "subPath": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.apis.mutations.v1.Values": {
+      "additionalProperties": false,
+      "properties": {
+        "fromList": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.frameworks.constraint.pkg.apis.externaldata.v1alpha1.ProviderSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "caBundle": {
+          "type": "string"
+        },
+        "insecureTLSSkipVerify": {
+          "type": "boolean"
+        },
+        "timeout": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.CRD": {
+      "additionalProperties": false,
+      "properties": {
+        "spec": {
+          "$ref": "#/definitions/sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.CRDSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.CRDSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "names": {
+          "$ref": "#/definitions/sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.Names",
+          "default": {}
+        },
+        "validation": {
+          "$ref": "#/definitions/sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.Validation"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.ConstraintTemplateSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "crd": {
+          "$ref": "#/definitions/sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.CRD",
+          "default": {}
+        },
+        "targets": {
+          "items": {
+            "$ref": "#/definitions/sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.Target",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.Names": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "shortNames": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.Target": {
+      "additionalProperties": false,
+      "properties": {
+        "libs": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "rego": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.Validation": {
+      "additionalProperties": false,
+      "properties": {
+        "legacySchema": {
+          "type": "boolean"
+        },
+        "openAPIV3Schema": {
+          "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.pkg.mutation.match.ApplyTo": {
+      "additionalProperties": false,
+      "properties": {
+        "groups": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "kinds": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "versions": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.pkg.mutation.match.Kinds": {
+      "additionalProperties": false,
+      "properties": {
+        "apiGroups": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "kinds": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.pkg.mutation.match.Match": {
+      "additionalProperties": false,
+      "properties": {
+        "excludedNamespaces": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "kinds": {
+          "items": {
+            "$ref": "#/definitions/sh.gatekeeper.pkg.mutation.match.Kinds",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "labelSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "name": {
+          "type": "string"
+        },
+        "namespaceSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "namespaces": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.gatekeeper.pkg.mutation.types.Anything": {
+      "type": "object"
+    }
+  },
+  "properties": {
+    "assign": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.sh.gatekeeper.apis.mutations.v1.Assign"
+        }
+      },
+      "type": "object"
+    },
+    "assignmetadata": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.sh.gatekeeper.apis.mutations.v1.AssignMetadata"
+        }
+      },
+      "type": "object"
+    },
+    "configs": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.sh.gatekeeper.apis.config.v1alpha1.Config"
+        }
+      },
+      "type": "object"
+    },
+    "constraintpodstatuses": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.sh.gatekeeper.apis.status.v1beta1.ConstraintPodStatus"
+        }
+      },
+      "type": "object"
+    },
+    "constrainttemplatepodstatuses": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/"
+        }
+      },
+      "type": "object"
+    },
+    "constrainttemplates": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.ConstraintTemplate"
+        }
+      },
+      "type": "object"
+    },
+    "context": {
+      "description": "Any content which can be used for config rendering without schema defined by the chart",
+      "type": "object"
+    },
+    "expansiontemplate": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.sh.gatekeeper.apis.expansion.v1alpha1.ExpansionTemplate"
+        }
+      },
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/metachart.interface.FQDNitem"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "modifyset": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.sh.gatekeeper.apis.mutations.v1.ModifySet"
+        }
+      },
+      "type": "object"
+    },
+    "mutatorpodstatuses": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/"
+        }
+      },
+      "type": "object"
+    },
+    "providers": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.sh.gatekeeper.frameworks.constraint.pkg.apis.externaldata.v1alpha1.Provider"
+        }
+      },
+      "type": "object"
+    },
+    "settings": {
+      "additionalProperties": false,
+      "properties": {
+        "assign": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.sh.gatekeeper.apis.mutations.v1.Assign"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "assignmetadata": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.sh.gatekeeper.apis.mutations.v1.AssignMetadata"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "configs": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.sh.gatekeeper.apis.config.v1alpha1.Config"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "constraintpodstatuses": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.sh.gatekeeper.apis.status.v1beta1.ConstraintPodStatus"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "constrainttemplatepodstatuses": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "constrainttemplates": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.ConstraintTemplate"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "expansiontemplate": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.sh.gatekeeper.apis.expansion.v1alpha1.ExpansionTemplate"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "global": {
+          "additionalProperties": false,
+          "properties": {
+            "annotations": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "labels": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "modifyset": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.sh.gatekeeper.apis.mutations.v1.ModifySet"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "mutatorpodstatuses": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "providers": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.sh.gatekeeper.frameworks.constraint.pkg.apis.externaldata.v1alpha1.Provider"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

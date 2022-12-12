@@ -1,0 +1,72 @@
+.defaults:
+  disallowed: &defaultDisallowed
+    - status
+    - kind
+    - apiVersion
+  properties: &defaultProperties
+    enabled: metachart.interface.boolean
+    metadata: metachart.api.meta.v1.ObjectMeta
+  rootKey: &defaultRootKey
+    disallowed: *defaultDisallowed
+    properties: *defaultProperties
+
+definitions:
+  - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/kubernetes/v1.25.2-strict/_definitions.json
+  - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/gatekeeper/v3.10.0-strict/_definitions.json
+
+rules:
+  #: Common
+  #:
+  #: meta.v1.ObjectMeta
+  - target: metachart.api.meta.v1.ObjectMeta
+    source: io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta
+    allowed:
+      - annotations
+      - labels
+      - finalizers
+      - namespace
+      - name
+    properties:
+      checksums: metachart.interface.checksums
+
+  #: config.gatekeeper.sh/v1alpha1
+  - target: metachart.api.sh.gatekeeper.apis.config.v1alpha1.Config
+    source: sh.gatekeeper.apis.config.v1alpha1.Config
+    <<: *defaultRootKey
+
+  #: expansion.gatekeeper.sh/v1alpha1
+  - target: metachart.api.sh.gatekeeper.apis.expansion.v1alpha1.ExpansionTemplate
+    source: sh.gatekeeper.apis.expansion.v1alpha1.ExpansionTemplate
+    <<: *defaultRootKey
+
+  #: externaldata.gatekeeper.sh/v1alpha1
+  - target: metachart.api.sh.gatekeeper.frameworks.constraint.pkg.apis.externaldata.v1alpha1.Provider
+    source: sh.gatekeeper.frameworks.constraint.pkg.apis.externaldata.v1alpha1.Provider
+    <<: *defaultRootKey
+
+  #: mutations.gatekeeper.sh/v1
+  - target: metachart.api.sh.gatekeeper.apis.mutations.v1.Assign
+    source: sh.gatekeeper.apis.mutations.v1.Assign
+    <<: *defaultRootKey
+  - target: metachart.api.sh.gatekeeper.apis.mutations.v1.AssignMetadata
+    source: sh.gatekeeper.apis.mutations.v1.AssignMetadata
+    <<: *defaultRootKey
+  - target: metachart.api.sh.gatekeeper.apis.mutations.v1.ModifySet
+    source: sh.gatekeeper.apis.mutations.v1.ModifySet
+    <<: *defaultRootKey
+
+  #: status.gatekeeper.sh/v1beta1
+  - target: metachart.api.sh.gatekeeper.apis.status.v1beta1.ConstraintPodStatus
+    source: sh.gatekeeper.apis.status.v1beta1.ConstraintPodStatus
+    <<: *defaultRootKey
+  - target: metachart.api.sh.gatekeeper.apis.status.v1beta1.ConstraintTemplatePodStatus
+    source: sh.gatekeeper.apis.status.v1beta1.ConstraintTemplatePodStatus
+    <<: *defaultRootKey
+  - target: metachart.api.sh.gatekeeper.apis.status.v1beta1.MutatorPodStatus
+    source: sh.gatekeeper.apis.status.v1beta1.MutatorPodStatus
+    <<: *defaultRootKey
+
+  #: templates.gatekeeper.sh/v1
+  - target: metachart.api.sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.ConstraintTemplate
+    source: sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.ConstraintTemplate
+    <<: *defaultRootKey

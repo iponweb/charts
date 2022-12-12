@@ -1,0 +1,542 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "definitions": {
+    "io.k8s.api.core.v1.NodeSelectorRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "key",
+        "operator"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.Taint": {
+      "additionalProperties": false,
+      "properties": {
+        "effect": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "timeAdded": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "effect"
+      ],
+      "type": "object"
+    },
+    "io.k8s.apimachinery.pkg.api.resource.Quantity": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.Duration": {
+      "type": "string"
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.Time": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "io.k8s.apimachinery.pkg.runtime.RawExtension": {
+      "type": "object"
+    },
+    "metachart.api.meta.v1.ObjectMeta": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "checksums": {
+          "$ref": "#/definitions/metachart.interface.checksums"
+        },
+        "finalizers": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.sh.karpenter.pkg.apis.v1alpha1.AWSNodeTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/sh.karpenter.pkg.apis.v1alpha1.AWSNodeTemplateSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.sh.karpenter.pkg.apis.v1alpha5.Provisioner": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/sh.karpenter.core.pkg.apis.provisioning.v1alpha5.ProvisionerSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.interface.FQDNitem": {
+      "pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
+      "type": "string"
+    },
+    "metachart.interface.boolean": {
+      "type": "boolean"
+    },
+    "metachart.interface.checksumEntryList": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/definitions/metachart.interface.FQDNitem"
+          },
+          "type": "array"
+        },
+        {
+          "enum": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "metachart.interface.checksums": {
+      "properties": {
+        "awsnodetemplate": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "provisioners": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        }
+      },
+      "type": "object"
+    },
+    "sh.karpenter.core.pkg.apis.provisioning.v1alpha5.Consolidation": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "sh.karpenter.core.pkg.apis.provisioning.v1alpha5.KubeletConfiguration": {
+      "additionalProperties": false,
+      "properties": {
+        "clusterDNS": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "containerRuntime": {
+          "type": "string"
+        },
+        "evictionHard": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "evictionMaxPodGracePeriod": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "evictionSoft": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "evictionSoftGracePeriod": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration",
+            "default": 0
+          },
+          "type": "object"
+        },
+        "kubeReserved": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+            "default": {}
+          },
+          "type": "object"
+        },
+        "maxPods": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "podsPerCore": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "systemReserved": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+            "default": {}
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "sh.karpenter.core.pkg.apis.provisioning.v1alpha5.Limits": {
+      "additionalProperties": false,
+      "properties": {
+        "resources": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+            "default": {}
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "sh.karpenter.core.pkg.apis.provisioning.v1alpha5.ProviderRef": {
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.karpenter.core.pkg.apis.provisioning.v1alpha5.ProvisionerSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "consolidation": {
+          "$ref": "#/definitions/sh.karpenter.core.pkg.apis.provisioning.v1alpha5.Consolidation"
+        },
+        "kubeletConfiguration": {
+          "$ref": "#/definitions/sh.karpenter.core.pkg.apis.provisioning.v1alpha5.KubeletConfiguration"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "limits": {
+          "$ref": "#/definitions/sh.karpenter.core.pkg.apis.provisioning.v1alpha5.Limits"
+        },
+        "provider": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension"
+        },
+        "providerRef": {
+          "$ref": "#/definitions/sh.karpenter.core.pkg.apis.provisioning.v1alpha5.ProviderRef"
+        },
+        "requirements": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "startupTaints": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Taint",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "taints": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Taint",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "ttlSecondsAfterEmpty": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "ttlSecondsUntilExpired": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "weight": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "sh.karpenter.pkg.apis.v1alpha1.AWSNodeTemplateSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "amiFamily": {
+          "type": "string"
+        },
+        "amiSelector": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "apiVersion": {
+          "type": "string"
+        },
+        "blockDeviceMappings": {
+          "items": {
+            "$ref": "#/definitions/sh.karpenter.pkg.apis.v1alpha1.BlockDeviceMapping"
+          },
+          "type": "array"
+        },
+        "context": {
+          "type": "string"
+        },
+        "instanceProfile": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "launchTemplate": {
+          "type": "string"
+        },
+        "metadataOptions": {
+          "$ref": "#/definitions/sh.karpenter.pkg.apis.v1alpha1.MetadataOptions"
+        },
+        "securityGroupSelector": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "subnetSelector": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "tags": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "userData": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.karpenter.pkg.apis.v1alpha1.BlockDevice": {
+      "additionalProperties": false,
+      "properties": {
+        "deleteOnTermination": {
+          "type": "boolean"
+        },
+        "encrypted": {
+          "type": "boolean"
+        },
+        "iops": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "kmsKeyID": {
+          "type": "string"
+        },
+        "snapshotID": {
+          "type": "string"
+        },
+        "throughput": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "volumeSize": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+        },
+        "volumeType": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "sh.karpenter.pkg.apis.v1alpha1.BlockDeviceMapping": {
+      "additionalProperties": false,
+      "properties": {
+        "deviceName": {
+          "type": "string"
+        },
+        "ebs": {
+          "$ref": "#/definitions/sh.karpenter.pkg.apis.v1alpha1.BlockDevice"
+        }
+      },
+      "type": "object"
+    },
+    "sh.karpenter.pkg.apis.v1alpha1.MetadataOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "httpEndpoint": {
+          "type": "string"
+        },
+        "httpProtocolIPv6": {
+          "type": "string"
+        },
+        "httpPutResponseHopLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "httpTokens": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "properties": {
+    "awsnodetemplate": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.sh.karpenter.pkg.apis.v1alpha1.AWSNodeTemplate"
+        }
+      },
+      "type": "object"
+    },
+    "context": {
+      "description": "Any content which can be used for config rendering without schema defined by the chart",
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/metachart.interface.FQDNitem"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "provisioners": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.sh.karpenter.pkg.apis.v1alpha5.Provisioner"
+        }
+      },
+      "type": "object"
+    },
+    "settings": {
+      "additionalProperties": false,
+      "properties": {
+        "awsnodetemplate": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.sh.karpenter.pkg.apis.v1alpha1.AWSNodeTemplate"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "global": {
+          "additionalProperties": false,
+          "properties": {
+            "annotations": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "labels": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "provisioners": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.sh.karpenter.pkg.apis.v1alpha5.Provisioner"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

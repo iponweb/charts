@@ -1,0 +1,16 @@
+# context can be used to define any user-provided structure to use in values
+# templating
+context: {}
+
+# fullnameOverride overrides value of $.Release.Name for resources release name
+# prefixes
+fullnameOverride:
+
+# annotations contains Annotations which are applied to all release resources
+annotations: {}
+
+# labels contains Labels which are applied to all release resources
+labels: {}
+
+# settings configures chart behaviour
+settings: {}

@@ -1,0 +1,54 @@
+resources:
+  #: config.gatekeeper.sh/v1alpha1
+  configs:
+    apiVersion: config.gatekeeper.sh/v1alpha1
+    kind: Config
+    jsonSchemaRef: metachart.api.sh.gatekeeper.apis.config.v1alpha1.Config
+
+  #: expansion.gatekeeper.sh/v1alpha1
+  expansiontemplate:
+    apiVersion: expansion.gatekeeper.sh/v1alpha1
+    kind: ExpansionTemplate
+    jsonSchemaRef: metachart.api.sh.gatekeeper.apis.expansion.v1alpha1.ExpansionTemplate
+
+  #: externaldata.gatekeeper.sh/v1alpha1
+  providers:
+    apiVersion: externaldata.gatekeeper.sh/v1alpha1
+    kind: Provider
+    jsonSchemaRef: metachart.api.sh.gatekeeper.frameworks.constraint.pkg.apis.externaldata.v1alpha1.Provider
+
+  #: mutations.gatekeeper.sh/v1
+  assign:
+    apiVersion: mutations.gatekeeper.sh/v1
+    kind: Assign
+    jsonSchemaRef: metachart.api.sh.gatekeeper.apis.mutations.v1.Assign
+  assignmetadata:
+    apiVersion: mutations.gatekeeper.sh/v1
+    kind: AssignMetadata
+    jsonSchemaRef: metachart.api.sh.gatekeeper.apis.mutations.v1.AssignMetadata
+  modifyset:
+    apiVersion: mutations.gatekeeper.sh/v1
+    kind: ModifySet
+    jsonSchemaRef: metachart.api.sh.gatekeeper.apis.mutations.v1.ModifySet
+
+  #: status.gatekeeper.sh/v1beta1
+  constraintpodstatuses:
+    apiVersion: status.gatekeeper.sh/v1beta1
+    kind: ConstraintPodStatus
+    jsonSchemaRef: metachart.api.sh.gatekeeper.apis.status.v1beta1.ConstraintPodStatus
+  constrainttemplatepodstatuses:
+    constraintpodstatuses:
+      apiVersion: status.gatekeeper.sh/v1beta1
+      kind: ConstraintTemplatePodStatus
+      jsonSchemaRef: metachart.api.sh.gatekeeper.apis.status.v1beta1.ConstraintTemplatePodStatus
+  mutatorpodstatuses:
+    constraintpodstatuses:
+      apiVersion: status.gatekeeper.sh/v1beta1
+      kind: MutatorPodStatus
+      jsonSchemaRef: metachart.api.sh.gatekeeper.apis.status.v1beta1.MutatorPodStatus
+
+  #: templates.gatekeeper.sh/v1
+  constrainttemplates:
+    apiVersion: templates.gatekeeper.sh/v1
+    kind: ConstraintTemplate
+    jsonSchemaRef: metachart.api.sh.gatekeeper.frameworks.constraint.pkg.apis.templates.v1.ConstraintTemplate

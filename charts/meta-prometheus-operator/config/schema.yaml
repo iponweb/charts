@@ -1,0 +1,58 @@
+.defaults:
+  disallowed: &defaultDisallowed
+    - status
+    - kind
+    - apiVersion
+  properties: &defaultProperties
+    enabled: metachart.interface.boolean
+    metadata: metachart.api.meta.v1.ObjectMeta
+  rootKey: &defaultRootKey
+    disallowed: *defaultDisallowed
+    properties: *defaultProperties
+
+definitions:
+  - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/kubernetes/v1.25.2-strict/_definitions.json
+  - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/prometheus-operator/v0.60.1-strict/_definitions.json
+
+rules:
+  #: Common
+  #:
+  #: meta.v1.ObjectMeta
+  - target: metachart.api.meta.v1.ObjectMeta
+    source: io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta
+    allowed:
+      - annotations
+      - labels
+      - finalizers
+      - namespace
+      - name
+    properties:
+      checksums: metachart.interface.checksums
+
+  #: monitoring.coreos.com/v1
+  - target: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Alertmanager
+    source: com.coreos.monitoring.pkg.apis.monitoring.v1.Alertmanager
+    <<: *defaultRootKey
+  - target: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PodMonitor
+    source: com.coreos.monitoring.pkg.apis.monitoring.v1.PodMonitor
+    <<: *defaultRootKey
+  - target: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Probe
+    source: com.coreos.monitoring.pkg.apis.monitoring.v1.Probe
+    <<: *defaultRootKey
+  - target: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Prometheus
+    source: com.coreos.monitoring.pkg.apis.monitoring.v1.Prometheus
+    <<: *defaultRootKey
+  - target: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRule
+    source: com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRule
+    <<: *defaultRootKey
+  - target: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.ServiceMonitor
+    source: com.coreos.monitoring.pkg.apis.monitoring.v1.ServiceMonitor
+    <<: *defaultRootKey
+  - target: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.ThanosRuler
+    source: com.coreos.monitoring.pkg.apis.monitoring.v1.ThanosRuler
+    <<: *defaultRootKey
+
+  #: monitoring.coreos.com/v1beta1
+  - target: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1beta1.AlertmanagerConfig
+    source: com.coreos.monitoring.pkg.apis.monitoring.v1beta1.AlertmanagerConfig
+    <<: *defaultRootKey

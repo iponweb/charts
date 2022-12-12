@@ -1,0 +1,37 @@
+resources:
+
+  #: monitoring.coreos.com/v1
+  alertmanagers:
+    apiVersion: monitoring.coreos.com/v1
+    kind: PodMonitor
+    jsonSchemaRef: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Alertmanager
+  podmonitors:
+    apiVersion: monitoring.coreos.com/v1
+    kind: PodMonitor
+    jsonSchemaRef: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PodMonitor
+  probes:
+    apiVersion: monitoring.coreos.com/v1
+    kind: PodMonitor
+    jsonSchemaRef: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Probe
+  prometheuses:
+    apiVersion: monitoring.coreos.com/v1
+    kind: PodMonitor
+    jsonSchemaRef: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Prometheus
+  prometheusrules:
+    apiVersion: monitoring.coreos.com/v1
+    kind: PodMonitor
+    jsonSchemaRef: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRule
+  servicemonitors:
+    apiVersion: monitoring.coreos.com/v1
+    kind: PodMonitor
+    jsonSchemaRef: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.ServiceMonitor
+  thanosrulers:
+    apiVersion: monitoring.coreos.com/v1
+    kind: PodMonitor
+    jsonSchemaRef: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.ThanosRuler
+
+  #: monitoring.coreos.com/v1beta1
+  alertmanagerconfigs:
+    apiVersion: monitoring.coreos.com/v1beta1
+    kind: AlertmanagerConfig
+    jsonSchemaRef: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1beta1.AlertmanagerConfig

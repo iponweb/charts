@@ -1,0 +1,5805 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "definitions": {
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.APIServerConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Authorization"
+        },
+        "basicAuth": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.BasicAuth"
+        },
+        "bearerToken": {
+          "type": "string"
+        },
+        "bearerTokenFile": {
+          "type": "string"
+        },
+        "host": {
+          "default": "",
+          "type": "string"
+        },
+        "tlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.TLSConfig"
+        }
+      },
+      "required": [
+        "host"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.AlertingSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "alertmanagers": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerEndpoints",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "alertmanagers"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerConfiguration": {
+      "additionalProperties": false,
+      "properties": {
+        "global": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerGlobalConfig"
+        },
+        "name": {
+          "type": "string"
+        },
+        "templates": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerEndpoints": {
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "type": "string"
+        },
+        "authorization": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SafeAuthorization"
+        },
+        "bearerTokenFile": {
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "namespace": {
+          "default": "",
+          "type": "string"
+        },
+        "pathPrefix": {
+          "type": "string"
+        },
+        "port": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
+          "default": {}
+        },
+        "scheme": {
+          "type": "string"
+        },
+        "timeout": {
+          "type": "string"
+        },
+        "tlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.TLSConfig"
+        }
+      },
+      "required": [
+        "namespace",
+        "name",
+        "port"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerGlobalConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "httpConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.HTTPConfig"
+        },
+        "resolveTimeout": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "additionalPeers": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "affinity": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Affinity"
+        },
+        "alertmanagerConfigNamespaceSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "alertmanagerConfigSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "alertmanagerConfiguration": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerConfiguration"
+        },
+        "baseImage": {
+          "type": "string"
+        },
+        "clusterAdvertiseAddress": {
+          "type": "string"
+        },
+        "clusterGossipInterval": {
+          "type": "string"
+        },
+        "clusterPeerTimeout": {
+          "type": "string"
+        },
+        "clusterPushpullInterval": {
+          "type": "string"
+        },
+        "configMaps": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "configSecret": {
+          "type": "string"
+        },
+        "containers": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Container",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "externalUrl": {
+          "type": "string"
+        },
+        "forceEnableClusterMode": {
+          "type": "boolean"
+        },
+        "hostAliases": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.HostAlias",
+            "default": {}
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "ip"
+          ],
+          "x-kubernetes-list-type": "map"
+        },
+        "image": {
+          "type": "string"
+        },
+        "imagePullSecrets": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "initContainers": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Container",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "listenLocal": {
+          "type": "boolean"
+        },
+        "logFormat": {
+          "type": "string"
+        },
+        "logLevel": {
+          "type": "string"
+        },
+        "minReadySeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "nodeSelector": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "paused": {
+          "type": "boolean"
+        },
+        "podMetadata": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.EmbeddedObjectMetadata"
+        },
+        "portName": {
+          "type": "string"
+        },
+        "priorityClassName": {
+          "type": "string"
+        },
+        "replicas": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "resources": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements",
+          "default": {}
+        },
+        "retention": {
+          "type": "string"
+        },
+        "routePrefix": {
+          "type": "string"
+        },
+        "secrets": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "securityContext": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodSecurityContext"
+        },
+        "serviceAccountName": {
+          "type": "string"
+        },
+        "sha": {
+          "type": "string"
+        },
+        "storage": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.StorageSpec"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "tolerations": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Toleration",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "topologySpreadConstraints": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.TopologySpreadConstraint",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "version": {
+          "type": "string"
+        },
+        "volumeMounts": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.VolumeMount",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "volumes": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Volume",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "web": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerWebSpec"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerWebSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "httpConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.WebHTTPConfig"
+        },
+        "tlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.WebTLSConfig"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.ArbitraryFSAccessThroughSMsConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "deny": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.Argument": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.AttachMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "node": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.Authorization": {
+      "additionalProperties": false,
+      "properties": {
+        "credentials": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "credentialsFile": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.BasicAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "password": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector",
+          "default": {}
+        },
+        "username": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.EmbeddedObjectMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.EmbeddedPersistentVolumeClaim": {
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.EmbeddedObjectMetadata",
+          "default": {}
+        },
+        "spec": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimSpec",
+          "default": {}
+        },
+        "status": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimStatus",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.Endpoint": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SafeAuthorization"
+        },
+        "basicAuth": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.BasicAuth"
+        },
+        "bearerTokenFile": {
+          "type": "string"
+        },
+        "bearerTokenSecret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector",
+          "default": {}
+        },
+        "enableHttp2": {
+          "type": "boolean"
+        },
+        "followRedirects": {
+          "type": "boolean"
+        },
+        "honorLabels": {
+          "type": "boolean"
+        },
+        "honorTimestamps": {
+          "type": "boolean"
+        },
+        "interval": {
+          "type": "string"
+        },
+        "metricRelabelings": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RelabelConfig"
+          },
+          "type": "array"
+        },
+        "oauth2": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.OAuth2"
+        },
+        "params": {
+          "additionalProperties": {
+            "items": {
+              "default": "",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": "object"
+        },
+        "path": {
+          "type": "string"
+        },
+        "port": {
+          "type": "string"
+        },
+        "proxyUrl": {
+          "type": "string"
+        },
+        "relabelings": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RelabelConfig"
+          },
+          "type": "array"
+        },
+        "scheme": {
+          "type": "string"
+        },
+        "scrapeTimeout": {
+          "type": "string"
+        },
+        "targetPort": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+        },
+        "tlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.TLSConfig"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.Exemplars": {
+      "additionalProperties": false,
+      "properties": {
+        "maxSize": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.HTTPConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SafeAuthorization"
+        },
+        "basicAuth": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.BasicAuth"
+        },
+        "bearerTokenSecret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "followRedirects": {
+          "type": "boolean"
+        },
+        "oauth2": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.OAuth2"
+        },
+        "proxyURL": {
+          "type": "string"
+        },
+        "tlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SafeTLSConfig"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.HostAlias": {
+      "additionalProperties": false,
+      "properties": {
+        "hostnames": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ip": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ip",
+        "hostnames"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.MetadataConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "send": {
+          "type": "boolean"
+        },
+        "sendInterval": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.NamespaceSelector": {
+      "additionalProperties": false,
+      "properties": {
+        "any": {
+          "type": "boolean"
+        },
+        "matchNames": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.OAuth2": {
+      "additionalProperties": false,
+      "properties": {
+        "clientId": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
+          "default": {}
+        },
+        "clientSecret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector",
+          "default": {}
+        },
+        "endpointParams": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "scopes": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "tokenUrl": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "clientId",
+        "clientSecret",
+        "tokenUrl"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.ObjectReference": {
+      "additionalProperties": false,
+      "properties": {
+        "group": {
+          "default": "",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "default": "",
+          "type": "string"
+        },
+        "resource": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "resource",
+        "namespace"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.PodMetricsEndpoint": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SafeAuthorization"
+        },
+        "basicAuth": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.BasicAuth"
+        },
+        "bearerTokenSecret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector",
+          "default": {}
+        },
+        "enableHttp2": {
+          "type": "boolean"
+        },
+        "filterRunning": {
+          "type": "boolean"
+        },
+        "followRedirects": {
+          "type": "boolean"
+        },
+        "honorLabels": {
+          "type": "boolean"
+        },
+        "honorTimestamps": {
+          "type": "boolean"
+        },
+        "interval": {
+          "type": "string"
+        },
+        "metricRelabelings": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RelabelConfig"
+          },
+          "type": "array"
+        },
+        "oauth2": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.OAuth2"
+        },
+        "params": {
+          "additionalProperties": {
+            "items": {
+              "default": "",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": "object"
+        },
+        "path": {
+          "type": "string"
+        },
+        "port": {
+          "type": "string"
+        },
+        "proxyUrl": {
+          "type": "string"
+        },
+        "relabelings": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RelabelConfig"
+          },
+          "type": "array"
+        },
+        "scheme": {
+          "type": "string"
+        },
+        "scrapeTimeout": {
+          "type": "string"
+        },
+        "targetPort": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+        },
+        "tlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.PodMetricsEndpointTLSConfig"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.PodMetricsEndpointTLSConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "ca": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
+          "default": {}
+        },
+        "cert": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
+          "default": {}
+        },
+        "insecureSkipVerify": {
+          "type": "boolean"
+        },
+        "keySecret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "serverName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.PodMonitorSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "attachMetadata": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.AttachMetadata"
+        },
+        "jobLabel": {
+          "type": "string"
+        },
+        "labelLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "labelNameLengthLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "labelValueLengthLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "namespaceSelector": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.NamespaceSelector",
+          "default": {}
+        },
+        "podMetricsEndpoints": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.PodMetricsEndpoint",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "podTargetLabels": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "sampleLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+          "default": {}
+        },
+        "targetLimit": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "podMetricsEndpoints",
+        "selector"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.ProbeSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SafeAuthorization"
+        },
+        "basicAuth": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.BasicAuth"
+        },
+        "bearerTokenSecret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector",
+          "default": {}
+        },
+        "interval": {
+          "type": "string"
+        },
+        "jobName": {
+          "type": "string"
+        },
+        "labelLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "labelNameLengthLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "labelValueLengthLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "metricRelabelings": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RelabelConfig"
+          },
+          "type": "array"
+        },
+        "module": {
+          "type": "string"
+        },
+        "oauth2": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.OAuth2"
+        },
+        "prober": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.ProberSpec",
+          "default": {}
+        },
+        "sampleLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "scrapeTimeout": {
+          "type": "string"
+        },
+        "targetLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "targets": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.ProbeTargets",
+          "default": {}
+        },
+        "tlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.ProbeTLSConfig"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.ProbeTLSConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "ca": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
+          "default": {}
+        },
+        "cert": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
+          "default": {}
+        },
+        "insecureSkipVerify": {
+          "type": "boolean"
+        },
+        "keySecret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "serverName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.ProbeTargetIngress": {
+      "additionalProperties": false,
+      "properties": {
+        "namespaceSelector": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.NamespaceSelector",
+          "default": {}
+        },
+        "relabelingConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RelabelConfig"
+          },
+          "type": "array"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.ProbeTargetStaticConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "relabelingConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RelabelConfig"
+          },
+          "type": "array"
+        },
+        "static": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.ProbeTargets": {
+      "additionalProperties": false,
+      "properties": {
+        "ingress": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.ProbeTargetIngress"
+        },
+        "staticConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.ProbeTargetStaticConfig"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.ProberSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "proxyUrl": {
+          "type": "string"
+        },
+        "scheme": {
+          "type": "string"
+        },
+        "url": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRuleExcludeConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "ruleName": {
+          "default": "",
+          "type": "string"
+        },
+        "ruleNamespace": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ruleNamespace",
+        "ruleName"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRuleSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "groups": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RuleGroup",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "additionalAlertManagerConfigs": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "additionalAlertRelabelConfigs": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "additionalArgs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Argument",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "additionalScrapeConfigs": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "affinity": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Affinity"
+        },
+        "alerting": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.AlertingSpec"
+        },
+        "allowOverlappingBlocks": {
+          "type": "boolean"
+        },
+        "apiserverConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.APIServerConfig"
+        },
+        "arbitraryFSAccessThroughSMs": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.ArbitraryFSAccessThroughSMsConfig",
+          "default": {}
+        },
+        "baseImage": {
+          "type": "string"
+        },
+        "configMaps": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "containers": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Container",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "disableCompaction": {
+          "type": "boolean"
+        },
+        "enableAdminAPI": {
+          "type": "boolean"
+        },
+        "enableFeatures": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "enableRemoteWriteReceiver": {
+          "type": "boolean"
+        },
+        "enforcedBodySizeLimit": {
+          "type": "string"
+        },
+        "enforcedLabelLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "enforcedLabelNameLengthLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "enforcedLabelValueLengthLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "enforcedNamespaceLabel": {
+          "type": "string"
+        },
+        "enforcedSampleLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "enforcedTargetLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "evaluationInterval": {
+          "type": "string"
+        },
+        "excludedFromEnforcement": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.ObjectReference",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "exemplars": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Exemplars"
+        },
+        "externalLabels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "externalUrl": {
+          "type": "string"
+        },
+        "hostAliases": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.HostAlias",
+            "default": {}
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "ip"
+          ],
+          "x-kubernetes-list-type": "map"
+        },
+        "hostNetwork": {
+          "type": "boolean"
+        },
+        "ignoreNamespaceSelectors": {
+          "type": "boolean"
+        },
+        "image": {
+          "type": "string"
+        },
+        "imagePullSecrets": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "initContainers": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Container",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "listenLocal": {
+          "type": "boolean"
+        },
+        "logFormat": {
+          "type": "string"
+        },
+        "logLevel": {
+          "type": "string"
+        },
+        "minReadySeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "nodeSelector": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "overrideHonorLabels": {
+          "type": "boolean"
+        },
+        "overrideHonorTimestamps": {
+          "type": "boolean"
+        },
+        "paused": {
+          "type": "boolean"
+        },
+        "podMetadata": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.EmbeddedObjectMetadata"
+        },
+        "podMonitorNamespaceSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "podMonitorSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "portName": {
+          "type": "string"
+        },
+        "priorityClassName": {
+          "type": "string"
+        },
+        "probeNamespaceSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "probeSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "prometheusExternalLabelName": {
+          "type": "string"
+        },
+        "prometheusRulesExcludedFromEnforce": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRuleExcludeConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "query": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.QuerySpec"
+        },
+        "queryLogFile": {
+          "type": "string"
+        },
+        "remoteRead": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RemoteReadSpec",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "remoteWrite": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RemoteWriteSpec",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "replicaExternalLabelName": {
+          "type": "string"
+        },
+        "replicas": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "resources": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements",
+          "default": {}
+        },
+        "retention": {
+          "type": "string"
+        },
+        "retentionSize": {
+          "type": "string"
+        },
+        "routePrefix": {
+          "type": "string"
+        },
+        "ruleNamespaceSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "ruleSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "rules": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Rules",
+          "default": {}
+        },
+        "scrapeInterval": {
+          "type": "string"
+        },
+        "scrapeTimeout": {
+          "type": "string"
+        },
+        "secrets": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "securityContext": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodSecurityContext"
+        },
+        "serviceAccountName": {
+          "type": "string"
+        },
+        "serviceMonitorNamespaceSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "serviceMonitorSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "sha": {
+          "type": "string"
+        },
+        "shards": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "storage": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.StorageSpec"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "thanos": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.ThanosSpec"
+        },
+        "tolerations": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Toleration",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "topologySpreadConstraints": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.TopologySpreadConstraint",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "tsdb": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.TSDBSpec",
+          "default": {}
+        },
+        "version": {
+          "type": "string"
+        },
+        "volumeMounts": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.VolumeMount",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "volumes": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Volume",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "walCompression": {
+          "type": "boolean"
+        },
+        "web": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusWebSpec"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusWebSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "httpConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.WebHTTPConfig"
+        },
+        "pageTitle": {
+          "type": "string"
+        },
+        "tlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.WebTLSConfig"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.QuerySpec": {
+      "additionalProperties": false,
+      "properties": {
+        "lookbackDelta": {
+          "type": "string"
+        },
+        "maxConcurrency": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maxSamples": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "timeout": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.QueueConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "batchSendDeadline": {
+          "type": "string"
+        },
+        "capacity": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maxBackoff": {
+          "type": "string"
+        },
+        "maxRetries": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maxSamplesPerSend": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maxShards": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "minBackoff": {
+          "type": "string"
+        },
+        "minShards": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "retryOnRateLimit": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.RelabelConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "modulus": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "regex": {
+          "type": "string"
+        },
+        "replacement": {
+          "type": "string"
+        },
+        "separator": {
+          "type": "string"
+        },
+        "sourceLabels": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "targetLabel": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.RemoteReadSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Authorization"
+        },
+        "basicAuth": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.BasicAuth"
+        },
+        "bearerToken": {
+          "type": "string"
+        },
+        "bearerTokenFile": {
+          "type": "string"
+        },
+        "headers": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "oauth2": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.OAuth2"
+        },
+        "proxyUrl": {
+          "type": "string"
+        },
+        "readRecent": {
+          "type": "boolean"
+        },
+        "remoteTimeout": {
+          "type": "string"
+        },
+        "requiredMatchers": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "tlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.TLSConfig"
+        },
+        "url": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.RemoteWriteSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Authorization"
+        },
+        "basicAuth": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.BasicAuth"
+        },
+        "bearerToken": {
+          "type": "string"
+        },
+        "bearerTokenFile": {
+          "type": "string"
+        },
+        "headers": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "metadataConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.MetadataConfig"
+        },
+        "name": {
+          "type": "string"
+        },
+        "oauth2": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.OAuth2"
+        },
+        "proxyUrl": {
+          "type": "string"
+        },
+        "queueConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.QueueConfig"
+        },
+        "remoteTimeout": {
+          "type": "string"
+        },
+        "sendExemplars": {
+          "type": "boolean"
+        },
+        "sigv4": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Sigv4"
+        },
+        "tlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.TLSConfig"
+        },
+        "url": {
+          "default": "",
+          "type": "string"
+        },
+        "writeRelabelConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RelabelConfig",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.Rule": {
+      "additionalProperties": false,
+      "properties": {
+        "alert": {
+          "type": "string"
+        },
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "expr": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
+          "default": {}
+        },
+        "for": {
+          "type": "string"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "record": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "expr"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.RuleGroup": {
+      "additionalProperties": false,
+      "properties": {
+        "interval": {
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "partial_response_strategy": {
+          "type": "string"
+        },
+        "rules": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Rule",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "rules"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.Rules": {
+      "additionalProperties": false,
+      "properties": {
+        "alert": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RulesAlert",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.RulesAlert": {
+      "additionalProperties": false,
+      "properties": {
+        "forGracePeriod": {
+          "type": "string"
+        },
+        "forOutageTolerance": {
+          "type": "string"
+        },
+        "resendDelay": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.SafeAuthorization": {
+      "additionalProperties": false,
+      "properties": {
+        "credentials": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.SafeTLSConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "ca": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
+          "default": {}
+        },
+        "cert": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
+          "default": {}
+        },
+        "insecureSkipVerify": {
+          "type": "boolean"
+        },
+        "keySecret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "serverName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap": {
+      "additionalProperties": false,
+      "properties": {
+        "configMap": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector"
+        },
+        "secret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.ServiceMonitorSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "endpoints": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Endpoint",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "jobLabel": {
+          "type": "string"
+        },
+        "labelLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "labelNameLengthLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "labelValueLengthLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "namespaceSelector": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.NamespaceSelector",
+          "default": {}
+        },
+        "podTargetLabels": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "sampleLimit": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+          "default": {}
+        },
+        "targetLabels": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "targetLimit": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "endpoints",
+        "selector"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.Sigv4": {
+      "additionalProperties": false,
+      "properties": {
+        "accessKey": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "profile": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "roleArn": {
+          "type": "string"
+        },
+        "secretKey": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.StorageSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "disableMountSubPath": {
+          "type": "boolean"
+        },
+        "emptyDir": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.EmptyDirVolumeSource"
+        },
+        "ephemeral": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralVolumeSource"
+        },
+        "volumeClaimTemplate": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.EmbeddedPersistentVolumeClaim",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.TLSConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "ca": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
+          "default": {}
+        },
+        "caFile": {
+          "type": "string"
+        },
+        "cert": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
+          "default": {}
+        },
+        "certFile": {
+          "type": "string"
+        },
+        "insecureSkipVerify": {
+          "type": "boolean"
+        },
+        "keyFile": {
+          "type": "string"
+        },
+        "keySecret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "serverName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.TSDBSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "outOfOrderTimeWindow": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.ThanosRulerSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "affinity": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Affinity"
+        },
+        "alertDropLabels": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "alertQueryUrl": {
+          "type": "string"
+        },
+        "alertRelabelConfigFile": {
+          "type": "string"
+        },
+        "alertRelabelConfigs": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "alertmanagersConfig": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "alertmanagersUrl": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "containers": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Container",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "enforcedNamespaceLabel": {
+          "type": "string"
+        },
+        "evaluationInterval": {
+          "type": "string"
+        },
+        "excludedFromEnforcement": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.ObjectReference",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "externalPrefix": {
+          "type": "string"
+        },
+        "grpcServerTlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.TLSConfig"
+        },
+        "hostAliases": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.HostAlias",
+            "default": {}
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "ip"
+          ],
+          "x-kubernetes-list-type": "map"
+        },
+        "image": {
+          "type": "string"
+        },
+        "imagePullSecrets": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "initContainers": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Container",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "listenLocal": {
+          "type": "boolean"
+        },
+        "logFormat": {
+          "type": "string"
+        },
+        "logLevel": {
+          "type": "string"
+        },
+        "minReadySeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "nodeSelector": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "objectStorageConfig": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "objectStorageConfigFile": {
+          "type": "string"
+        },
+        "paused": {
+          "type": "boolean"
+        },
+        "podMetadata": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.EmbeddedObjectMetadata"
+        },
+        "portName": {
+          "type": "string"
+        },
+        "priorityClassName": {
+          "type": "string"
+        },
+        "prometheusRulesExcludedFromEnforce": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRuleExcludeConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "queryConfig": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "queryEndpoints": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "replicas": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "resources": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements",
+          "default": {}
+        },
+        "retention": {
+          "type": "string"
+        },
+        "routePrefix": {
+          "type": "string"
+        },
+        "ruleNamespaceSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "ruleSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "securityContext": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodSecurityContext"
+        },
+        "serviceAccountName": {
+          "type": "string"
+        },
+        "storage": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.StorageSpec"
+        },
+        "tolerations": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Toleration",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "topologySpreadConstraints": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.TopologySpreadConstraint",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "tracingConfig": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "tracingConfigFile": {
+          "type": "string"
+        },
+        "volumes": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Volume",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.ThanosSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "additionalArgs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Argument",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "baseImage": {
+          "type": "string"
+        },
+        "grpcListenLocal": {
+          "type": "boolean"
+        },
+        "grpcServerTlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.TLSConfig"
+        },
+        "httpListenLocal": {
+          "type": "boolean"
+        },
+        "image": {
+          "type": "string"
+        },
+        "listenLocal": {
+          "type": "boolean"
+        },
+        "logFormat": {
+          "type": "string"
+        },
+        "logLevel": {
+          "type": "string"
+        },
+        "minTime": {
+          "type": "string"
+        },
+        "objectStorageConfig": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "objectStorageConfigFile": {
+          "type": "string"
+        },
+        "readyTimeout": {
+          "type": "string"
+        },
+        "resources": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements",
+          "default": {}
+        },
+        "sha": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "tracingConfig": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        },
+        "tracingConfigFile": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "volumeMounts": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.VolumeMount",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.WebHTTPConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "headers": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.WebHTTPHeaders"
+        },
+        "http2": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.WebHTTPHeaders": {
+      "additionalProperties": false,
+      "properties": {
+        "contentSecurityPolicy": {
+          "type": "string"
+        },
+        "strictTransportSecurity": {
+          "type": "string"
+        },
+        "xContentTypeOptions": {
+          "type": "string"
+        },
+        "xFrameOptions": {
+          "type": "string"
+        },
+        "xXSSProtection": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.WebTLSConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "cert": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
+          "default": {}
+        },
+        "cipherSuites": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "clientAuthType": {
+          "type": "string"
+        },
+        "client_ca": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
+          "default": {}
+        },
+        "curvePreferences": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "keySecret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector",
+          "default": {}
+        },
+        "maxVersion": {
+          "type": "string"
+        },
+        "minVersion": {
+          "type": "string"
+        },
+        "preferServerCipherSuites": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "keySecret",
+        "cert"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.AlertmanagerConfigSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "inhibitRules": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.InhibitRule",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "receivers": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.Receiver",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "route": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.Route"
+        },
+        "timeIntervals": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.TimeInterval",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.DayOfMonthRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "start": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.EmailConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "authIdentity": {
+          "type": "string"
+        },
+        "authPassword": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        },
+        "authSecret": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        },
+        "authUsername": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "headers": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.KeyValue",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "hello": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "requireTLS": {
+          "type": "boolean"
+        },
+        "sendResolved": {
+          "type": "boolean"
+        },
+        "smarthost": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "tlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SafeTLSConfig"
+        },
+        "to": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.HTTPConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SafeAuthorization"
+        },
+        "basicAuth": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.BasicAuth"
+        },
+        "bearerTokenSecret": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        },
+        "followRedirects": {
+          "type": "boolean"
+        },
+        "oauth2": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.OAuth2"
+        },
+        "proxyURL": {
+          "type": "string"
+        },
+        "tlsConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SafeTLSConfig"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.InhibitRule": {
+      "additionalProperties": false,
+      "properties": {
+        "equal": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "sourceMatch": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.Matcher",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "targetMatch": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.Matcher",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.KeyValue": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "default": "",
+          "type": "string"
+        },
+        "value": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.Matcher": {
+      "additionalProperties": false,
+      "properties": {
+        "matchType": {
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "value": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.OpsGenieConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "actions": {
+          "type": "string"
+        },
+        "apiKey": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        },
+        "apiURL": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.KeyValue",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "entity": {
+          "type": "string"
+        },
+        "httpConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.HTTPConfig"
+        },
+        "message": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "responders": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.OpsGenieConfigResponder",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "sendResolved": {
+          "type": "boolean"
+        },
+        "source": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.OpsGenieConfigResponder": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "default": "",
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.PagerDutyConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "type": "string"
+        },
+        "client": {
+          "type": "string"
+        },
+        "clientURL": {
+          "type": "string"
+        },
+        "component": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.KeyValue",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "group": {
+          "type": "string"
+        },
+        "httpConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.HTTPConfig"
+        },
+        "pagerDutyImageConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.PagerDutyImageConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "pagerDutyLinkConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.PagerDutyLinkConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "routingKey": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        },
+        "sendResolved": {
+          "type": "boolean"
+        },
+        "serviceKey": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        },
+        "severity": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.PagerDutyImageConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "alt": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "src": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.PagerDutyLinkConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "alt": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.PushoverConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "expire": {
+          "type": "string"
+        },
+        "html": {
+          "type": "boolean"
+        },
+        "httpConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.HTTPConfig"
+        },
+        "message": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "retry": {
+          "type": "string"
+        },
+        "sendResolved": {
+          "type": "boolean"
+        },
+        "sound": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "token": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        },
+        "url": {
+          "type": "string"
+        },
+        "urlTitle": {
+          "type": "string"
+        },
+        "userKey": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.Receiver": {
+      "additionalProperties": false,
+      "properties": {
+        "emailConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.EmailConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "opsgenieConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.OpsGenieConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "pagerdutyConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.PagerDutyConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "pushoverConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.PushoverConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "slackConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SlackConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "snsConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SNSConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "telegramConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.TelegramConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "victoropsConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.VictorOpsConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "webhookConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.WebhookConfig",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "wechatConfigs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.WeChatConfig",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.Route": {
+      "additionalProperties": false,
+      "properties": {
+        "continue": {
+          "type": "boolean"
+        },
+        "groupBy": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "groupInterval": {
+          "type": "string"
+        },
+        "groupWait": {
+          "type": "string"
+        },
+        "matchers": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.Matcher",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "muteTimeIntervals": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "receiver": {
+          "default": "",
+          "type": "string"
+        },
+        "repeatInterval": {
+          "type": "string"
+        },
+        "routes": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SNSConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "apiURL": {
+          "type": "string"
+        },
+        "attributes": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "httpConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.HTTPConfig"
+        },
+        "message": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "sendResolved": {
+          "type": "boolean"
+        },
+        "sigv4": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Sigv4"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "targetARN": {
+          "type": "string"
+        },
+        "topicARN": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "default": "",
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "key"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SlackAction": {
+      "additionalProperties": false,
+      "properties": {
+        "confirm": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SlackConfirmationField"
+        },
+        "name": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string"
+        },
+        "text": {
+          "default": "",
+          "type": "string"
+        },
+        "type": {
+          "default": "",
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "text"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SlackConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "actions": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SlackAction",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "apiURL": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        },
+        "callbackId": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "fallback": {
+          "type": "string"
+        },
+        "fields": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SlackField",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "footer": {
+          "type": "string"
+        },
+        "httpConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.HTTPConfig"
+        },
+        "iconEmoji": {
+          "type": "string"
+        },
+        "iconURL": {
+          "type": "string"
+        },
+        "imageURL": {
+          "type": "string"
+        },
+        "linkNames": {
+          "type": "boolean"
+        },
+        "mrkdwnIn": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "pretext": {
+          "type": "string"
+        },
+        "sendResolved": {
+          "type": "boolean"
+        },
+        "shortFields": {
+          "type": "boolean"
+        },
+        "text": {
+          "type": "string"
+        },
+        "thumbURL": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "titleLink": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SlackConfirmationField": {
+      "additionalProperties": false,
+      "properties": {
+        "dismissText": {
+          "type": "string"
+        },
+        "okText": {
+          "type": "string"
+        },
+        "text": {
+          "default": "",
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SlackField": {
+      "additionalProperties": false,
+      "properties": {
+        "short": {
+          "type": "boolean"
+        },
+        "title": {
+          "default": "",
+          "type": "string"
+        },
+        "value": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "value"
+      ],
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.TelegramConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "apiURL": {
+          "type": "string"
+        },
+        "botToken": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        },
+        "chatID": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "disableNotifications": {
+          "type": "boolean"
+        },
+        "httpConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.HTTPConfig"
+        },
+        "message": {
+          "type": "string"
+        },
+        "parseMode": {
+          "type": "string"
+        },
+        "sendResolved": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.TimeInterval": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "timeIntervals": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.TimePeriod",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.TimePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "daysOfMonth": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.DayOfMonthRange",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "months": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "times": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.TimeRange",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "weekdays": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "years": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.TimeRange": {
+      "additionalProperties": false,
+      "properties": {
+        "endTime": {
+          "type": "string"
+        },
+        "startTime": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.VictorOpsConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "apiKey": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        },
+        "apiUrl": {
+          "type": "string"
+        },
+        "customFields": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.KeyValue",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "entityDisplayName": {
+          "type": "string"
+        },
+        "httpConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.HTTPConfig"
+        },
+        "messageType": {
+          "type": "string"
+        },
+        "monitoringTool": {
+          "type": "string"
+        },
+        "routingKey": {
+          "default": "",
+          "type": "string"
+        },
+        "sendResolved": {
+          "type": "boolean"
+        },
+        "stateMessage": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.WeChatConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "agentID": {
+          "type": "string"
+        },
+        "apiSecret": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        },
+        "apiURL": {
+          "type": "string"
+        },
+        "corpID": {
+          "type": "string"
+        },
+        "httpConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.HTTPConfig"
+        },
+        "message": {
+          "type": "string"
+        },
+        "messageType": {
+          "type": "string"
+        },
+        "sendResolved": {
+          "type": "boolean"
+        },
+        "toParty": {
+          "type": "string"
+        },
+        "toTag": {
+          "type": "string"
+        },
+        "toUser": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.WebhookConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "httpConfig": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.HTTPConfig"
+        },
+        "maxAlerts": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sendResolved": {
+          "type": "boolean"
+        },
+        "url": {
+          "type": "string"
+        },
+        "urlSecret": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.AWSElasticBlockStoreVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "fsType": {
+          "type": "string"
+        },
+        "partition": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "volumeID": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "volumeID"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.Affinity": {
+      "additionalProperties": false,
+      "properties": {
+        "nodeAffinity": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.NodeAffinity"
+        },
+        "podAffinity": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodAffinity"
+        },
+        "podAntiAffinity": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodAntiAffinity"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.AzureDiskVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "cachingMode": {
+          "type": "string"
+        },
+        "diskName": {
+          "type": "string"
+        },
+        "diskURI": {
+          "type": "string"
+        },
+        "fsType": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "diskName",
+        "diskURI"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.AzureFileVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "readOnly": {
+          "type": "boolean"
+        },
+        "secretName": {
+          "type": "string"
+        },
+        "shareName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "secretName",
+        "shareName"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.CSIVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "driver": {
+          "type": "string"
+        },
+        "fsType": {
+          "type": "string"
+        },
+        "nodePublishSecretRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "volumeAttributes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "driver"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.Capabilities": {
+      "additionalProperties": false,
+      "properties": {
+        "add": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "drop": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.CephFSVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "monitors": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "path": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "secretFile": {
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
+        },
+        "user": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "monitors"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.CinderVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "fsType": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
+        },
+        "volumeID": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "volumeID"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.ConfigMapEnvSource": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.ConfigMapKeySelector": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.api.core.v1.ConfigMapProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.KeyToPath"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.ConfigMapVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "defaultMode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.KeyToPath"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.Container": {
+      "additionalProperties": false,
+      "properties": {
+        "args": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "command": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "env": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.EnvVar"
+          },
+          "type": "array",
+          "x-kubernetes-patch-merge-key": "name",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "envFrom": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.EnvFromSource"
+          },
+          "type": "array"
+        },
+        "image": {
+          "type": "string"
+        },
+        "imagePullPolicy": {
+          "type": "string"
+        },
+        "lifecycle": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Lifecycle"
+        },
+        "livenessProbe": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Probe"
+        },
+        "name": {
+          "type": "string"
+        },
+        "ports": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.ContainerPort"
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "containerPort",
+            "protocol"
+          ],
+          "x-kubernetes-list-type": "map",
+          "x-kubernetes-patch-merge-key": "containerPort",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "readinessProbe": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Probe"
+        },
+        "resources": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements"
+        },
+        "securityContext": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecurityContext"
+        },
+        "startupProbe": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Probe"
+        },
+        "stdin": {
+          "type": "boolean"
+        },
+        "stdinOnce": {
+          "type": "boolean"
+        },
+        "terminationMessagePath": {
+          "type": "string"
+        },
+        "terminationMessagePolicy": {
+          "type": "string"
+        },
+        "tty": {
+          "type": "boolean"
+        },
+        "volumeDevices": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.VolumeDevice"
+          },
+          "type": "array",
+          "x-kubernetes-patch-merge-key": "devicePath",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "volumeMounts": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.VolumeMount"
+          },
+          "type": "array",
+          "x-kubernetes-patch-merge-key": "mountPath",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "workingDir": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.ContainerPort": {
+      "additionalProperties": false,
+      "properties": {
+        "containerPort": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "hostIP": {
+          "type": "string"
+        },
+        "hostPort": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "containerPort"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.DownwardAPIProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.DownwardAPIVolumeFile"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.DownwardAPIVolumeFile": {
+      "additionalProperties": false,
+      "properties": {
+        "fieldRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ObjectFieldSelector"
+        },
+        "mode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "path": {
+          "type": "string"
+        },
+        "resourceFieldRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ResourceFieldSelector"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.DownwardAPIVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "defaultMode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.DownwardAPIVolumeFile"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.EmptyDirVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "medium": {
+          "type": "string"
+        },
+        "sizeLimit": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.EnvFromSource": {
+      "additionalProperties": false,
+      "properties": {
+        "configMapRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMapEnvSource"
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretEnvSource"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.EnvVar": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "valueFrom": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.EnvVarSource"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.EnvVarSource": {
+      "additionalProperties": false,
+      "properties": {
+        "configMapKeyRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector"
+        },
+        "fieldRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ObjectFieldSelector"
+        },
+        "resourceFieldRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ResourceFieldSelector"
+        },
+        "secretKeyRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.EphemeralVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "volumeClaimTemplate": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimTemplate"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.ExecAction": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.FCVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "fsType": {
+          "type": "string"
+        },
+        "lun": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "targetWWNs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "wwids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.FlexVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "driver": {
+          "type": "string"
+        },
+        "fsType": {
+          "type": "string"
+        },
+        "options": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
+        }
+      },
+      "required": [
+        "driver"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.FlockerVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "datasetName": {
+          "type": "string"
+        },
+        "datasetUUID": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.GCEPersistentDiskVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "fsType": {
+          "type": "string"
+        },
+        "partition": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pdName": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "pdName"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.GRPCAction": {
+      "additionalProperties": false,
+      "properties": {
+        "port": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "service": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "port"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.GitRepoVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "directory": {
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "repository"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.GlusterfsVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "endpoints": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "endpoints",
+        "path"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.HTTPGetAction": {
+      "additionalProperties": false,
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "httpHeaders": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.HTTPHeader"
+          },
+          "type": "array"
+        },
+        "path": {
+          "type": "string"
+        },
+        "port": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+        },
+        "scheme": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "port"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.HTTPHeader": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.HostPathVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.ISCSIVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "chapAuthDiscovery": {
+          "type": "boolean"
+        },
+        "chapAuthSession": {
+          "type": "boolean"
+        },
+        "fsType": {
+          "type": "string"
+        },
+        "initiatorName": {
+          "type": "string"
+        },
+        "iqn": {
+          "type": "string"
+        },
+        "iscsiInterface": {
+          "type": "string"
+        },
+        "lun": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "portals": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
+        },
+        "targetPortal": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "targetPortal",
+        "iqn",
+        "lun"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.KeyToPath": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "mode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "path"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.Lifecycle": {
+      "additionalProperties": false,
+      "properties": {
+        "postStart": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.LifecycleHandler"
+        },
+        "preStop": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.LifecycleHandler"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.LifecycleHandler": {
+      "additionalProperties": false,
+      "properties": {
+        "exec": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ExecAction"
+        },
+        "httpGet": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.HTTPGetAction"
+        },
+        "tcpSocket": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.TCPSocketAction"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.LocalObjectReference": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.api.core.v1.NFSVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "server": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "server",
+        "path"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.NodeAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "preferredDuringSchedulingIgnoredDuringExecution": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.PreferredSchedulingTerm"
+          },
+          "type": "array"
+        },
+        "requiredDuringSchedulingIgnoredDuringExecution": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.NodeSelector": {
+      "additionalProperties": false,
+      "properties": {
+        "nodeSelectorTerms": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorTerm"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "nodeSelectorTerms"
+      ],
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.api.core.v1.NodeSelectorRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "key",
+        "operator"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.NodeSelectorTerm": {
+      "additionalProperties": false,
+      "properties": {
+        "matchExpressions": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement"
+          },
+          "type": "array"
+        },
+        "matchFields": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.api.core.v1.ObjectFieldSelector": {
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "type": "string"
+        },
+        "fieldPath": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "fieldPath"
+      ],
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.api.core.v1.PersistentVolumeClaimCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "lastProbeTime": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+        },
+        "lastTransitionTime": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+        },
+        "message": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "status"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PersistentVolumeClaimSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "accessModes": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dataSource": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference"
+        },
+        "dataSourceRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference"
+        },
+        "resources": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "storageClassName": {
+          "type": "string"
+        },
+        "volumeMode": {
+          "type": "string"
+        },
+        "volumeName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PersistentVolumeClaimStatus": {
+      "additionalProperties": false,
+      "properties": {
+        "accessModes": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "allocatedResources": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+          },
+          "type": "object"
+        },
+        "capacity": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+          },
+          "type": "object"
+        },
+        "conditions": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimCondition"
+          },
+          "type": "array",
+          "x-kubernetes-patch-merge-key": "type",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "phase": {
+          "type": "string"
+        },
+        "resizeStatus": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PersistentVolumeClaimTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimSpec"
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PersistentVolumeClaimVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "claimName": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "claimName"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PhotonPersistentDiskVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "fsType": {
+          "type": "string"
+        },
+        "pdID": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pdID"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PodAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "preferredDuringSchedulingIgnoredDuringExecution": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.WeightedPodAffinityTerm"
+          },
+          "type": "array"
+        },
+        "requiredDuringSchedulingIgnoredDuringExecution": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.PodAffinityTerm"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PodAffinityTerm": {
+      "additionalProperties": false,
+      "properties": {
+        "labelSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "namespaceSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "namespaces": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "topologyKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "topologyKey"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PodAntiAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "preferredDuringSchedulingIgnoredDuringExecution": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.WeightedPodAffinityTerm"
+          },
+          "type": "array"
+        },
+        "requiredDuringSchedulingIgnoredDuringExecution": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.PodAffinityTerm"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PodSecurityContext": {
+      "additionalProperties": false,
+      "properties": {
+        "fsGroup": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "fsGroupChangePolicy": {
+          "type": "string"
+        },
+        "runAsGroup": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "runAsNonRoot": {
+          "type": "boolean"
+        },
+        "runAsUser": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "seLinuxOptions": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SELinuxOptions"
+        },
+        "seccompProfile": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SeccompProfile"
+        },
+        "supplementalGroups": {
+          "items": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "sysctls": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Sysctl"
+          },
+          "type": "array"
+        },
+        "windowsOptions": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.WindowsSecurityContextOptions"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PortworxVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "fsType": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "volumeID": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "volumeID"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PreferredSchedulingTerm": {
+      "additionalProperties": false,
+      "properties": {
+        "preference": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorTerm"
+        },
+        "weight": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "weight",
+        "preference"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.Probe": {
+      "additionalProperties": false,
+      "properties": {
+        "exec": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ExecAction"
+        },
+        "failureThreshold": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "grpc": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.GRPCAction"
+        },
+        "httpGet": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.HTTPGetAction"
+        },
+        "initialDelaySeconds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "periodSeconds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "successThreshold": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "tcpSocket": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.TCPSocketAction"
+        },
+        "terminationGracePeriodSeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "timeoutSeconds": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.ProjectedVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "defaultMode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.VolumeProjection"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.QuobyteVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "registry": {
+          "type": "string"
+        },
+        "tenant": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "registry",
+        "volume"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.RBDVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "fsType": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "keyring": {
+          "type": "string"
+        },
+        "monitors": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "pool": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
+        },
+        "user": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "monitors",
+        "image"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.ResourceFieldSelector": {
+      "additionalProperties": false,
+      "properties": {
+        "containerName": {
+          "type": "string"
+        },
+        "divisor": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+        },
+        "resource": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "resource"
+      ],
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.api.core.v1.ResourceRequirements": {
+      "additionalProperties": false,
+      "properties": {
+        "limits": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+          },
+          "type": "object"
+        },
+        "requests": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.SELinuxOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.ScaleIOVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "fsType": {
+          "type": "string"
+        },
+        "gateway": {
+          "type": "string"
+        },
+        "protectionDomain": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
+        },
+        "sslEnabled": {
+          "type": "boolean"
+        },
+        "storageMode": {
+          "type": "string"
+        },
+        "storagePool": {
+          "type": "string"
+        },
+        "system": {
+          "type": "string"
+        },
+        "volumeName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "gateway",
+        "system",
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.SeccompProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "localhostProfile": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object",
+      "x-kubernetes-unions": [
+        {
+          "discriminator": "type",
+          "fields-to-discriminateBy": {
+            "localhostProfile": "LocalhostProfile"
+          }
+        }
+      ]
+    },
+    "io.k8s.api.core.v1.SecretEnvSource": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.SecretKeySelector": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.api.core.v1.SecretProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.KeyToPath"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.SecretVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "defaultMode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.KeyToPath"
+          },
+          "type": "array"
+        },
+        "optional": {
+          "type": "boolean"
+        },
+        "secretName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.SecurityContext": {
+      "additionalProperties": false,
+      "properties": {
+        "allowPrivilegeEscalation": {
+          "type": "boolean"
+        },
+        "capabilities": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Capabilities"
+        },
+        "privileged": {
+          "type": "boolean"
+        },
+        "procMount": {
+          "type": "string"
+        },
+        "readOnlyRootFilesystem": {
+          "type": "boolean"
+        },
+        "runAsGroup": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "runAsNonRoot": {
+          "type": "boolean"
+        },
+        "runAsUser": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "seLinuxOptions": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SELinuxOptions"
+        },
+        "seccompProfile": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SeccompProfile"
+        },
+        "windowsOptions": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.WindowsSecurityContextOptions"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.ServiceAccountTokenProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "audience": {
+          "type": "string"
+        },
+        "expirationSeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.StorageOSVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "fsType": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
+        },
+        "volumeName": {
+          "type": "string"
+        },
+        "volumeNamespace": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.Sysctl": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.TCPSocketAction": {
+      "additionalProperties": false,
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+        }
+      },
+      "required": [
+        "port"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.Toleration": {
+      "additionalProperties": false,
+      "properties": {
+        "effect": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "tolerationSeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.TopologySpreadConstraint": {
+      "additionalProperties": false,
+      "properties": {
+        "labelSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "matchLabelKeys": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
+        },
+        "maxSkew": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "minDomains": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nodeAffinityPolicy": {
+          "type": "string"
+        },
+        "nodeTaintsPolicy": {
+          "type": "string"
+        },
+        "topologyKey": {
+          "type": "string"
+        },
+        "whenUnsatisfiable": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "maxSkew",
+        "topologyKey",
+        "whenUnsatisfiable"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.TypedLocalObjectReference": {
+      "additionalProperties": false,
+      "properties": {
+        "apiGroup": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "name"
+      ],
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.api.core.v1.Volume": {
+      "additionalProperties": false,
+      "properties": {
+        "awsElasticBlockStore": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.AWSElasticBlockStoreVolumeSource"
+        },
+        "azureDisk": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.AzureDiskVolumeSource"
+        },
+        "azureFile": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.AzureFileVolumeSource"
+        },
+        "cephfs": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.CephFSVolumeSource"
+        },
+        "cinder": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.CinderVolumeSource"
+        },
+        "configMap": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMapVolumeSource"
+        },
+        "csi": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.CSIVolumeSource"
+        },
+        "downwardAPI": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.DownwardAPIVolumeSource"
+        },
+        "emptyDir": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.EmptyDirVolumeSource"
+        },
+        "ephemeral": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralVolumeSource"
+        },
+        "fc": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.FCVolumeSource"
+        },
+        "flexVolume": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.FlexVolumeSource"
+        },
+        "flocker": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.FlockerVolumeSource"
+        },
+        "gcePersistentDisk": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.GCEPersistentDiskVolumeSource"
+        },
+        "gitRepo": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.GitRepoVolumeSource"
+        },
+        "glusterfs": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.GlusterfsVolumeSource"
+        },
+        "hostPath": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.HostPathVolumeSource"
+        },
+        "iscsi": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ISCSIVolumeSource"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nfs": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.NFSVolumeSource"
+        },
+        "persistentVolumeClaim": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimVolumeSource"
+        },
+        "photonPersistentDisk": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PhotonPersistentDiskVolumeSource"
+        },
+        "portworxVolume": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PortworxVolumeSource"
+        },
+        "projected": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ProjectedVolumeSource"
+        },
+        "quobyte": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.QuobyteVolumeSource"
+        },
+        "rbd": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.RBDVolumeSource"
+        },
+        "scaleIO": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ScaleIOVolumeSource"
+        },
+        "secret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretVolumeSource"
+        },
+        "storageos": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.StorageOSVolumeSource"
+        },
+        "vsphereVolume": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.VsphereVirtualDiskVolumeSource"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.VolumeDevice": {
+      "additionalProperties": false,
+      "properties": {
+        "devicePath": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "devicePath"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.VolumeMount": {
+      "additionalProperties": false,
+      "properties": {
+        "mountPath": {
+          "type": "string"
+        },
+        "mountPropagation": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "subPath": {
+          "type": "string"
+        },
+        "subPathExpr": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "mountPath"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.VolumeProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "configMap": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMapProjection"
+        },
+        "downwardAPI": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.DownwardAPIProjection"
+        },
+        "secret": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretProjection"
+        },
+        "serviceAccountToken": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ServiceAccountTokenProjection"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.VsphereVirtualDiskVolumeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "fsType": {
+          "type": "string"
+        },
+        "storagePolicyID": {
+          "type": "string"
+        },
+        "storagePolicyName": {
+          "type": "string"
+        },
+        "volumePath": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "volumePath"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.WeightedPodAffinityTerm": {
+      "additionalProperties": false,
+      "properties": {
+        "podAffinityTerm": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodAffinityTerm"
+        },
+        "weight": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "weight",
+        "podAffinityTerm"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.WindowsSecurityContextOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "gmsaCredentialSpec": {
+          "type": "string"
+        },
+        "gmsaCredentialSpecName": {
+          "type": "string"
+        },
+        "hostProcess": {
+          "type": "boolean"
+        },
+        "runAsUserName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON": {},
+    "io.k8s.apimachinery.pkg.api.resource.Quantity": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1": {
+      "type": "object"
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector": {
+      "additionalProperties": false,
+      "properties": {
+        "matchExpressions": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "matchLabels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "default": "",
+          "type": "string",
+          "x-kubernetes-patch-merge-key": "key",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "operator": {
+          "default": "",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "key",
+        "operator"
+      ],
+      "type": "object"
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "type": "string"
+        },
+        "fieldsType": {
+          "type": "string"
+        },
+        "fieldsV1": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1"
+        },
+        "manager": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "subresource": {
+          "type": "string"
+        },
+        "time": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "creationTimestamp": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+          "default": {}
+        },
+        "deletionGracePeriodSeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "deletionTimestamp": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+        },
+        "finalizers": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "generateName": {
+          "type": "string"
+        },
+        "generation": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "managedFields": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "ownerReferences": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.OwnerReference",
+            "default": {}
+          },
+          "type": "array",
+          "x-kubernetes-patch-merge-key": "uid",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "resourceVersion": {
+          "type": "string"
+        },
+        "selfLink": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.OwnerReference": {
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "default": "",
+          "type": "string"
+        },
+        "blockOwnerDeletion": {
+          "type": "boolean"
+        },
+        "controller": {
+          "type": "boolean"
+        },
+        "kind": {
+          "default": "",
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "uid": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "apiVersion",
+        "kind",
+        "name",
+        "uid"
+      ],
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.Time": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "io.k8s.apimachinery.pkg.util.intstr.IntOrString": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "integer"
+        }
+      ]
+    },
+    "metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Alertmanager": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerSpec",
+          "default": {}
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PodMonitor": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.PodMonitorSpec",
+          "default": {}
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Probe": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.ProbeSpec",
+          "default": {}
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Prometheus": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusSpec",
+          "default": {}
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRule": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRuleSpec",
+          "default": {}
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.ServiceMonitor": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.ServiceMonitorSpec",
+          "default": {}
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.ThanosRuler": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.ThanosRulerSpec",
+          "default": {}
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1beta1.AlertmanagerConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1beta1.AlertmanagerConfigSpec",
+          "default": {}
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "metachart.api.meta.v1.ObjectMeta": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "checksums": {
+          "$ref": "#/definitions/metachart.interface.checksums"
+        },
+        "finalizers": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "metachart.interface.FQDNitem": {
+      "pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
+      "type": "string"
+    },
+    "metachart.interface.boolean": {
+      "type": "boolean"
+    },
+    "metachart.interface.checksumEntryList": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/definitions/metachart.interface.FQDNitem"
+          },
+          "type": "array"
+        },
+        {
+          "enum": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "metachart.interface.checksums": {
+      "properties": {
+        "alertmanagerconfigs": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "alertmanagers": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "podmonitors": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "probes": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "prometheuses": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "prometheusrules": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "servicemonitors": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "thanosrulers": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "properties": {
+    "alertmanagerconfigs": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1beta1.AlertmanagerConfig"
+        }
+      },
+      "type": "object"
+    },
+    "alertmanagers": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Alertmanager"
+        }
+      },
+      "type": "object"
+    },
+    "context": {
+      "description": "Any content which can be used for config rendering without schema defined by the chart",
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/metachart.interface.FQDNitem"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "podmonitors": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PodMonitor"
+        }
+      },
+      "type": "object"
+    },
+    "probes": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Probe"
+        }
+      },
+      "type": "object"
+    },
+    "prometheuses": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Prometheus"
+        }
+      },
+      "type": "object"
+    },
+    "prometheusrules": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRule"
+        }
+      },
+      "type": "object"
+    },
+    "servicemonitors": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.ServiceMonitor"
+        }
+      },
+      "type": "object"
+    },
+    "settings": {
+      "additionalProperties": false,
+      "properties": {
+        "alertmanagerconfigs": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1beta1.AlertmanagerConfig"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "alertmanagers": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Alertmanager"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "global": {
+          "additionalProperties": false,
+          "properties": {
+            "annotations": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "labels": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "podmonitors": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PodMonitor"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "probes": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Probe"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "prometheuses": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.Prometheus"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "prometheusrules": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRule"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "servicemonitors": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.ServiceMonitor"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "thanosrulers": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.ThanosRuler"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "thanosrulers": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.ThanosRuler"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

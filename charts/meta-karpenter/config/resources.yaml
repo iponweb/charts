@@ -1,0 +1,9 @@
+resources:
+  awsnodetemplate:
+    apiVersion: karpenter.k8s.aws/v1alpha1
+    kind: AWSNodeTemplate
+    jsonSchemaRef: metachart.api.sh.karpenter.pkg.apis.v1alpha1.AWSNodeTemplate
+  provisioners:
+    apiVersion: karpenter.sh/v1alpha5
+    kind: Provisioner
+    jsonSchemaRef: metachart.api.sh.karpenter.pkg.apis.v1alpha5.Provisioner

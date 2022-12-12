@@ -1,0 +1,20 @@
+resources:
+  externalsecrets:
+    apiVersion: external-secrets.io/v1beta1
+    kind: ExternalSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecret
+
+  clusterexternalsecrets:
+    apiVersion: external-secrets.io/v1beta1
+    kind: ExternalSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecret
+
+  secretstores:
+    apiVersion: external-secrets.io/v1beta1
+    kind: ExternalSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.SecretStore
+
+  clustersecretstores:
+    apiVersion: external-secrets.io/v1beta1
+    kind: ExternalSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore

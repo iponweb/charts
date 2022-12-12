@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "definitions": {
+    "metachart.api.core.v1.ContainerList": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.core.v1.Container"
+        }
+      },
+      "additionalProperties": false
+    },
+    "metachart.api.internal.Image": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "pullPolicy": {
+          "type": "string",
+          "enum": [
+            "Always",
+            "IfNotPresent"
+          ]
+        }
+      },
+      "required": [
+        "repository",
+        "tag",
+        "pullPolicy"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

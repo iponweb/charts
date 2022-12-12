@@ -1,0 +1,47 @@
+#:
+#: The values file explains how the scenario from the
+#: https://external-secrets.io/v0.6.1/guides/getting-started/ can be done
+#: using the Chart
+#:
+
+secretstores:
+  main:
+    spec:
+      provider:
+        aws:
+          service: SecretsManager
+          region: us-east-1
+          auth:
+            secretRef:
+              #: Already existing secrets:
+              #:
+              #: kubectl create secret generic awssm-secret --from-file=./access-key  --from-file=./secret-access-key
+              #:
+              accessKeyIDSecretRef:
+                name: awssm-secret
+                key: access-key
+              secretAccessKeySecretRef:
+                name: awssm-secret
+                key: secret-access-key
+
+externalsecrets:
+  main:
+    spec:
+      refreshInterval: 1h
+      secretStoreRef:
+        #: Reference to the previously defined `secretstores` resource
+        name: '{{ include "metachart.fullname" $ }}-main'
+        kind: SecretStore
+      target:
+        name: secret-to-be-created
+        creationPolicy: Owner
+      data:
+        - secretKey: secret-key-to-be-managed
+          remoteRef:
+            key: provider-key
+            version: provider-key-version
+            property: provider-key-property
+      dataFrom:
+        - extract:
+            key: remote-key-in-the-provider
+

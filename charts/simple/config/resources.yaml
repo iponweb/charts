@@ -1,0 +1,182 @@
+resources:
+  images:
+    template: false
+    jsonSchemaRef: metachart.api.internal.Image
+    defaults: false
+
+  #: rbac.authorization.k8s.io/v1
+  roles:
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: Role
+    jsonSchemaRef: metachart.api.io.k8s.api.rbac.v1.Role
+  rolebindings:
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    jsonSchemaRef: metachart.api.io.k8s.api.rbac.v1.RoleBinding
+  clusterroles:
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+    jsonSchemaRef: metachart.api.io.k8s.api.rbac.v1.ClusterRole
+  clusterrolebindings:
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRoleBinding
+    jsonSchemaRef: metachart.api.io.k8s.api.rbac.v1.ClusterRoleBinding
+
+  #: apiregistration.k8s.io/v1
+  apiservices:
+    apiVersion: apiregistration.k8s.io/v1
+    kind: APIService
+    jsonSchemaRef: metachart.api.io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIService
+
+  #: admissionregistration.k8s.io/v1
+  mutatingwebhookconfigurations:
+    apiVersion: admissionregistration.k8s.io/v1
+    kind: MutatingWebhookConfiguration
+    jsonSchemaRef: metachart.api.io.k8s.api.admissionregistration.v1.MutatingWebhookConfiguration
+  validatingwebhookconfigurations:
+    apiVersion: admissionregistration.k8s.io/v1
+    kind: ValidatingWebhookConfiguration
+    jsonSchemaRef: metachart.api.io.k8s.api.admissionregistration.v1.ValidatingWebhookConfiguration
+
+  #: apiextensions.k8s.io/v1
+  customresourcedefinitions:
+    apiVersion: apiextensions.k8s.io/v1
+    kind: CustomResourceDefinition
+    jsonSchemaRef: metachart.api.io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinition
+
+  #: networking.k8s.io/v1
+  ingresses:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    jsonSchemaRef: metachart.api.io.k8s.api.networking.v1.Ingress
+  ingressclasses:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    jsonSchemaRef: metachart.api.io.k8s.api.networking.v1.IngressClass
+  networkpolicies:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    jsonSchemaRef: metachart.api.io.k8s.api.networking.v1.NetworkPolicy
+
+  #: storage.k8s.io/v1
+  storageclasses:
+    apiVersion: storage.k8s.io/v1
+    kind: StorageClass
+    jsonSchemaRef: metachart.api.io.k8s.api.storage.v1.StorageClass
+
+  #: v1
+  serviceaccounts:
+    apiVersion: v1
+    kind: ServiceAccount
+    jsonSchemaRef: metachart.api.io.k8s.api.core.v1.ServiceAccount
+  persistentvolumes:
+    apiVersion: v1
+    kind: PersistentVolume
+    jsonSchemaRef: metachart.api.io.k8s.api.core.v1.PersistentVolume
+  persistentvolumeclaims:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    jsonSchemaRef: metachart.api.io.k8s.api.core.v1.PersistentVolumeClaim
+  configmaps:
+    apiVersion: v1
+    kind: ConfigMap
+    jsonSchemaRef: metachart.api.io.k8s.api.core.v1.ConfigMap
+  secrets:
+    apiVersion: v1
+    kind: Secret
+    jsonSchemaRef: metachart.api.io.k8s.api.core.v1.Secret
+  services:
+    apiVersion: v1
+    kind: Service
+    jsonSchemaRef: metachart.api.io.k8s.api.core.v1.Service
+  containers:
+    jsonSchemaRef: metachart.api.core.v1.Container
+    template: false
+    root: false
+    defaults: true
+  pods:
+    apiVersion: v1
+    kind: Pod
+    jsonSchemaRef: metachart.api.core.v1.Pod
+
+  #: apps/v1
+  deployments:
+    apiVersion: apps/v1
+    kind: Deployment
+    jsonSchemaRef: metachart.api.io.k8s.api.apps.v1.Deployment
+  daemonsets:
+    apiVersion: apps/v1
+    kind: DaemonSet
+    jsonSchemaRef: metachart.api.io.k8s.api.apps.v1.DaemonSet
+  statefulsets:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    jsonSchemaRef: metachart.api.io.k8s.api.apps.v1.StatefulSet
+
+  #: autoscaling/v1
+  horizontalpodautoscalers:
+    apiVersion: autoscaling/v1
+    kind: HorizontalPodAutoscaler
+    jsonSchemaRef: metachart.api.io.k8s.api.autoscaling.v1.HorizontalPodAutoscaler
+
+  #: batch/v1
+  jobs:
+    apiVersion: batch/v1
+    kind: Job
+    jsonSchemaRef: metachart.api.io.k8s.api.batch.v1.Job
+  cronjobs:
+    apiVersion: batch/v1
+    kind: CronJob
+    jsonSchemaRef: metachart.api.io.k8s.api.batch.v1.CronJob
+
+  #: certificates.k8s.io/v1
+  certificatesigningrequests:
+    apiVersion: certificates.k8s.io/v1
+    kind: CertificateSigningRequest
+    jsonSchemaRef: metachart.api.io.k8s.api.certificates.v1.CertificateSigningRequest
+
+  #: policy/v1
+  poddisruptionbudgets:
+    apiVersion: policy/v1
+    kind: PodDisruptionBudget
+    jsonSchemaRef: metachart.api.io.k8s.api.policy.v1.PodDisruptionBudget
+
+  #: scheduling.k8s.io/v1
+  priorityclasses:
+    apiVersion: scheduling.k8s.io/v1
+    kind: PriorityClass
+    jsonSchemaRef: metachart.api.io.k8s.api.scheduling.v1.PriorityClass
+
+  #: external-secrets.io/v1beta1
+  externalsecrets:
+    apiVersion: external-secrets.io/v1beta1
+    kind: ExternalSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecret
+  clusterexternalsecrets:
+    apiVersion: external-secrets.io/v1beta1
+    kind: ClusterExternalSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecret
+  secretstores:
+    apiVersion: external-secrets.io/v1beta1
+    kind: SecretStore
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.SecretStore
+  clustersecretstores:
+    apiVersion: external-secrets.io/v1beta1
+    kind: ClusterSecretStore
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore
+
+  #: monitoring.coreos.com/v1alpha1
+  alertmanagerconfigs:
+    apiVersion: monitoring.coreos.com/v1alpha1
+    kind: AlertmanagerConfig
+    jsonSchemaRef: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1beta1.AlertmanagerConfig
+
+  #: monitoring.coreos.com/v1
+  podmonitors:
+    apiVersion: monitoring.coreos.com/v1
+    kind: PodMonitor
+    jsonSchemaRef: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PodMonitor
+  prometheusrules:
+    apiVersion: monitoring.coreos.com/v1
+    kind: PrometheusRule
+    jsonSchemaRef: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRule

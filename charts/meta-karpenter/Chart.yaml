@@ -1,0 +1,6 @@
+apiVersion: v2
+name: metachart
+description: Metachart born Helm Chart for karpenter resources
+type: application
+version: "0.19.1"
+appVersion: none
