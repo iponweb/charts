@@ -45,6 +45,16 @@ entries:
   meta-prometheus-operator:
   - apiVersion: v2
     appVersion: none
+    created: "2023-02-24T15:04:35.154280977Z"
+    description: Metachart born Helm Chart for prometheus-operator resources
+    digest: 51babe4a1ddddffefb9011a4ac1459eb841fe506e737ee00098d876892d5be20
+    name: meta-prometheus-operator
+    type: application
+    urls:
+    - https://github.com/iponweb/charts/releases/download/meta-prometheus-operator-0.63.0/meta-prometheus-operator-0.63.0.tgz
+    version: 0.63.0
+  - apiVersion: v2
+    appVersion: none
     created: "2023-02-22T22:26:48.739381329Z"
     description: Metachart born Helm Chart for prometheus-operator resources
     digest: b4c9d03e1dff120e0517a5e81690823b589a300e74ccf9caab3735a24d9afac3
@@ -115,4 +125,4 @@ entries:
     urls:
     - https://github.com/iponweb/charts/releases/download/simple-0.1.0/simple-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-24T13:54:50.82110756Z"
+generated: "2023-02-24T15:04:35.154302978Z"
