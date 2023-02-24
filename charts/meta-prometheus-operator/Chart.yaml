@@ -2,5 +2,5 @@ apiVersion: v2
 name: meta-prometheus-operator
 description: Metachart born Helm Chart for prometheus-operator resources
 type: application
-version: "0.60.2"
+version: "0.63.0"
 appVersion: none

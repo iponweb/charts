@@ -46,6 +46,15 @@
       ],
       "type": "object"
     },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerConfigMatcherStrategy": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerConfiguration": {
       "additionalProperties": false,
       "properties": {
@@ -74,8 +83,14 @@
         "authorization": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SafeAuthorization"
         },
+        "basicAuth": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.BasicAuth"
+        },
         "bearerTokenFile": {
           "type": "string"
+        },
+        "enableHttp2": {
+          "type": "boolean"
         },
         "name": {
           "default": "",
@@ -133,6 +148,10 @@
         },
         "affinity": {
           "$ref": "#/definitions/io.k8s.api.core.v1.Affinity"
+        },
+        "alertmanagerConfigMatcherStrategy": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerConfigMatcherStrategy",
+          "default": {}
         },
         "alertmanagerConfigNamespaceSelector": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
@@ -193,6 +212,9 @@
           "x-kubernetes-list-type": "map"
         },
         "image": {
+          "type": "string"
+        },
+        "imagePullPolicy": {
           "type": "string"
         },
         "imagePullSecrets": {
@@ -453,6 +475,9 @@
           "default": {}
         },
         "enableHttp2": {
+          "type": "boolean"
+        },
+        "filterRunning": {
           "type": "boolean"
         },
         "followRedirects": {
@@ -1022,7 +1047,11 @@
             "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RuleGroup",
             "default": {}
           },
-          "type": "array"
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "name"
+          ],
+          "x-kubernetes-list-type": "map"
         }
       },
       "type": "object"
@@ -1164,6 +1193,9 @@
         "image": {
           "type": "string"
         },
+        "imagePullPolicy": {
+          "type": "string"
+        },
         "imagePullSecrets": {
           "items": {
             "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
@@ -1215,6 +1247,13 @@
         },
         "podMonitorSelector": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "podTargetLabels": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
         },
         "portName": {
           "type": "string"
@@ -1379,6 +1418,10 @@
         "httpConfig": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.WebHTTPConfig"
         },
+        "maxConnections": {
+          "format": "int32",
+          "type": "integer"
+        },
         "pageTitle": {
           "type": "string"
         },
@@ -1492,6 +1535,9 @@
         },
         "bearerTokenFile": {
           "type": "string"
+        },
+        "filterExternalLabels": {
+          "type": "boolean"
         },
         "headers": {
           "additionalProperties": {
@@ -1739,6 +1785,9 @@
     "com.coreos.monitoring.pkg.apis.monitoring.v1.ServiceMonitorSpec": {
       "additionalProperties": false,
       "properties": {
+        "attachMetadata": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.AttachMetadata"
+        },
         "endpoints": {
           "items": {
             "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Endpoint",
@@ -1882,6 +1931,13 @@
     "com.coreos.monitoring.pkg.apis.monitoring.v1.ThanosRulerSpec": {
       "additionalProperties": false,
       "properties": {
+        "additionalArgs": {
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Argument",
+            "default": {}
+          },
+          "type": "array"
+        },
         "affinity": {
           "$ref": "#/definitions/io.k8s.api.core.v1.Affinity"
         },
@@ -1949,6 +2005,9 @@
           "x-kubernetes-list-type": "map"
         },
         "image": {
+          "type": "string"
+        },
+        "imagePullPolicy": {
           "type": "string"
         },
         "imagePullSecrets": {
@@ -2074,6 +2133,9 @@
           "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
         },
         "tracingConfigFile": {
+          "type": "string"
+        },
+        "version": {
           "type": "string"
         },
         "volumes": {
@@ -2729,6 +2791,13 @@
     "com.coreos.monitoring.pkg.apis.monitoring.v1beta1.Route": {
       "additionalProperties": false,
       "properties": {
+        "activeTimeIntervals": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
         "continue": {
           "type": "boolean"
         },

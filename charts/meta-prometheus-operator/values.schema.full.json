@@ -55,6 +55,17 @@
       ],
       "type": "object"
     },
+    "com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerConfigMatcherStrategy": {
+      "additionalProperties": false,
+      "description": "AlertmanagerConfigMatcherStrategy defines the strategy used by AlertmanagerConfig objects to match alerts.",
+      "properties": {
+        "type": {
+          "description": "If set to `OnNamespace`, the operator injects a label matcher matching the namespace of the AlertmanagerConfig object for all its routes and inhibition rules. `None` will not add any additional matchers other than the ones specified in the AlertmanagerConfig. Default is `OnNamespace`.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerConfiguration": {
       "additionalProperties": false,
       "description": "AlertmanagerConfiguration defines the Alertmanager configuration.",
@@ -90,9 +101,17 @@
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SafeAuthorization",
           "description": "Authorization section for this alertmanager endpoint"
         },
+        "basicAuth": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.BasicAuth",
+          "description": "BasicAuth allow an endpoint to authenticate over basic authentication"
+        },
         "bearerTokenFile": {
           "description": "BearerTokenFile to read from filesystem to use when authenticating to Alertmanager.",
           "type": "string"
+        },
+        "enableHttp2": {
+          "description": "Whether to enable HTTP2.",
+          "type": "boolean"
         },
         "name": {
           "default": "",
@@ -164,6 +183,11 @@
           "$ref": "#/definitions/io.k8s.api.core.v1.Affinity",
           "description": "If specified, the pod's scheduling constraints."
         },
+        "alertmanagerConfigMatcherStrategy": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.AlertmanagerConfigMatcherStrategy",
+          "default": {},
+          "description": "The AlertmanagerConfigMatcherStrategy defines how AlertmanagerConfig objects match the alerts. In the future more options may be added."
+        },
         "alertmanagerConfigNamespaceSelector": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
           "description": "Namespaces to be selected for AlertmanagerConfig discovery. If nil, only check own namespace."
@@ -205,7 +229,7 @@
           "type": "array"
         },
         "configSecret": {
-          "description": "ConfigSecret is the name of a Kubernetes Secret in the same namespace as the Alertmanager object, which contains the configuration for this Alertmanager instance. If empty, it defaults to `alertmanager-\u003calertmanager-name\u003e`.\n\nThe Alertmanager configuration should be available under the `alertmanager.yaml` key. Additional keys from the original secret are copied to the generated secret.\n\nIf either the secret or the `alertmanager.yaml` key is missing, the operator provisions an Alertmanager configuration with one empty receiver (effectively dropping alert notifications).",
+          "description": "ConfigSecret is the name of a Kubernetes Secret in the same namespace as the Alertmanager object, which contains the configuration for this Alertmanager instance. If empty, it defaults to `alertmanager-\u003calertmanager-name\u003e`.\n\nThe Alertmanager configuration should be available under the `alertmanager.yaml` key. Additional keys from the original secret are copied to the generated secret and mounted into the `/etc/alertmanager/config` directory in the `alertmanager` container.\n\nIf either the secret or the `alertmanager.yaml` key is missing, the operator provisions a minimal Alertmanager configuration with one empty receiver (effectively dropping alert notifications).",
           "type": "string"
         },
         "containers": {
@@ -240,6 +264,10 @@
           "description": "Image if specified has precedence over baseImage, tag and sha combinations. Specifying the version is still necessary to ensure the Prometheus Operator knows what version of Alertmanager is being configured.",
           "type": "string"
         },
+        "imagePullPolicy": {
+          "description": "Image pull policy for the 'alertmanager', 'init-config-reloader' and 'config-reloader' containers. See https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy for more details.",
+          "type": "string"
+        },
         "imagePullSecrets": {
           "description": "An optional list of references to secrets in the same namespace to use for pulling prometheus and alertmanager images from registries see http://kubernetes.io/docs/user-guide/images#specifying-imagepullsecrets-on-a-pod",
           "items": {
@@ -269,7 +297,7 @@
           "type": "string"
         },
         "minReadySeconds": {
-          "description": "Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.",
+          "description": "Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field from kubernetes 1.22 until 1.24 which requires enabling the StatefulSetMinReadySeconds feature gate.",
           "format": "int64",
           "type": "integer"
         },
@@ -556,6 +584,10 @@
         },
         "enableHttp2": {
           "description": "Whether to enable HTTP2.",
+          "type": "boolean"
+        },
+        "filterRunning": {
+          "description": "Drop pods that are not running. (Failed, Succeeded). Enabled by default. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase",
           "type": "boolean"
         },
         "followRedirects": {
@@ -919,12 +951,12 @@
         "ca": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
           "default": {},
-          "description": "Struct containing the CA cert to use for the targets."
+          "description": "Certificate authority used when verifying server certificates."
         },
         "cert": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
           "default": {},
-          "description": "Struct containing the client cert file for the targets."
+          "description": "Client certificate to present when doing client-authentication."
         },
         "insecureSkipVerify": {
           "description": "Disable target certificate validation.",
@@ -947,7 +979,7 @@
       "properties": {
         "attachMetadata": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.AttachMetadata",
-          "description": "Attaches node metadata to discovered targets. Only valid for role: pod. Only valid in Prometheus versions 2.35.0 and newer."
+          "description": "Attaches node metadata to discovered targets. Requires Prometheus v2.35.0 and above."
         },
         "jobLabel": {
           "description": "The label to use to retrieve the job name from.",
@@ -1099,17 +1131,17 @@
     },
     "com.coreos.monitoring.pkg.apis.monitoring.v1.ProbeTLSConfig": {
       "additionalProperties": false,
-      "description": "ProbeTLSConfig specifies TLS configuration parameters.",
+      "description": "ProbeTLSConfig specifies TLS configuration parameters for the prober.",
       "properties": {
         "ca": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
           "default": {},
-          "description": "Struct containing the CA cert to use for the targets."
+          "description": "Certificate authority used when verifying server certificates."
         },
         "cert": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
           "default": {},
-          "description": "Struct containing the client cert file for the targets."
+          "description": "Client certificate to present when doing client-authentication."
         },
         "insecureSkipVerify": {
           "description": "Disable target certificate validation.",
@@ -1253,7 +1285,11 @@
             "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.RuleGroup",
             "default": {}
           },
-          "type": "array"
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "name"
+          ],
+          "x-kubernetes-list-type": "map"
         }
       },
       "type": "object"
@@ -1428,6 +1464,10 @@
           "description": "Image if specified has precedence over baseImage, tag and sha combinations. Specifying the version is still necessary to ensure the Prometheus Operator knows what version of Prometheus is being configured.",
           "type": "string"
         },
+        "imagePullPolicy": {
+          "description": "Image pull policy for the 'prometheus', 'init-config-reloader' and 'config-reloader' containers. See https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy for more details.",
+          "type": "string"
+        },
         "imagePullSecrets": {
           "description": "An optional list of references to secrets in the same namespace to use for pulling prometheus and alertmanager images from registries see http://kubernetes.io/docs/user-guide/images#specifying-imagepullsecrets-on-a-pod",
           "items": {
@@ -1457,7 +1497,7 @@
           "type": "string"
         },
         "minReadySeconds": {
-          "description": "Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.",
+          "description": "Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field from kubernetes 1.22 until 1.24 which requires enabling the StatefulSetMinReadySeconds feature gate.",
           "format": "int64",
           "type": "integer"
         },
@@ -1491,7 +1531,15 @@
         },
         "podMonitorSelector": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-          "description": "*Experimental* PodMonitors to be selected for target discovery. *Deprecated:* if neither this nor serviceMonitorSelector are specified, configuration is unmanaged."
+          "description": "*Experimental* PodMonitors to be selected for target discovery.\n\nIf `spec.serviceMonitorSelector`, `spec.podMonitorSelector` and `spec.probeSelector` are null, the Prometheus configuration is unmanaged. The Prometheus operator will ensure that the Prometheus configuration's Secret exists, but it is the responsibility of the user to provide the raw gzipped Prometheus configuration under the `prometheus.yaml.gz` key. This behavior is deprecated and will be removed in the next major version of the custom resource definition. It is recommended to use `spec.additionalScrapeConfigs` instead."
+        },
+        "podTargetLabels": {
+          "description": "PodTargetLabels are added to all Pod/ServiceMonitors' podTargetLabels",
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
         },
         "portName": {
           "description": "Port name used for the pods and governing service. This defaults to web",
@@ -1507,7 +1555,7 @@
         },
         "probeSelector": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-          "description": "*Experimental* Probes to be selected for target discovery."
+          "description": "*Experimental* Probes to be selected for target discovery.\n\nIf `spec.serviceMonitorSelector`, `spec.podMonitorSelector` and `spec.probeSelector` are null, the Prometheus configuration is unmanaged. The Prometheus operator will ensure that the Prometheus configuration's Secret exists, but it is the responsibility of the user to provide the raw gzipped Prometheus configuration under the `prometheus.yaml.gz` key. This behavior is deprecated and will be removed in the next major version of the custom resource definition. It is recommended to use `spec.additionalScrapeConfigs` instead."
         },
         "prometheusExternalLabelName": {
           "description": "Name of Prometheus external label used to denote Prometheus instance name. Defaults to the value of `prometheus`. External label will _not_ be added when value is set to empty string (`\"\"`).",
@@ -1614,7 +1662,7 @@
         },
         "serviceMonitorSelector": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-          "description": "ServiceMonitors to be selected for target discovery. *Deprecated:* if neither this nor podMonitorSelector are specified, configuration is unmanaged."
+          "description": "ServiceMonitors to be selected for target discovery.\n\nIf `spec.serviceMonitorSelector`, `spec.podMonitorSelector` and `spec.probeSelector` are null, the Prometheus configuration is unmanaged. The Prometheus operator will ensure that the Prometheus configuration's Secret exists, but it is the responsibility of the user to provide the raw gzipped Prometheus configuration under the `prometheus.yaml.gz` key. This behavior is deprecated and will be removed in the next major version of the custom resource definition. It is recommended to use `spec.additionalScrapeConfigs` instead."
         },
         "sha": {
           "description": "SHA of Prometheus container image to be deployed. Defaults to the value of `version`. Similar to a tag, but the SHA explicitly deploys an immutable container image. Version and Tag are ignored if SHA is set. Deprecated: use 'image' instead.  The image digest can be specified as part of the image URL.",
@@ -1696,6 +1744,11 @@
         "httpConfig": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.WebHTTPConfig",
           "description": "Defines HTTP parameters for web server."
+        },
+        "maxConnections": {
+          "description": "Defines the maximum number of simultaneous connections A zero value means that Prometheus doesn't accept any incoming connection.",
+          "format": "int32",
+          "type": "integer"
         },
         "pageTitle": {
           "description": "The prometheus web page title",
@@ -1841,6 +1894,10 @@
           "description": "File to read bearer token for remote read.",
           "type": "string"
         },
+        "filterExternalLabels": {
+          "description": "Whether to use the external labels as selectors for the remote read endpoint. Requires Prometheus v2.34.0 and above.",
+          "type": "boolean"
+        },
         "headers": {
           "additionalProperties": {
             "default": "",
@@ -1980,6 +2037,7 @@
       "description": "Rule describes an alerting or recording rule See Prometheus documentation: [alerting](https://www.prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) or [recording](https://www.prometheus.io/docs/prometheus/latest/configuration/recording_rules/#recording-rules) rule",
       "properties": {
         "alert": {
+          "description": "Name of the alert. Must be a valid label value. Only one of `record` and `alert` must be set.",
           "type": "string"
         },
         "annotations": {
@@ -1987,13 +2045,16 @@
             "default": "",
             "type": "string"
           },
+          "description": "Annotations to add to each alert. Only valid for alerting rules.",
           "type": "object"
         },
         "expr": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
-          "default": {}
+          "default": {},
+          "description": "PromQL expression to evaluate."
         },
         "for": {
+          "description": "Alerts are considered firing once they have been returned for this long.",
           "type": "string"
         },
         "labels": {
@@ -2001,9 +2062,11 @@
             "default": "",
             "type": "string"
           },
+          "description": "Labels to add or overwrite.",
           "type": "object"
         },
         "record": {
+          "description": "Name of the time series to output to. Must be a valid metric name. Only one of `record` and `alert` must be set.",
           "type": "string"
         }
       },
@@ -2014,19 +2077,23 @@
     },
     "com.coreos.monitoring.pkg.apis.monitoring.v1.RuleGroup": {
       "additionalProperties": false,
-      "description": "RuleGroup is a list of sequentially evaluated recording and alerting rules. Note: PartialResponseStrategy is only used by ThanosRuler and will be ignored by Prometheus instances.  Valid values for this field are 'warn' or 'abort'.  More info: https://github.com/thanos-io/thanos/blob/main/docs/components/rule.md#partial-response",
+      "description": "RuleGroup is a list of sequentially evaluated recording and alerting rules.",
       "properties": {
         "interval": {
+          "description": "Interval determines how often rules in the group are evaluated.",
           "type": "string"
         },
         "name": {
           "default": "",
+          "description": "Name of the rule group.",
           "type": "string"
         },
         "partial_response_strategy": {
+          "description": "PartialResponseStrategy is only used by ThanosRuler and will be ignored by Prometheus instances. More info: https://github.com/thanos-io/thanos/blob/main/docs/components/rule.md#partial-response",
           "type": "string"
         },
         "rules": {
+          "description": "List of alerting and recording rules.",
           "items": {
             "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Rule",
             "default": {}
@@ -2092,12 +2159,12 @@
         "ca": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
           "default": {},
-          "description": "Struct containing the CA cert to use for the targets."
+          "description": "Certificate authority used when verifying server certificates."
         },
         "cert": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
           "default": {},
-          "description": "Struct containing the client cert file for the targets."
+          "description": "Client certificate to present when doing client-authentication."
         },
         "insecureSkipVerify": {
           "description": "Disable target certificate validation.",
@@ -2133,6 +2200,10 @@
       "additionalProperties": false,
       "description": "ServiceMonitorSpec contains specification parameters for a ServiceMonitor.",
       "properties": {
+        "attachMetadata": {
+          "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.AttachMetadata",
+          "description": "Attaches node metadata to discovered targets. Requires Prometheus v2.37.0 and above."
+        },
         "endpoints": {
           "description": "A list of endpoints allowed as part of this ServiceMonitor.",
           "items": {
@@ -2240,16 +2311,16 @@
         },
         "emptyDir": {
           "$ref": "#/definitions/io.k8s.api.core.v1.EmptyDirVolumeSource",
-          "description": "EmptyDirVolumeSource to be used by the Prometheus StatefulSets. If specified, used in place of any volumeClaimTemplate. More info: https://kubernetes.io/docs/concepts/storage/volumes/#emptydir"
+          "description": "EmptyDirVolumeSource to be used by the StatefulSet. If specified, used in place of any volumeClaimTemplate. More info: https://kubernetes.io/docs/concepts/storage/volumes/#emptydir"
         },
         "ephemeral": {
           "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralVolumeSource",
-          "description": "EphemeralVolumeSource to be used by the Prometheus StatefulSets. This is a beta field in k8s 1.21, for lower versions, starting with k8s 1.19, it requires enabling the GenericEphemeralVolume feature gate. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes"
+          "description": "EphemeralVolumeSource to be used by the StatefulSet. This is a beta field in k8s 1.21, for lower versions, starting with k8s 1.19, it requires enabling the GenericEphemeralVolume feature gate. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes"
         },
         "volumeClaimTemplate": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.EmbeddedPersistentVolumeClaim",
           "default": {},
-          "description": "A PVC spec to be used by the Prometheus StatefulSets."
+          "description": "A PVC spec to be used by the StatefulSet. The easiest way to use a volume that cannot be automatically provisioned (for whatever reason) is to use a label selector alongside manually created PersistentVolumes."
         }
       },
       "type": "object"
@@ -2261,7 +2332,7 @@
         "ca": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
           "default": {},
-          "description": "Struct containing the CA cert to use for the targets."
+          "description": "Certificate authority used when verifying server certificates."
         },
         "caFile": {
           "description": "Path to the CA cert in the Prometheus container to use for the targets.",
@@ -2270,7 +2341,7 @@
         "cert": {
           "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.SecretOrConfigMap",
           "default": {},
-          "description": "Struct containing the client cert file for the targets."
+          "description": "Client certificate to present when doing client-authentication."
         },
         "certFile": {
           "description": "Path to the client cert file in the Prometheus container for the targets.",
@@ -2309,6 +2380,14 @@
       "additionalProperties": false,
       "description": "ThanosRulerSpec is a specification of the desired behavior of the ThanosRuler. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status",
       "properties": {
+        "additionalArgs": {
+          "description": "AdditionalArgs allows setting additional arguments for the ThanosRuler container. It is intended for e.g. activating hidden flags which are not supported by the dedicated configuration options yet. The arguments are passed as-is to the ThanosRuler container which may cause issues if they are invalid or not supported by the given ThanosRuler version. In case of an argument conflict (e.g. an argument which is already set by the operator itself) or when providing an invalid argument the reconciliation will fail and an error will be logged.",
+          "items": {
+            "$ref": "#/definitions/com.coreos.monitoring.pkg.apis.monitoring.v1.Argument",
+            "default": {}
+          },
+          "type": "array"
+        },
         "affinity": {
           "$ref": "#/definitions/io.k8s.api.core.v1.Affinity",
           "description": "If specified, the pod's scheduling constraints."
@@ -2393,6 +2472,10 @@
           "description": "Thanos container image URL.",
           "type": "string"
         },
+        "imagePullPolicy": {
+          "description": "Image pull policy for the 'thanos', 'init-config-reloader' and 'config-reloader' containers. See https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy for more details.",
+          "type": "string"
+        },
         "imagePullSecrets": {
           "description": "An optional list of references to secrets in the same namespace to use for pulling thanos images from registries see http://kubernetes.io/docs/user-guide/images#specifying-imagepullsecrets-on-a-pod",
           "items": {
@@ -2430,7 +2513,7 @@
           "type": "string"
         },
         "minReadySeconds": {
-          "description": "Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.",
+          "description": "Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field from kubernetes 1.22 until 1.24 which requires enabling the StatefulSetMinReadySeconds feature gate.",
           "format": "int64",
           "type": "integer"
         },
@@ -2546,6 +2629,10 @@
         },
         "tracingConfigFile": {
           "description": "TracingConfig specifies the path of the tracing configuration file. When used alongside with TracingConfig, TracingConfigFile takes precedence.",
+          "type": "string"
+        },
+        "version": {
+          "description": "Version of Thanos to be deployed.",
           "type": "string"
         },
         "volumes": {
@@ -3354,6 +3441,14 @@
       "additionalProperties": false,
       "description": "Route defines a node in the routing tree.",
       "properties": {
+        "activeTimeIntervals": {
+          "description": "ActiveTimeIntervals is a list of TimeInterval names when this route should be active.",
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
         "continue": {
           "description": "Boolean indicating whether an alert should continue matching subsequent sibling nodes. It will always be overridden to true for the first-level route by the Prometheus operator.",
           "type": "boolean"
@@ -3383,7 +3478,7 @@
           "type": "array"
         },
         "muteTimeIntervals": {
-          "description": "Note: this comment applies to the field definition above but appears below otherwise it gets included in the generated manifest. CRD schema doesn't support self-referential types for now (see https://github.com/kubernetes/kubernetes/issues/62872). We have to use an alternative type to circumvent the limitation. The downside is that the Kube API can't validate the data beyond the fact that it is a valid JSON representation. MuteTimeIntervals is a list of MuteTimeInterval names that will mute this route when matched,",
+          "description": "Note: this comment applies to the field definition above but appears below otherwise it gets included in the generated manifest. CRD schema doesn't support self-referential types for now (see https://github.com/kubernetes/kubernetes/issues/62872). We have to use an alternative type to circumvent the limitation. The downside is that the Kube API can't validate the data beyond the fact that it is a valid JSON representation. MuteTimeIntervals is a list of TimeInterval names that will mute this route when matched.",
           "items": {
             "default": "",
             "type": "string"
