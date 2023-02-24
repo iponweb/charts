@@ -18,3 +18,33 @@ resources:
     apiVersion: external-secrets.io/v1beta1
     kind: ExternalSecret
     jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore
+
+  pushsecrets:
+    apiVersion: external-secrets.io/v1alpha1
+    kind: PushSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1alpha1.PushSecret
+
+  acraccesstokens:
+    apiVersion: generators.external-secrets.io/v1beta1
+    kind: ACRAccessToken
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.ACRAccessToken
+
+  ecrauthorizationtokens:
+    apiVersion: generators.external-secrets.io/v1beta1
+    kind: ECRAuthorizationToken
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.ECRAuthorizationToken
+
+  gcraccesstoken:
+    apiVersion: generators.external-secrets.io/v1beta1
+    kind: GCRAccessToken
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.GCRAccessToken
+
+  fakes:
+    apiVersion: generators.external-secrets.io/v1beta1
+    kind: Fake
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.Fake
+
+  passwords:
+    apiVersion: generators.external-secrets.io/v1beta1
+    kind: Password
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.Password

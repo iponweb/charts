@@ -44,4 +44,3 @@ externalsecrets:
       dataFrom:
         - extract:
             key: remote-key-in-the-provider
-

@@ -12,7 +12,7 @@
 
 definitions:
   - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/kubernetes/v1.25.2-strict/_definitions.json
-  - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/external-secrets/v0.6.1-strict/_definitions.json
+  - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/external-secrets/v0.7.2-strict/_definitions.json
 
 rules:
   #: Common
@@ -40,3 +40,31 @@ rules:
   - target: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore
     source: io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore
     <<: *defaultRootKey
+
+  #: external-secrets.io/v1alpha1
+  - target: metachart.api.io.external-secrets.apis.externalsecrets.v1alpha1.PushSecret
+    source: io.external-secrets.apis.externalsecrets.v1alpha1.PushSecret
+    <<: *defaultRootKey
+
+  #: generators.external-secrets.io/v1alpha1
+  - target: metachart.api.io.external-secrets.apis.generators.v1alpha1.ACRAccessToken
+    source: io.external-secrets.apis.generators.v1alpha1.ACRAccessToken
+    <<: *defaultRootKey
+  - target: metachart.api.io.external-secrets.apis.generators.v1alpha1.ECRAuthorizationToken
+    source: io.external-secrets.apis.generators.v1alpha1.ECRAuthorizationToken
+    <<: *defaultRootKey
+  - target: metachart.api.io.external-secrets.apis.generators.v1alpha1.GCRAccessToken
+    source: io.external-secrets.apis.generators.v1alpha1.GCRAccessToken
+    <<: *defaultRootKey
+  - target: metachart.api.io.external-secrets.apis.generators.v1alpha1.Fake
+    source: io.external-secrets.apis.generators.v1alpha1.Fake
+    <<: *defaultRootKey
+  - target: metachart.api.io.external-secrets.apis.generators.v1alpha1.Password
+    source: io.external-secrets.apis.generators.v1alpha1.Password
+    <<: *defaultRootKey
+  #: pushsecrets PushSecret
+  #: acraccesstokens ACRAccessToken
+  #: ecrauthorizationtokens ECRAuthorizationToken
+  #: gcraccesstoken GCRAccessToken
+  #: fakes Fake
+  #: passwords Password

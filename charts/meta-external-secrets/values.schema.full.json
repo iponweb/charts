@@ -2,6 +2,140 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "definitions": {
+    "io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretData": {
+      "additionalProperties": false,
+      "properties": {
+        "match": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretMatch",
+          "default": {},
+          "description": "Match a given Secret Key to be pushed to the provider."
+        }
+      },
+      "required": [
+        "match"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretMatch": {
+      "additionalProperties": false,
+      "properties": {
+        "remoteRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretRemoteRef",
+          "default": {},
+          "description": "Remote Refs to push to providers."
+        },
+        "secretKey": {
+          "default": "",
+          "description": "Secret Key to be pushed",
+          "type": "string"
+        }
+      },
+      "required": [
+        "secretKey",
+        "remoteRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretRemoteRef": {
+      "additionalProperties": false,
+      "properties": {
+        "remoteKey": {
+          "default": "",
+          "description": "Name of the resulting provider secret.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "remoteKey"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretSecret": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "default": "",
+          "description": "Name of the Secret. The Secret must exist in the same namespace as the PushSecret manifest.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretSelector": {
+      "additionalProperties": false,
+      "properties": {
+        "secret": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretSecret",
+          "default": {},
+          "description": "Select a Secret to Push."
+        }
+      },
+      "required": [
+        "secret"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretSpec": {
+      "additionalProperties": false,
+      "description": "PushSecretSpec configures the behavior of the PushSecret.",
+      "properties": {
+        "data": {
+          "description": "Secret Data that should be pushed to providers",
+          "items": {
+            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretData",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "deletionPolicy": {
+          "description": "Deletion Policy to handle Secrets in the provider. Possible Values: \"Delete/None\". Defaults to \"None\".",
+          "type": "string"
+        },
+        "refreshInterval": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration",
+          "description": "The Interval to which External Secrets will try to push a secret definition"
+        },
+        "secretStoreRefs": {
+          "items": {
+            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretStoreRef",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretSelector",
+          "default": {},
+          "description": "The Secret Selector (k8s source) for the Push Secret"
+        }
+      },
+      "required": [
+        "secretStoreRefs",
+        "selector"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretStoreRef": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "description": "Kind of the SecretStore resource (SecretStore or ClusterSecretStore) Defaults to `SecretStore`",
+          "type": "string"
+        },
+        "labelSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+          "description": "Optionally, sync to secret stores with label selector"
+        },
+        "name": {
+          "default": "",
+          "description": "Optionally, sync to the SecretStore of the given name",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "io.external-secrets.apis.externalsecrets.v1beta1.AWSAuth": {
       "additionalProperties": false,
       "description": "AWSAuth tells the controller how to do authentication with aws. Only one of secretRef or jwt can be specified. if none is specified the controller will load credentials using the aws sdk defaults.",
@@ -28,6 +162,10 @@
           "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
           "default": {},
           "description": "The SecretAccessKey is used for authentication"
+        },
+        "sessionTokenSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "description": "The SessionToken used for authentication This must be defined if AccessKeyID and SecretAccessKey are temporary credentials see: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html"
         }
       },
       "type": "object"
@@ -46,6 +184,14 @@
       "additionalProperties": false,
       "description": "AWSProvider configures a store to sync secrets with AWS.",
       "properties": {
+        "additionalRoles": {
+          "description": "AdditionalRoles is a chained list of Role ARNs which the SecretManager provider will sequentially assume before assuming Role",
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
         "auth": {
           "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AWSAuth",
           "default": {},
@@ -421,11 +567,17 @@
       "properties": {
         "remoteRef": {
           "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretDataRemoteRef",
-          "default": {}
+          "default": {},
+          "description": "RemoteRef points to the remote secret and defines which secret (version/property/..) to fetch."
         },
         "secretKey": {
           "default": "",
+          "description": "SecretKey defines the key in which the controller stores the value. This is the key in the Kind=Secret",
           "type": "string"
+        },
+        "sourceRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SourceRef",
+          "description": "SourceRef allows you to override the source from which the value will pulled from."
         }
       },
       "required": [
@@ -439,11 +591,11 @@
       "properties": {
         "extract": {
           "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretDataRemoteRef",
-          "description": "Used to extract multiple key/value pairs from one secret"
+          "description": "Used to extract multiple key/value pairs from one secret Note: Extract does not support sourceRef.Generator or sourceRef.GeneratorRef."
         },
         "find": {
           "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretFind",
-          "description": "Used to find secrets based on tags or regular expressions"
+          "description": "Used to find secrets based on tags or regular expressions Note: Find does not support sourceRef.Generator or sourceRef.GeneratorRef."
         },
         "rewrite": {
           "description": "Used to rewrite secret Keys after getting them from the secret Provider Multiple Rewrite operations can be provided. They are applied in a layered order (first to last)",
@@ -452,6 +604,10 @@
             "default": {}
           },
           "type": "array"
+        },
+        "sourceRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SourceRef",
+          "description": "SourceRef points to a store or generator which contains secret values ready to use. Use this in combination with Extract or Find pull values out of a specific SecretStore. When sourceRef points to a generator Extract or Find is not supported. The generator returns a static map of values"
         }
       },
       "type": "object"
@@ -584,9 +740,6 @@
           "default": {}
         }
       },
-      "required": [
-        "secretStoreRef"
-      ],
       "type": "object"
     },
     "io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretTarget": {
@@ -786,6 +939,31 @@
       ],
       "type": "object"
     },
+    "io.external-secrets.apis.externalsecrets.v1beta1.GeneratorRef": {
+      "additionalProperties": false,
+      "description": "GeneratorRef points to a generator custom resource.",
+      "properties": {
+        "apiVersion": {
+          "description": "Specify the apiVersion of the generator resource",
+          "type": "string"
+        },
+        "kind": {
+          "default": "",
+          "description": "Specify the Kind of the resource, e.g. Password, ACRAccessToken etc.",
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "description": "Specify the name of the generator resource",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "name"
+      ],
+      "type": "object"
+    },
     "io.external-secrets.apis.externalsecrets.v1beta1.GitlabAuth": {
       "additionalProperties": false,
       "properties": {
@@ -811,6 +989,18 @@
         "environment": {
           "description": "Environment environment_scope of gitlab CI/CD variables (Please see https://docs.gitlab.com/ee/ci/environments/#create-a-static-environment on how to create environments)",
           "type": "string"
+        },
+        "groupIDs": {
+          "description": "GroupIDs specify, which gitlab groups to pull secrets from. Group secrets are read from left to right followed by the project variables.",
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "inheritFromGroups": {
+          "description": "InheritFromGroups specifies whether parent groups should be discovered and checked for secrets.",
+          "type": "boolean"
         },
         "projectID": {
           "description": "ProjectID specifies a project where secrets are located.",
@@ -1288,14 +1478,34 @@
       ],
       "type": "object"
     },
+    "io.external-secrets.apis.externalsecrets.v1beta1.SourceRef": {
+      "additionalProperties": false,
+      "description": "SourceRef allows you to override the source from which the secret will be pulled from. You can define at maximum one property.",
+      "properties": {
+        "generatorRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.GeneratorRef",
+          "description": "GeneratorRef points to a generator custom resource in"
+        },
+        "storeRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SecretStoreRef"
+        }
+      },
+      "type": "object"
+    },
     "io.external-secrets.apis.externalsecrets.v1beta1.TemplateFrom": {
       "additionalProperties": false,
       "properties": {
         "configMap": {
           "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.TemplateRef"
         },
+        "literal": {
+          "type": "string"
+        },
         "secret": {
           "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.TemplateRef"
+        },
+        "target": {
+          "type": "string"
         }
       },
       "type": "object"
@@ -1326,6 +1536,9 @@
       "properties": {
         "key": {
           "default": "",
+          "type": "string"
+        },
+        "templateAs": {
           "type": "string"
         }
       },
@@ -1787,6 +2000,300 @@
       ],
       "type": "object"
     },
+    "io.external-secrets.apis.generators.v1alpha1.ACRAccessTokenSpec": {
+      "additionalProperties": false,
+      "description": "ACRAccessTokenSpec defines how to generate the access token e.g. how to authenticate and which registry to use. see: https://github.com/Azure/acr/blob/main/docs/AAD-OAuth.md#overview",
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.ACRAuth",
+          "default": {}
+        },
+        "environmentType": {
+          "description": "EnvironmentType specifies the Azure cloud environment endpoints to use for connecting and authenticating with Azure. By default it points to the public cloud AAD endpoint. The following endpoints are available, also see here: https://github.com/Azure/go-autorest/blob/main/autorest/azure/environments.go#L152 PublicCloud, USGovernmentCloud, ChinaCloud, GermanCloud",
+          "type": "string"
+        },
+        "registry": {
+          "default": "",
+          "description": "the domain name of the ACR registry e.g. foobarexample.azurecr.io",
+          "type": "string"
+        },
+        "scope": {
+          "description": "Define the scope for the access token, e.g. pull/push access for a repository. if not provided it will return a refresh token that has full scope. Note: you need to pin it down to the repository level, there is no wildcard available.\n\nexamples: repository:my-repository:pull,push repository:my-repository:pull\n\nsee docs for details: https://docs.docker.com/registry/spec/auth/scope/",
+          "type": "string"
+        },
+        "tenantId": {
+          "description": "TenantID configures the Azure Tenant to send requests to. Required for ServicePrincipal auth type.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth",
+        "registry"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.ACRAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "managedIdentity": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.AzureACRManagedIdentityAuth",
+          "description": "ManagedIdentity uses Azure Managed Identity to authenticate with Azure."
+        },
+        "servicePrincipal": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.AzureACRServicePrincipalAuth",
+          "description": "ServicePrincipal uses Azure Service Principal credentials to authenticate with Azure."
+        },
+        "workloadIdentity": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.AzureACRWorkloadIdentityAuth",
+          "description": "WorkloadIdentity uses Azure Workload Identity to authenticate with Azure."
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.AWSAuth": {
+      "additionalProperties": false,
+      "description": "AWSAuth tells the controller how to do authentication with aws. Only one of secretRef or jwt can be specified. if none is specified the controller will load credentials using the aws sdk defaults.",
+      "properties": {
+        "jwt": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.AWSJWTAuth"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.AWSAuthSecretRef"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.AWSAuthSecretRef": {
+      "additionalProperties": false,
+      "description": "AWSAuthSecretRef holds secret references for AWS credentials both AccessKeyID and SecretAccessKey must be defined in order to properly authenticate.",
+      "properties": {
+        "accessKeyIDSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {},
+          "description": "The AccessKeyID is used for authentication"
+        },
+        "secretAccessKeySecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {},
+          "description": "The SecretAccessKey is used for authentication"
+        },
+        "sessionTokenSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "description": "The SessionToken used for authentication This must be defined if AccessKeyID and SecretAccessKey are temporary credentials see: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.AWSJWTAuth": {
+      "additionalProperties": false,
+      "description": "Authenticate against AWS using service account tokens.",
+      "properties": {
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.AzureACRManagedIdentityAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "identityId": {
+          "description": "If multiple Managed Identity is assigned to the pod, you can select the one to be used",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.AzureACRServicePrincipalAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.AzureACRServicePrincipalAuthSecretRef",
+          "default": {}
+        }
+      },
+      "required": [
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.AzureACRServicePrincipalAuthSecretRef": {
+      "additionalProperties": false,
+      "description": "Configuration used to authenticate with Azure using static credentials stored in a Kind=Secret.",
+      "properties": {
+        "clientId": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {},
+          "description": "The Azure clientId of the service principle used for authentication."
+        },
+        "clientSecret": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {},
+          "description": "The Azure ClientSecret of the service principle used for authentication."
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.AzureACRWorkloadIdentityAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector",
+          "description": "ServiceAccountRef specified the service account that should be used when authenticating with WorkloadIdentity."
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.ECRAuthorizationTokenSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.AWSAuth",
+          "default": {},
+          "description": "Auth defines how to authenticate with AWS"
+        },
+        "region": {
+          "default": "",
+          "description": "Region specifies the region to operate in.",
+          "type": "string"
+        },
+        "role": {
+          "default": "",
+          "description": "You can assume a role before making calls to the desired AWS service.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "region"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.FakeSpec": {
+      "additionalProperties": false,
+      "description": "FakeSpec contains the static data.",
+      "properties": {
+        "data": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "description": "Data defines the static data returned by this generator.",
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.GCPSMAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GCPSMAuthSecretRef"
+        },
+        "workloadIdentity": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GCPWorkloadIdentity"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.GCPSMAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "secretAccessKeySecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {},
+          "description": "The SecretAccessKey is used for authentication"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.GCPWorkloadIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "clusterLocation": {
+          "default": "",
+          "type": "string"
+        },
+        "clusterName": {
+          "default": "",
+          "type": "string"
+        },
+        "clusterProjectID": {
+          "type": "string"
+        },
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "serviceAccountRef",
+        "clusterLocation",
+        "clusterName"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.GCRAccessTokenSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GCPSMAuth",
+          "default": {},
+          "description": "Auth defines the means for authenticating with GCP"
+        },
+        "projectID": {
+          "default": "",
+          "description": "ProjectID defines which project to use to authenticate with",
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth",
+        "projectID"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.PasswordSpec": {
+      "additionalProperties": false,
+      "description": "PasswordSpec controls the behavior of the password generator.",
+      "properties": {
+        "allowRepeat": {
+          "default": false,
+          "description": "set AllowRepeat to true to allow repeating characters.",
+          "type": "boolean"
+        },
+        "digits": {
+          "description": "Digits specifies the number of digits in the generated password. If omitted it defaults to 25% of the length of the password",
+          "format": "int32",
+          "type": "integer"
+        },
+        "length": {
+          "default": 0,
+          "description": "Length of the password to be generated. Defaults to 24",
+          "format": "int32",
+          "type": "integer"
+        },
+        "noUpper": {
+          "default": false,
+          "description": "Set NoUpper to disable uppercase characters",
+          "type": "boolean"
+        },
+        "symbolCharacters": {
+          "description": "SymbolCharacters specifies the special characters that should be used in the generated password.",
+          "type": "string"
+        },
+        "symbols": {
+          "description": "Symbols specifies the number of symbol characters in the generated password. If omitted it defaults to 25% of the length of the password",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "length",
+        "noUpper",
+        "allowRepeat"
+      ],
+      "type": "object"
+    },
     "io.external-secrets.apis.meta.v1.SecretKeySelector": {
       "additionalProperties": false,
       "description": "A reference to a specific 'key' within a Secret resource, In some instances, `key` is a required field.",
@@ -1892,6 +2399,22 @@
       ],
       "type": "object"
     },
+    "metachart.api.io.external-secrets.apis.externalsecrets.v1alpha1.PushSecret": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
     "metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecret": {
       "additionalProperties": false,
       "description": "ClusterExternalSecret is the Schema for the clusterexternalsecrets API.",
@@ -1960,6 +2483,91 @@
       },
       "type": "object"
     },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.ACRAccessToken": {
+      "additionalProperties": false,
+      "description": "ACRAccessToken returns a Azure Container Registry token that can be used for pushing/pulling images. Note: by default it will return an ACR Refresh Token with full access (depending on the identity). This can be scoped down to the repository level using .spec.scope. In case scope is defined it will return an ACR Access Token.\n\nSee docs: https://github.com/Azure/acr/blob/main/docs/AAD-OAuth.md",
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.ACRAccessTokenSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.ECRAuthorizationToken": {
+      "additionalProperties": false,
+      "description": "ECRAuthorizationTokenSpec uses the GetAuthorizationToken API to retrieve an authorization token. The authorization token is valid for 12 hours. The authorizationToken returned is a base64 encoded string that can be decoded and used in a docker login command to authenticate to a registry. For more information, see Registry authentication (https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth) in the Amazon Elastic Container Registry User Guide.",
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.ECRAuthorizationTokenSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.Fake": {
+      "additionalProperties": false,
+      "description": "Fake generator is used for testing. It lets you define a static set of credentials that is always returned.",
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.FakeSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.GCRAccessToken": {
+      "additionalProperties": false,
+      "description": "GCRAccessToken generates an GCP access token that can be used to authenticate with GCR.",
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GCRAccessTokenSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.Password": {
+      "additionalProperties": false,
+      "description": "Password generates a random password based on the configuration parameters in spec. You can specify the length, characterset and other attributes.",
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.PasswordSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
     "metachart.api.meta.v1.ObjectMeta": {
       "additionalProperties": false,
       "description": "ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.",
@@ -2009,6 +2617,15 @@
     }
   },
   "properties": {
+    "acraccesstokens": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.ACRAccessToken"
+        }
+      },
+      "type": "object"
+    },
     "clusterexternalsecrets": {
       "additionalProperties": false,
       "patternProperties": {
@@ -2031,11 +2648,29 @@
       "description": "Any content which can be used for config rendering without schema defined by the chart",
       "type": "object"
     },
+    "ecrauthorizationtokens": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.ECRAuthorizationToken"
+        }
+      },
+      "type": "object"
+    },
     "externalsecrets": {
       "additionalProperties": false,
       "patternProperties": {
         "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
           "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecret"
+        }
+      },
+      "type": "object"
+    },
+    "fakes": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.Fake"
         }
       },
       "type": "object"
@@ -2050,6 +2685,33 @@
         }
       ]
     },
+    "gcraccesstoken": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.GCRAccessToken"
+        }
+      },
+      "type": "object"
+    },
+    "passwords": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.Password"
+        }
+      },
+      "type": "object"
+    },
+    "pushsecrets": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1alpha1.PushSecret"
+        }
+      },
+      "type": "object"
+    },
     "secretstores": {
       "additionalProperties": false,
       "patternProperties": {
@@ -2062,6 +2724,18 @@
     "settings": {
       "additionalProperties": false,
       "properties": {
+        "acraccesstokens": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.ACRAccessToken"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
         "clusterexternalsecrets": {
           "properties": {
             "defaults": {
@@ -2086,10 +2760,46 @@
           },
           "type": "object"
         },
+        "ecrauthorizationtokens": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.ECRAuthorizationToken"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
         "externalsecrets": {
           "properties": {
             "defaults": {
               "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecret"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "fakes": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.Fake"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "gcraccesstoken": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.GCRAccessToken"
             },
             "disabled": {
               "description": "Disable all resources of this kind",
@@ -2112,6 +2822,30 @@
                 "type": "string"
               },
               "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "passwords": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.Password"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "pushsecrets": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1alpha1.PushSecret"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
             }
           },
           "type": "object"
