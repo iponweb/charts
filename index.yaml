@@ -3,6 +3,16 @@ entries:
   meta-external-secrets:
   - apiVersion: v2
     appVersion: none
+    created: "2023-02-24T16:03:49.527447151Z"
+    description: Metachart born Helm Chart for external-secrets resources
+    digest: 90ddad1aab40f9e349b09350e8405be63b87917703676ae4ac85cd7476137219
+    name: meta-external-secrets
+    type: application
+    urls:
+    - https://github.com/iponweb/charts/releases/download/meta-external-secrets-0.7.2/meta-external-secrets-0.7.2.tgz
+    version: 0.7.2
+  - apiVersion: v2
+    appVersion: none
     created: "2023-02-22T22:26:48.443572677Z"
     description: Metachart born Helm Chart for external-secrets resources
     digest: 6b5f58841c79b708dd20199ac4f612594282cd36986e91fb740152cf82744ffd
@@ -125,4 +135,4 @@ entries:
     urls:
     - https://github.com/iponweb/charts/releases/download/simple-0.1.0/simple-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-24T15:04:35.154302978Z"
+generated: "2023-02-24T16:03:49.527756756Z"
