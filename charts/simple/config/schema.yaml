@@ -105,6 +105,7 @@ rules:
       - image
       - imagePullPolicy
     properties:
+      enabled: metachart.interface.boolean
       imageRef: metachart.interface.FQDNitem
     required:
       - imageRef

@@ -7295,6 +7295,9 @@
           },
           "type": "array"
         },
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
         "env": {
           "items": {
             "$ref": "#/definitions/io.k8s.api.core.v1.EnvVar"

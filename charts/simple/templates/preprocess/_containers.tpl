@@ -13,7 +13,7 @@
 {{- /* Rendering */}}
 {{- $result := merge
   (include "metachart.imageSpecByRef" (merge (dict "params" (dict "imageRef" $definition.imageRef)) $) | fromYaml)
-  (omit $definition "imageRef")
+  (omit $definition "imageRef" "enabled")
 }}
 {{- /* Return */}}
 {{- $result | toJson }}

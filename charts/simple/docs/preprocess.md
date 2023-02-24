@@ -22,7 +22,7 @@ images:
 
 ## Container
 
-That's not a resource but a part of the [Pod](#Pod) resource.
+That's not a independent resource but a part of the [Pod](#Pod) resource.
 
 The `image` and `imagePullPolicy` replaced by the `imageRef` field which value
 is a name of a [Image](#Image) object.
@@ -74,7 +74,7 @@ spec:
 
 1. Field `spec.template` is replaced by the `spec.pod` consuming [Pod](#Pod)
    resource
-2. Field `spec.selector` enforced to discover only Pods produced by this 
+2. Field `spec.selector` enforced to discover only Pods produced by this
    Deployment
 
 Example:
@@ -142,7 +142,7 @@ Same as [Deployment](#Deployment) preprocessor.
 
 1. Same as [Deployment](#Deployment) preprocessor.
 2. Field `spec.volumeClaimTemplates` is a map instead of list
-   which keys and values are PersistentVolumeClaim template names and 
+   which keys and values are PersistentVolumeClaim template names and
    definitions.
 
 Example:
@@ -353,8 +353,8 @@ spec:
 
 ## PodMonitor
 
-If defined as a related resource, `spec.selector.matchLabels` field value 
-enforced to label selector of the parent resource and 
+If defined as a related resource, `spec.selector.matchLabels` field value
+enforced to label selector of the parent resource and
 `spec.namespaceSelector.matchNames` to the release namespace.
 
 Example:
@@ -426,7 +426,7 @@ spec:
           ports:
             - containerPort: 8080
               name: metrics
-... 
+...
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
@@ -454,7 +454,7 @@ spec:
 
 ## PodDisruptionBudget
 
-If defined as a related resource, `spec.selector` field value enforced to label 
+If defined as a related resource, `spec.selector` field value enforced to label
 selector of the parent resource.
 
 Example:
@@ -550,7 +550,7 @@ images:
     repository: nginx
     tag: latest
     pullPolicy: Always
-      
+
 deployments:
   main:
     related:

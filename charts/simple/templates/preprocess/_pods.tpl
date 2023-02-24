@@ -9,12 +9,14 @@
 {{- if $definition.spec.initContainers }}
   {{- $initContainers := list }}
   {{- range $containerName, $container := $definition.spec.initContainers }}
-    {{- $initContainers = append $initContainers (merge
-      (dict "name" $containerName)
-      (include "metachart.preprocess.containers" (merge (dict "params" (dict
-        "definition" $container
-      )) $context) | fromJson)
-    ) }}
+    {{- if (hasKey $container "enabled" | ternary $container.enabled true) }}
+      {{- $initContainers = append $initContainers (merge
+        (dict "name" $containerName)
+        (include "metachart.preprocess.containers" (merge (dict "params" (dict
+          "definition" $container
+        )) $context) | fromJson)
+      ) }}
+    {{- end }}
   {{- end }}
   {{- $_ := set $definition.spec "initContainers" $initContainers }}
 {{- end }}
@@ -22,12 +24,14 @@
 {{- if $definition.spec.containers }}
   {{- $containers := list }}
   {{- range $containerName, $container := $definition.spec.containers }}
-  {{- $containers = append $containers (merge
-      (dict "name" $containerName)
-      (include "metachart.preprocess.containers" (merge (dict "params" (dict
-        "definition" $container
-      )) $context) | fromJson)
-    ) }}
+    {{- if (hasKey $container "enabled" | ternary $container.enabled true) }}
+      {{- $containers = append $containers (merge
+          (dict "name" $containerName)
+          (include "metachart.preprocess.containers" (merge (dict "params" (dict
+            "definition" $container
+          )) $context) | fromJson)
+        ) }}
+    {{- end }}
   {{- end }}
   {{- $_ := set $definition.spec "containers" $containers }}
 {{- end }}
