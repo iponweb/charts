@@ -87,6 +87,16 @@ entries:
   simple:
   - apiVersion: v2
     appVersion: none
+    created: "2023-02-24T13:54:50.82107096Z"
+    description: Metachart born Helm Chart
+    digest: 988c0439bc2f8e7b821b7ac38edaf7931b6667d2684194b7aefa07b948793bae
+    name: simple
+    type: application
+    urls:
+    - https://github.com/iponweb/charts/releases/download/simple-0.1.2/simple-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: none
     created: "2023-02-22T22:26:49.015449911Z"
     description: Metachart born Helm Chart
     digest: 72f5a372e0850aad13dbaa8343367e12bd068fc02ec3507992901cec5e839199
@@ -105,4 +115,4 @@ entries:
     urls:
     - https://github.com/iponweb/charts/releases/download/simple-0.1.0/simple-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-22T22:26:49.015574511Z"
+generated: "2023-02-24T13:54:50.82110756Z"
