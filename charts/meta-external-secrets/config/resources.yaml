@@ -6,17 +6,17 @@ resources:
 
   clusterexternalsecrets:
     apiVersion: external-secrets.io/v1beta1
-    kind: ExternalSecret
+    kind: ClusterExternalSecret
     jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecret
 
   secretstores:
     apiVersion: external-secrets.io/v1beta1
-    kind: ExternalSecret
+    kind: SecretStore
     jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.SecretStore
 
   clustersecretstores:
     apiVersion: external-secrets.io/v1beta1
-    kind: ExternalSecret
+    kind: ClusterSecretStore
     jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore
 
   pushsecrets:
@@ -25,26 +25,26 @@ resources:
     jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1alpha1.PushSecret
 
   acraccesstokens:
-    apiVersion: generators.external-secrets.io/v1beta1
+    apiVersion: generators.external-secrets.io/v1alpha1
     kind: ACRAccessToken
     jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.ACRAccessToken
 
   ecrauthorizationtokens:
-    apiVersion: generators.external-secrets.io/v1beta1
+    apiVersion: generators.external-secrets.io/v1alpha1
     kind: ECRAuthorizationToken
     jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.ECRAuthorizationToken
 
   gcraccesstoken:
-    apiVersion: generators.external-secrets.io/v1beta1
+    apiVersion: generators.external-secrets.io/v1alpha1
     kind: GCRAccessToken
     jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.GCRAccessToken
 
   fakes:
-    apiVersion: generators.external-secrets.io/v1beta1
+    apiVersion: generators.external-secrets.io/v1alpha1
     kind: Fake
     jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.Fake
 
   passwords:
-    apiVersion: generators.external-secrets.io/v1beta1
+    apiVersion: generators.external-secrets.io/v1alpha1
     kind: Password
     jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.Password

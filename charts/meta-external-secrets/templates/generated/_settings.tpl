@@ -1,19 +1,19 @@
 {{- /* Resources definition */}}
 {{- define "metachart.settings" }}
 acraccesstokens:
-  apiVersion: generators.external-secrets.io/v1beta1
+  apiVersion: generators.external-secrets.io/v1alpha1
   kindCamelCase: ACRAccessToken
   preprocess: false
 clusterexternalsecrets:
   apiVersion: external-secrets.io/v1beta1
-  kindCamelCase: ExternalSecret
+  kindCamelCase: ClusterExternalSecret
   preprocess: false
 clustersecretstores:
   apiVersion: external-secrets.io/v1beta1
-  kindCamelCase: ExternalSecret
+  kindCamelCase: ClusterSecretStore
   preprocess: false
 ecrauthorizationtokens:
-  apiVersion: generators.external-secrets.io/v1beta1
+  apiVersion: generators.external-secrets.io/v1alpha1
   kindCamelCase: ECRAuthorizationToken
   preprocess: false
 externalsecrets:
@@ -21,15 +21,15 @@ externalsecrets:
   kindCamelCase: ExternalSecret
   preprocess: false
 fakes:
-  apiVersion: generators.external-secrets.io/v1beta1
+  apiVersion: generators.external-secrets.io/v1alpha1
   kindCamelCase: Fake
   preprocess: false
 gcraccesstoken:
-  apiVersion: generators.external-secrets.io/v1beta1
+  apiVersion: generators.external-secrets.io/v1alpha1
   kindCamelCase: GCRAccessToken
   preprocess: false
 passwords:
-  apiVersion: generators.external-secrets.io/v1beta1
+  apiVersion: generators.external-secrets.io/v1alpha1
   kindCamelCase: Password
   preprocess: false
 pushsecrets:
@@ -38,6 +38,6 @@ pushsecrets:
   preprocess: false
 secretstores:
   apiVersion: external-secrets.io/v1beta1
-  kindCamelCase: ExternalSecret
+  kindCamelCase: SecretStore
   preprocess: false
 {{- end }}

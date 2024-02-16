@@ -13,13 +13,13 @@ A set of resources supported by the chart
 
 | Values file key | Kind | Preprocessor |
 | --------------- | ---- | ------------ |
-| clusterexternalsecrets   | ExternalSecret | - |
-| clustersecretstores   | ExternalSecret | - |
+| clusterexternalsecrets   | ClusterExternalSecret | - |
+| clustersecretstores   | ClusterSecretStore | - |
 | externalsecrets   | ExternalSecret | - |
-| secretstores   | ExternalSecret | - |
+| secretstores   | SecretStore | - |
 
 
-## generators.external-secrets.io/v1beta1
+## generators.external-secrets.io/v1alpha1
 
 | Values file key | Kind | Preprocessor |
 | --------------- | ---- | ------------ |
