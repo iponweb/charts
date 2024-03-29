@@ -72,6 +72,17 @@ entries:
     urls:
     - https://github.com/iponweb/charts/releases/download/meta-gatekeeper-3.10.0/meta-gatekeeper-3.10.0.tgz
     version: 3.10.0
+  meta-kubernetes:
+  - apiVersion: v2
+    appVersion: none
+    created: "2024-03-29T15:11:16.598969272Z"
+    description: Metachart born Helm Chart for Kubernetes resources
+    digest: e3798405491d41dec0b386e00332dd24ce6d1dd1e2b4a37db606b0639178aafa
+    name: meta-kubernetes
+    type: application
+    urls:
+    - https://github.com/iponweb/charts/releases/download/meta-kubernetes-1.25.0/meta-kubernetes-1.25.0.tgz
+    version: 1.25.0
   meta-prometheus-operator:
   - apiVersion: v2
     appVersion: none
@@ -165,4 +176,4 @@ entries:
     urls:
     - https://github.com/iponweb/charts/releases/download/simple-0.1.0/simple-0.1.0.tgz
     version: 0.1.0
-generated: "2024-03-29T15:09:57.676885589Z"
+generated: "2024-03-29T15:11:16.599007994Z"
