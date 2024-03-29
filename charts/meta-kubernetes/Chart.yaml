@@ -1,6 +1,6 @@
 apiVersion: v2
-name: metachart
-description: Metachart born Helm Chart
+name: meta-kubernetes
+description: Metachart born Helm Chart for Kubernetes resources
 type: application
 version: "1.25.0"
 appVersion: none
