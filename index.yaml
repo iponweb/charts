@@ -106,6 +106,16 @@ entries:
   metachart:
   - apiVersion: v2
     appVersion: none
+    created: "2024-03-29T15:09:57.676806631Z"
+    description: Metachart born Helm Chart
+    digest: 5e68ece1f9ac573778cfca507c52e65d478262134f42739bf4a6a736ca17335b
+    name: metachart
+    type: application
+    urls:
+    - https://github.com/iponweb/charts/releases/download/metachart-1.25.0/metachart-1.25.0.tgz
+    version: 1.25.0
+  - apiVersion: v2
+    appVersion: none
     created: "2023-02-22T22:26:48.881871836Z"
     description: Metachart born Helm Chart for karpenter resources
     digest: a090b00c8b15a45e027cae5252b8ae7920bd09dd9ecbc6caa984b257678e0f6e
@@ -155,4 +165,4 @@ entries:
     urls:
     - https://github.com/iponweb/charts/releases/download/simple-0.1.0/simple-0.1.0.tgz
     version: 0.1.0
-generated: "2024-02-16T19:49:56.363136673Z"
+generated: "2024-03-29T15:09:57.676885589Z"
