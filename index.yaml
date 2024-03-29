@@ -72,6 +72,17 @@ entries:
     urls:
     - https://github.com/iponweb/charts/releases/download/meta-gatekeeper-3.10.0/meta-gatekeeper-3.10.0.tgz
     version: 3.10.0
+  meta-karpenter:
+  - apiVersion: v2
+    appVersion: none
+    created: "2024-03-29T15:15:37.842447953Z"
+    description: Metachart born Helm Chart for karpenter resources
+    digest: 0283e7b5899e3ab3dbabe720330e1b083a4003c01f98626f7d97f1c233c9017a
+    name: meta-karpenter
+    type: application
+    urls:
+    - https://github.com/iponweb/charts/releases/download/meta-karpenter-0.19.2/meta-karpenter-0.19.2.tgz
+    version: 0.19.2
   meta-kubernetes:
   - apiVersion: v2
     appVersion: none
@@ -176,4 +187,4 @@ entries:
     urls:
     - https://github.com/iponweb/charts/releases/download/simple-0.1.0/simple-0.1.0.tgz
     version: 0.1.0
-generated: "2024-03-29T15:11:16.599007994Z"
+generated: "2024-03-29T15:15:37.842495993Z"
