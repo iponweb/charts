@@ -2,6 +2,22 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "definitions": {
+    "io.k8s.api.admissionregistration.v1.MatchCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "expression": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "expression"
+      ],
+      "type": "object"
+    },
     "io.k8s.api.admissionregistration.v1.MutatingWebhook": {
       "additionalProperties": false,
       "properties": {
@@ -16,6 +32,18 @@
         },
         "failurePolicy": {
           "type": "string"
+        },
+        "matchConditions": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.MatchCondition"
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "name"
+          ],
+          "x-kubernetes-list-type": "map",
+          "x-kubernetes-patch-merge-key": "name",
+          "x-kubernetes-patch-strategy": "merge"
         },
         "matchPolicy": {
           "type": "string"
@@ -128,6 +156,18 @@
         },
         "failurePolicy": {
           "type": "string"
+        },
+        "matchConditions": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.MatchCondition"
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "name"
+          ],
+          "x-kubernetes-list-type": "map",
+          "x-kubernetes-patch-merge-key": "name",
+          "x-kubernetes-patch-strategy": "merge"
         },
         "matchPolicy": {
           "type": "string"
@@ -1108,8 +1148,18 @@
         "readinessProbe": {
           "$ref": "#/definitions/io.k8s.api.core.v1.Probe"
         },
+        "resizePolicy": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.ContainerResizePolicy"
+          },
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
+        },
         "resources": {
           "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements"
+        },
+        "restartPolicy": {
+          "type": "string"
         },
         "securityContext": {
           "$ref": "#/definitions/io.k8s.api.core.v1.SecurityContext"
@@ -1180,6 +1230,22 @@
       },
       "required": [
         "containerPort"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.ContainerResizePolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "resourceName": {
+          "type": "string"
+        },
+        "restartPolicy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "resourceName",
+        "restartPolicy"
       ],
       "type": "object"
     },
@@ -1356,8 +1422,18 @@
         "readinessProbe": {
           "$ref": "#/definitions/io.k8s.api.core.v1.Probe"
         },
+        "resizePolicy": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.ContainerResizePolicy"
+          },
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
+        },
         "resources": {
           "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements"
+        },
+        "restartPolicy": {
+          "type": "string"
         },
         "securityContext": {
           "$ref": "#/definitions/io.k8s.api.core.v1.SecurityContext"
@@ -2169,6 +2245,13 @@
           },
           "type": "array"
         },
+        "allocatedResourceStatuses": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object",
+          "x-kubernetes-map-type": "granular"
+        },
         "allocatedResources": {
           "additionalProperties": {
             "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
@@ -2190,9 +2273,6 @@
           "x-kubernetes-patch-strategy": "merge"
         },
         "phase": {
-          "type": "string"
-        },
-        "resizeStatus": {
           "type": "string"
         }
       },
@@ -3897,6 +3977,20 @@
       },
       "type": "object"
     },
+    "io.k8s.api.flowcontrol.v1beta3.ExemptPriorityLevelConfiguration": {
+      "additionalProperties": false,
+      "properties": {
+        "lendablePercent": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nominalConcurrencyShares": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
     "io.k8s.api.flowcontrol.v1beta3.FlowDistinguisherMethod": {
       "additionalProperties": false,
       "properties": {
@@ -4060,6 +4154,9 @@
     "io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfigurationSpec": {
       "additionalProperties": false,
       "properties": {
+        "exempt": {
+          "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta3.ExemptPriorityLevelConfiguration"
+        },
         "limited": {
           "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta3.LimitedPriorityLevelConfiguration"
         },
@@ -4075,6 +4172,7 @@
         {
           "discriminator": "type",
           "fields-to-discriminateBy": {
+            "exempt": "Exempt",
             "limited": "Limited"
           }
         }
@@ -5069,7 +5167,16 @@
     "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ValidationRule": {
       "additionalProperties": false,
       "properties": {
+        "fieldPath": {
+          "type": "string"
+        },
         "message": {
+          "type": "string"
+        },
+        "messageExpression": {
+          "type": "string"
+        },
+        "reason": {
           "type": "string"
         },
         "rule": {
@@ -5151,9 +5258,7 @@
       "additionalProperties": false,
       "properties": {
         "key": {
-          "type": "string",
-          "x-kubernetes-patch-merge-key": "key",
-          "x-kubernetes-patch-strategy": "merge"
+          "type": "string"
         },
         "operator": {
           "type": "string"
@@ -5422,8 +5527,18 @@
         "readinessProbe": {
           "$ref": "#/definitions/io.k8s.api.core.v1.Probe"
         },
+        "resizePolicy": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.ContainerResizePolicy"
+          },
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
+        },
         "resources": {
           "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements"
+        },
+        "restartPolicy": {
+          "type": "string"
         },
         "securityContext": {
           "$ref": "#/definitions/io.k8s.api.core.v1.SecurityContext"
@@ -6123,6 +6238,10 @@
           "format": "int32",
           "type": "integer"
         },
+        "backoffLimitPerIndex": {
+          "format": "int32",
+          "type": "integer"
+        },
         "completionMode": {
           "type": "string"
         },
@@ -6133,6 +6252,10 @@
         "manualSelector": {
           "type": "boolean"
         },
+        "maxFailedIndexes": {
+          "format": "int32",
+          "type": "integer"
+        },
         "parallelism": {
           "format": "int32",
           "type": "integer"
@@ -6142,6 +6265,9 @@
         },
         "podFailurePolicy": {
           "$ref": "#/definitions/io.k8s.api.batch.v1.PodFailurePolicy"
+        },
+        "podReplacementPolicy": {
+          "type": "string"
         },
         "selector": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
