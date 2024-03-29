@@ -40,7 +40,7 @@ A set of resources supported by the chart
 | statefulsets   | StatefulSet | - |
 
 
-## autoscaling/v1
+## autoscaling/v2
 
 | Values file key | Kind | Preprocessor |
 | --------------- | ---- | ------------ |
@@ -60,6 +60,14 @@ A set of resources supported by the chart
 | Values file key | Kind | Preprocessor |
 | --------------- | ---- | ------------ |
 | certificatesigningrequests   | CertificateSigningRequest | - |
+
+
+## flowcontrol.apiserver.k8s.io/v1beta3
+
+| Values file key | Kind | Preprocessor |
+| --------------- | ---- | ------------ |
+| flowschemas   | FlowSchema | - |
+| prioritylevelconfigurations   | PriorityLevelConfiguration | - |
 
 
 ## networking.k8s.io/v1
@@ -99,6 +107,7 @@ A set of resources supported by the chart
 
 | Values file key | Kind | Preprocessor |
 | --------------- | ---- | ------------ |
+| csidrivers   | CSIDriver | - |
 | storageclasses   | StorageClass | - |
 
 
@@ -107,9 +116,13 @@ A set of resources supported by the chart
 | Values file key | Kind | Preprocessor |
 | --------------- | ---- | ------------ |
 | configmaps   | ConfigMap | - |
+| limitranges   | LimitRange | - |
+| namespaces   | Namespace | - |
 | persistentvolumeclaims   | PersistentVolumeClaim | - |
 | persistentvolumes   | PersistentVolume | - |
 | pods   | Pod | - |
+| podtemplates   | PodTemplate | - |
+| resourcequotas   | ResourceQuota | - |
 | secrets   | Secret | - |
 | serviceaccounts   | ServiceAccount | - |
 | services   | Service | - |

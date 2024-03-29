@@ -63,8 +63,28 @@ resources:
     apiVersion: storage.k8s.io/v1
     kind: StorageClass
     jsonSchemaRef: metachart.api.io.k8s.api.storage.v1.StorageClass
+  csidrivers:
+    apiVersion: storage.k8s.io/v1
+    kind: CSIDriver
+    jsonSchemaRef: metachart.api.io.k8s.api.storage.v1.CSIDriver
 
   #: v1
+  limitranges:
+    apiVersion: v1
+    kind: LimitRange
+    jsonSchemaRef: metachart.api.io.k8s.api.core.v1.LimitRange
+  namespaces:
+    apiVersion: v1
+    kind: Namespace
+    jsonSchemaRef: metachart.api.io.k8s.api.core.v1.Namespace
+  podtemplates:
+    apiVersion: v1
+    kind: PodTemplate
+    jsonSchemaRef: metachart.api.io.k8s.api.core.v1.PodTemplate
+  resourcequotas:
+    apiVersion: v1
+    kind: ResourceQuota
+    jsonSchemaRef: metachart.api.io.k8s.api.core.v1.ResourceQuota
   serviceaccounts:
     apiVersion: v1
     kind: ServiceAccount
@@ -113,11 +133,11 @@ resources:
     kind: StatefulSet
     jsonSchemaRef: metachart.api.io.k8s.api.apps.v1.StatefulSet
 
-  #: autoscaling/v1
+  #: autoscaling/v2
   horizontalpodautoscalers:
-    apiVersion: autoscaling/v1
+    apiVersion: autoscaling/v2
     kind: HorizontalPodAutoscaler
-    jsonSchemaRef: metachart.api.io.k8s.api.autoscaling.v1.HorizontalPodAutoscaler
+    jsonSchemaRef: metachart.api.io.k8s.api.autoscaling.v2.HorizontalPodAutoscaler
 
   #: batch/v1
   jobs:
@@ -146,3 +166,13 @@ resources:
     apiVersion: scheduling.k8s.io/v1
     kind: PriorityClass
     jsonSchemaRef: metachart.api.io.k8s.api.scheduling.v1.PriorityClass
+
+  #: flowcontrol.apiserver.k8s.io/v1beta3
+  flowschemas:
+    apiVersion: flowcontrol.apiserver.k8s.io/v1beta3
+    kind: FlowSchema
+    jsonSchemaRef: metachart.api.io.k8s.api.flowcontrol.v1beta3.FlowSchema
+  prioritylevelconfigurations:
+    apiVersion: flowcontrol.apiserver.k8s.io/v1beta3
+    kind: PriorityLevelConfiguration
+    jsonSchemaRef: metachart.api.io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfiguration

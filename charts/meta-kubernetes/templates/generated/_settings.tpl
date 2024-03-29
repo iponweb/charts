@@ -24,6 +24,10 @@ cronjobs:
   apiVersion: batch/v1
   kindCamelCase: CronJob
   preprocess: false
+csidrivers:
+  apiVersion: storage.k8s.io/v1
+  kindCamelCase: CSIDriver
+  preprocess: false
 customresourcedefinitions:
   apiVersion: apiextensions.k8s.io/v1
   kindCamelCase: CustomResourceDefinition
@@ -36,8 +40,12 @@ deployments:
   apiVersion: apps/v1
   kindCamelCase: Deployment
   preprocess: false
+flowschemas:
+  apiVersion: flowcontrol.apiserver.k8s.io/v1beta3
+  kindCamelCase: FlowSchema
+  preprocess: false
 horizontalpodautoscalers:
-  apiVersion: autoscaling/v1
+  apiVersion: autoscaling/v2
   kindCamelCase: HorizontalPodAutoscaler
   preprocess: false
 ingressclasses:
@@ -52,9 +60,17 @@ jobs:
   apiVersion: batch/v1
   kindCamelCase: Job
   preprocess: false
+limitranges:
+  apiVersion: v1
+  kindCamelCase: LimitRange
+  preprocess: false
 mutatingwebhookconfigurations:
   apiVersion: admissionregistration.k8s.io/v1
   kindCamelCase: MutatingWebhookConfiguration
+  preprocess: false
+namespaces:
+  apiVersion: v1
+  kindCamelCase: Namespace
   preprocess: false
 networkpolicies:
   apiVersion: networking.k8s.io/v1
@@ -76,9 +92,21 @@ pods:
   apiVersion: v1
   kindCamelCase: Pod
   preprocess: false
+podtemplates:
+  apiVersion: v1
+  kindCamelCase: PodTemplate
+  preprocess: false
 priorityclasses:
   apiVersion: scheduling.k8s.io/v1
   kindCamelCase: PriorityClass
+  preprocess: false
+prioritylevelconfigurations:
+  apiVersion: flowcontrol.apiserver.k8s.io/v1beta3
+  kindCamelCase: PriorityLevelConfiguration
+  preprocess: false
+resourcequotas:
+  apiVersion: v1
+  kindCamelCase: ResourceQuota
   preprocess: false
 rolebindings:
   apiVersion: rbac.authorization.k8s.io/v1
