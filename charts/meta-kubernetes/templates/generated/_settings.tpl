@@ -50,7 +50,7 @@ horizontalpodautoscalers:
   preprocess: false
 ingressclasses:
   apiVersion: networking.k8s.io/v1
-  kindCamelCase: Ingress
+  kindCamelCase: IngressClass
   preprocess: false
 ingresses:
   apiVersion: networking.k8s.io/v1
@@ -74,7 +74,7 @@ namespaces:
   preprocess: false
 networkpolicies:
   apiVersion: networking.k8s.io/v1
-  kindCamelCase: Ingress
+  kindCamelCase: NetworkPolicy
   preprocess: false
 persistentvolumeclaims:
   apiVersion: v1

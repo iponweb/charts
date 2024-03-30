@@ -74,9 +74,9 @@ A set of resources supported by the chart
 
 | Values file key | Kind | Preprocessor |
 | --------------- | ---- | ------------ |
-| ingressclasses   | Ingress | - |
+| ingressclasses   | IngressClass | - |
 | ingresses   | Ingress | - |
-| networkpolicies   | Ingress | - |
+| networkpolicies   | NetworkPolicy | - |
 
 
 ## policy/v1
