@@ -51,11 +51,11 @@ resources:
     jsonSchemaRef: metachart.api.io.k8s.api.networking.v1.Ingress
   ingressclasses:
     apiVersion: networking.k8s.io/v1
-    kind: Ingress
+    kind: IngressClass
     jsonSchemaRef: metachart.api.io.k8s.api.networking.v1.IngressClass
   networkpolicies:
     apiVersion: networking.k8s.io/v1
-    kind: Ingress
+    kind: NetworkPolicy
     jsonSchemaRef: metachart.api.io.k8s.api.networking.v1.NetworkPolicy
 
   #: storage.k8s.io/v1
