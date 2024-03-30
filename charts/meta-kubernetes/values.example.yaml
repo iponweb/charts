@@ -96,19 +96,6 @@ configmaps:
 
 deployments:
   nginx:
-
-    #: Related resources which selectors will be filled automatically to
-    #: be linked with the parent resource
-    related:
-      podmonitors:
-        nginx:
-          spec:
-            #: Set to empty because the field is required in the schema
-            selector: {}
-
-            podMetricsEndpoints:
-              - port: metrics
-
     spec:
       pod:
         metadata:

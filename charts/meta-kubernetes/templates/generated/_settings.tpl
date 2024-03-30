@@ -23,7 +23,7 @@ configmaps:
 cronjobs:
   apiVersion: batch/v1
   kindCamelCase: CronJob
-  preprocess: false
+  preprocess: true
 csidrivers:
   apiVersion: storage.k8s.io/v1
   kindCamelCase: CSIDriver
@@ -35,11 +35,11 @@ customresourcedefinitions:
 daemonsets:
   apiVersion: apps/v1
   kindCamelCase: DaemonSet
-  preprocess: false
+  preprocess: true
 deployments:
   apiVersion: apps/v1
   kindCamelCase: Deployment
-  preprocess: false
+  preprocess: true
 flowschemas:
   apiVersion: flowcontrol.apiserver.k8s.io/v1beta3
   kindCamelCase: FlowSchema
@@ -59,7 +59,7 @@ ingresses:
 jobs:
   apiVersion: batch/v1
   kindCamelCase: Job
-  preprocess: false
+  preprocess: true
 limitranges:
   apiVersion: v1
   kindCamelCase: LimitRange
@@ -87,11 +87,11 @@ persistentvolumes:
 poddisruptionbudgets:
   apiVersion: policy/v1
   kindCamelCase: PodDisruptionBudget
-  preprocess: false
+  preprocess: true
 pods:
   apiVersion: v1
   kindCamelCase: Pod
-  preprocess: false
+  preprocess: true
 podtemplates:
   apiVersion: v1
   kindCamelCase: PodTemplate
@@ -127,11 +127,11 @@ serviceaccounts:
 services:
   apiVersion: v1
   kindCamelCase: Service
-  preprocess: false
+  preprocess: true
 statefulsets:
   apiVersion: apps/v1
   kindCamelCase: StatefulSet
-  preprocess: false
+  preprocess: true
 storageclasses:
   apiVersion: storage.k8s.io/v1
   kindCamelCase: StorageClass
