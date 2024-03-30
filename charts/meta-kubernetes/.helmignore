@@ -1,3 +1,4 @@
 config/*
 values.schema.full.json
 values.example.yaml
+resources/*
