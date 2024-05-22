@@ -1,4 +1,9 @@
 resources:
+  images:
+    template: false
+    jsonSchemaRef: metachart.api.internal.Image
+    defaults: false
+
   #: rbac.authorization.k8s.io/v1
   roles:
     apiVersion: rbac.authorization.k8s.io/v1

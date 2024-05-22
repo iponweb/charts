@@ -1,0 +1,154 @@
+#: Additional context for string values rendering
+context:
+  hostname: "example.com"
+
+#: Images to be used by the release
+images:
+  nginx:
+    repository: nginx
+    tag: latest
+    pullPolicy: Always
+
+  nginx-prometheus-exporter:
+    repository: nginx/nginx-prometheus-exporter
+    tag: v0.11.0
+    pullPolicy: Always
+
+  alpine:
+    repository: alpine
+    tag: latest
+    pullPolicy: Always
+
+settings:
+  global:
+    #: Labels and annotations to be added to all release resources
+    labels:
+      global-label: global-label-value
+    annotations:
+      global-annotation: global-annotation-value
+
+  pods:
+    #: Defaults to be added to all release pods including produced by
+    #: `deployments` and other kinds containing Pod definition
+    defaults:
+      metadata:
+        labels:
+          pods-defaults-label: pods-defaults-label-value
+
+      spec:
+        #: Default value for `volumes` will be concatenated with the value
+        #; defined in the particular pod resource
+        volumes:
+          - name: configmap-nginx
+            configMap:
+              #: Refer to the `configmaps.nginx` resource
+              name: '{{ include "metachart.fullname" $ }}-nginx'
+
+        containers: {}
+
+  #: Defaults to be added to all release pod containers including produced by
+  #: `deployments` and other kinds containing Pod definition
+  containers:
+    defaults:
+      imageRef: "nginx"
+
+      #: Default value for `volumeMounts` will be concatenated with the value
+      #; defined in the particular pod container
+      volumeMounts:
+        - name: configmap-nginx
+          mountPath: /etc/nginx/conf.d
+
+  #: `deployments` resources defaults
+  deployments:
+    defaults:
+      spec:
+        pod:
+          metadata:
+            #: Re-create pods of all `deployments` resources on any
+            #: `configmaps` resource change if not overridden
+            checksums:
+              configmaps: "*"
+
+configmaps:
+  nginx:
+    data:
+      00-metrics.conf: |
+        server {
+          listen 8080;
+          location /stub_status {
+            stub_status on;
+            access_log  off;
+            allow       127.0.0.1;
+            deny        all;
+          }
+        }
+
+      01-default.conf: |
+        server {
+          listen      80;
+          server_name {{ $.Values.context.hostname }};
+
+          location / {
+            root   /usr/share/nginx/html;
+            return 404;
+          }
+        }
+
+deployments:
+  nginx:
+    spec:
+      pod:
+        metadata:
+          #: Re-create pods only on particular `configmaps` resource change
+          checksums:
+            configmaps:
+              - nginx
+        spec:
+          containers:
+            nginx:
+              #: Use `nginx` images by reference
+              imageRef: nginx
+
+              ports:
+                - name: http
+                  containerPort: 80
+
+            metrics-nginx:
+              #: Use `nginx-prometheus-exporter` images by reference
+              imageRef: nginx-prometheus-exporter
+
+              ports:
+                - name: metrics
+                  containerPort: 9113
+              command:
+                - nginx-prometheus-exporter
+                - -nginx.scrape-uri=http://localhost:8080/stub_status
+
+            debug:
+              #: Disable container by default
+              enabled: false
+
+              imageRef: alpine
+              tty: true
+              command:
+                - cat
+
+ingresses:
+  nginx:
+    #: Whether the particular ingress resource must be created
+    enabled: true
+
+    spec:
+      rules:
+
+        #: Use `context` as host value
+        - host: '{{ $.Values.context.hostname }}'
+          http:
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: '{{ include "metachart.fullname" $ }}-nginx'
+                    port:
+                      number: 80
