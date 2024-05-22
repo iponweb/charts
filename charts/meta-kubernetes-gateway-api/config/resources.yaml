@@ -1,0 +1,40 @@
+resources:
+  #: gateway.networking.k8s.io/v1alpha2
+  backendlbpolicies:
+    apiVersion: gateway.networking.k8s.io/v1alpha2
+    kind: BackendLBPolicy
+    jsonSchemaRef: metachart.api.io.k8s.sigs.gateway-api.apis.v1alpha2.BackendLBPolicy
+  referencegrants:
+    apiVersion: gateway.networking.k8s.io/v1alpha2
+    kind: ReferenceGrant
+    jsonSchemaRef: metachart.api.io.k8s.sigs.gateway-api.apis.v1alpha2.ReferenceGrant
+  tcproutes:
+    apiVersion: gateway.networking.k8s.io/v1alpha2
+    kind: TCPRoute
+    jsonSchemaRef: metachart.api.io.k8s.sigs.gateway-api.apis.v1alpha2.TCPRoute
+  tlsroutes:
+    apiVersion: gateway.networking.k8s.io/v1alpha2
+    kind: TLSRoute
+    jsonSchemaRef: metachart.api.io.k8s.sigs.gateway-api.apis.v1alpha2.TLSRoute
+  udproutes:
+    apiVersion: gateway.networking.k8s.io/v1alpha2
+    kind: UDPRoute
+    jsonSchemaRef: metachart.api.io.k8s.sigs.gateway-api.apis.v1alpha2.UDPRoute
+
+  #: gateway.networking.k8s.io/v1
+  gatewayclasses:
+    apiVersion: gateway.networking.k8s.io/v1
+    kind: GatewayClass
+    jsonSchemaRef: metachart.api.io.k8s.sigs.gateway-api.apis.v1.GatewayClass
+  gateways:
+    apiVersion: gateway.networking.k8s.io/v1
+    kind: Gateway
+    jsonSchemaRef: metachart.api.io.k8s.sigs.gateway-api.apis.v1.Gateway
+  httproutes:
+    apiVersion: gateway.networking.k8s.io/v1
+    kind: HTTPRoute
+    jsonSchemaRef: metachart.api.io.k8s.sigs.gateway-api.apis.v1.HTTPRoute
+  grpcroutes:
+    apiVersion: gateway.networking.k8s.io/v1
+    kind: GRPCRoute
+    jsonSchemaRef: metachart.api.io.k8s.sigs.gateway-api.apis.v1.GRPCRoute

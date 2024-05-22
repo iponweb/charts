@@ -1,0 +1,68 @@
+.defaults:
+  disallowed: &defaultDisallowed
+    - status
+    - kind
+    - apiVersion
+  properties: &defaultProperties
+    enabled: metachart.interface.boolean
+    metadata: metachart.api.meta.v1.ObjectMeta
+  rootKey: &defaultRootKey
+    disallowed: *defaultDisallowed
+    properties: *defaultProperties
+
+definitions:
+  - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/kubernetes/v1.30.1-strict/_definitions.json
+  - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/kubernetes-gateway-api/v1.1.0-strict/_definitions.json
+
+rules:
+  #: Common
+  #:
+  #: meta.v1.ObjectMeta
+  - target: metachart.api.meta.v1.ObjectMeta
+    source: io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta
+    allowed:
+      - annotations
+      - labels
+      - finalizers
+      - namespace
+      - name
+    properties:
+      checksums: metachart.interface.checksums
+
+  #: gateway.networking.k8s.io/v1alpha2
+  - target: metachart.api.io.k8s.sigs.gateway-api.apis.v1alpha2.BackendLBPolicy
+    source: io.k8s.sigs.gateway-api.apis.v1alpha2.BackendLBPolicy
+    <<: *defaultRootKey
+
+  - target: metachart.api.io.k8s.sigs.gateway-api.apis.v1alpha2.ReferenceGrant
+    source: io.k8s.sigs.gateway-api.apis.v1alpha2.ReferenceGrant
+    <<: *defaultRootKey
+
+  - target: metachart.api.io.k8s.sigs.gateway-api.apis.v1alpha2.TCPRoute
+    source: io.k8s.sigs.gateway-api.apis.v1alpha2.TCPRoute
+    <<: *defaultRootKey
+
+  - target: metachart.api.io.k8s.sigs.gateway-api.apis.v1alpha2.TLSRoute
+    source: io.k8s.sigs.gateway-api.apis.v1alpha2.TLSRoute
+    <<: *defaultRootKey
+
+  - target: metachart.api.io.k8s.sigs.gateway-api.apis.v1alpha2.UDPRoute
+    source: io.k8s.sigs.gateway-api.apis.v1alpha2.UDPRoute
+    <<: *defaultRootKey
+
+  #: gateway.networking.k8s.io/v1
+  - target: metachart.api.io.k8s.sigs.gateway-api.apis.v1.GatewayClass
+    source: io.k8s.sigs.gateway-api.apis.v1.GatewayClass
+    <<: *defaultRootKey
+
+  - target: metachart.api.io.k8s.sigs.gateway-api.apis.v1.Gateway
+    source: io.k8s.sigs.gateway-api.apis.v1.Gateway
+    <<: *defaultRootKey
+
+  - target: metachart.api.io.k8s.sigs.gateway-api.apis.v1.HTTPRoute
+    source: io.k8s.sigs.gateway-api.apis.v1.HTTPRoute
+    <<: *defaultRootKey
+
+  - target: metachart.api.io.k8s.sigs.gateway-api.apis.v1.GRPCRoute
+    source: io.k8s.sigs.gateway-api.apis.v1.GRPCRoute
+    <<: *defaultRootKey
