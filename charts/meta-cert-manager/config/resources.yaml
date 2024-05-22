@@ -1,0 +1,26 @@
+resources:
+  challenges:
+    apiVersion: acme.cert-manager.io/v1
+    kind: Challenge
+    jsonSchemaRef: metachart.api.io.cert-manager.pkg.apis.acme.v1.Challenge
+  orders:
+    apiVersion: acme.cert-manager.io/v1
+    kind: Order
+    jsonSchemaRef: metachart.api.io.cert-manager.pkg.apis.acme.v1.Order
+
+  certificaterequests:
+    apiVersion: cert-manager.io/v1
+    kind: CertificateRequest
+    jsonSchemaRef: metachart.api.io.cert-manager.pkg.apis.certmanager.v1.CertificateRequest
+  certificates:
+    apiVersion: cert-manager.io/v1
+    kind: Certificate
+    jsonSchemaRef: metachart.api.io.cert-manager.pkg.apis.certmanager.v1.Certificate
+  clusterissuers:
+    apiVersion: cert-manager.io/v1
+    kind: ClusterIssuer
+    jsonSchemaRef: metachart.api.io.cert-manager.pkg.apis.certmanager.v1.ClusterIssuer
+  issuers:
+    apiVersion: cert-manager.io/v1
+    kind: Issuer
+    jsonSchemaRef: metachart.api.io.cert-manager.pkg.apis.certmanager.v1.Issuer

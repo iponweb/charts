@@ -1,0 +1,1988 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "definitions": {
+    "io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolver": {
+      "additionalProperties": false,
+      "properties": {
+        "dns01": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverDNS01"
+        },
+        "http01": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.CertificateDNSNameSelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverDNS01": {
+      "additionalProperties": false,
+      "properties": {
+        "acmeDNS": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderAcmeDNS"
+        },
+        "akamai": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderAkamai"
+        },
+        "azureDNS": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderAzureDNS"
+        },
+        "cloudDNS": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderCloudDNS"
+        },
+        "cloudflare": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderCloudflare"
+        },
+        "cnameStrategy": {
+          "type": "string"
+        },
+        "digitalocean": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderDigitalOcean"
+        },
+        "rfc2136": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderRFC2136"
+        },
+        "route53": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderRoute53"
+        },
+        "webhook": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderWebhook"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01": {
+      "additionalProperties": false,
+      "properties": {
+        "gatewayHTTPRoute": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01GatewayHTTPRoute"
+        },
+        "ingress": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01Ingress"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01GatewayHTTPRoute": {
+      "additionalProperties": false,
+      "properties": {
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "parentRefs": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.sigs.gateway-api.apis.v1.ParentReference",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "serviceType": {
+          "enum": [
+            "ClusterIP",
+            "ExternalName",
+            "LoadBalancer",
+            "NodePort"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01Ingress": {
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "type": "string"
+        },
+        "ingressClassName": {
+          "type": "string"
+        },
+        "ingressTemplate": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01IngressTemplate"
+        },
+        "name": {
+          "type": "string"
+        },
+        "podTemplate": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01IngressPodTemplate"
+        },
+        "serviceType": {
+          "enum": [
+            "ClusterIP",
+            "ExternalName",
+            "LoadBalancer",
+            "NodePort"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01IngressObjectMeta": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01IngressPodObjectMeta": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01IngressPodSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "affinity": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Affinity"
+        },
+        "imagePullSecrets": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "nodeSelector": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "priorityClassName": {
+          "type": "string"
+        },
+        "serviceAccountName": {
+          "type": "string"
+        },
+        "tolerations": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Toleration",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01IngressPodTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "metadata": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01IngressPodObjectMeta",
+          "default": {}
+        },
+        "spec": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01IngressPodSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01IngressTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "metadata": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolverHTTP01IngressObjectMeta",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEExternalAccountBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "keyAlgorithm": {
+          "type": "string"
+        },
+        "keyID": {
+          "default": "",
+          "type": "string"
+        },
+        "keySecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "keyID",
+        "keySecretRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEIssuer": {
+      "additionalProperties": false,
+      "properties": {
+        "caBundle": {
+          "format": "byte",
+          "type": "string"
+        },
+        "disableAccountKeyGeneration": {
+          "type": "boolean"
+        },
+        "email": {
+          "type": "string"
+        },
+        "enableDurationFeature": {
+          "type": "boolean"
+        },
+        "externalAccountBinding": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEExternalAccountBinding"
+        },
+        "preferredChain": {
+          "type": "string"
+        },
+        "privateKeySecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "server": {
+          "default": "",
+          "type": "string"
+        },
+        "skipTLSVerify": {
+          "type": "boolean"
+        },
+        "solvers": {
+          "items": {
+            "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolver",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "server",
+        "privateKeySecretRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderAcmeDNS": {
+      "additionalProperties": false,
+      "properties": {
+        "accountSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "host": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "host",
+        "accountSecretRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderAkamai": {
+      "additionalProperties": false,
+      "properties": {
+        "accessTokenSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "clientSecretSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "clientTokenSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "serviceConsumerDomain": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "serviceConsumerDomain",
+        "clientTokenSecretRef",
+        "clientSecretSecretRef",
+        "accessTokenSecretRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderAzureDNS": {
+      "additionalProperties": false,
+      "properties": {
+        "clientID": {
+          "type": "string"
+        },
+        "clientSecretSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector"
+        },
+        "environment": {
+          "type": "string"
+        },
+        "hostedZoneName": {
+          "type": "string"
+        },
+        "managedIdentity": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.AzureManagedIdentity"
+        },
+        "resourceGroupName": {
+          "default": "",
+          "type": "string"
+        },
+        "subscriptionID": {
+          "default": "",
+          "type": "string"
+        },
+        "tenantID": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "subscriptionID",
+        "resourceGroupName"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderCloudDNS": {
+      "additionalProperties": false,
+      "properties": {
+        "hostedZoneName": {
+          "type": "string"
+        },
+        "project": {
+          "default": "",
+          "type": "string"
+        },
+        "serviceAccountSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector"
+        }
+      },
+      "required": [
+        "project"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderCloudflare": {
+      "additionalProperties": false,
+      "properties": {
+        "apiKeySecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector"
+        },
+        "apiTokenSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderDigitalOcean": {
+      "additionalProperties": false,
+      "properties": {
+        "tokenSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "tokenSecretRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderRFC2136": {
+      "additionalProperties": false,
+      "properties": {
+        "nameserver": {
+          "default": "",
+          "type": "string"
+        },
+        "tsigAlgorithm": {
+          "type": "string"
+        },
+        "tsigKeyName": {
+          "type": "string"
+        },
+        "tsigSecretSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "nameserver"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderRoute53": {
+      "additionalProperties": false,
+      "properties": {
+        "accessKeyID": {
+          "type": "string"
+        },
+        "accessKeyIDSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector"
+        },
+        "hostedZoneID": {
+          "type": "string"
+        },
+        "region": {
+          "default": "",
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "secretAccessKeySecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "region"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ACMEIssuerDNS01ProviderWebhook": {
+      "additionalProperties": false,
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON"
+        },
+        "groupName": {
+          "default": "",
+          "type": "string"
+        },
+        "solverName": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "groupName",
+        "solverName"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.AzureManagedIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "clientID": {
+          "type": "string"
+        },
+        "resourceID": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.CertificateDNSNameSelector": {
+      "additionalProperties": false,
+      "properties": {
+        "dnsNames": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dnsZones": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "matchLabels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.ChallengeSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "authorizationURL": {
+          "default": "",
+          "type": "string"
+        },
+        "dnsName": {
+          "default": "",
+          "type": "string"
+        },
+        "issuerRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.ObjectReference",
+          "default": {}
+        },
+        "key": {
+          "default": "",
+          "type": "string"
+        },
+        "solver": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEChallengeSolver",
+          "default": {}
+        },
+        "token": {
+          "default": "",
+          "type": "string"
+        },
+        "type": {
+          "default": "",
+          "type": "string"
+        },
+        "url": {
+          "default": "",
+          "type": "string"
+        },
+        "wildcard": {
+          "default": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "url",
+        "authorizationURL",
+        "dnsName",
+        "type",
+        "token",
+        "key",
+        "solver",
+        "issuerRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.acme.v1.OrderSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "commonName": {
+          "type": "string"
+        },
+        "dnsNames": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "duration": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+        },
+        "ipAddresses": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "issuerRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.ObjectReference",
+          "default": {}
+        },
+        "request": {
+          "format": "byte",
+          "type": "string"
+        }
+      },
+      "required": [
+        "request",
+        "issuerRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.CAIssuer": {
+      "additionalProperties": false,
+      "properties": {
+        "crlDistributionPoints": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "issuingCertificateURLs": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ocspServers": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "secretName": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "secretName"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.CertificateAdditionalOutputFormat": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.CertificateKeystores": {
+      "additionalProperties": false,
+      "properties": {
+        "jks": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.JKSKeystore"
+        },
+        "pkcs12": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.PKCS12Keystore"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.CertificatePrivateKey": {
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "type": "string"
+        },
+        "encoding": {
+          "type": "string"
+        },
+        "rotationPolicy": {
+          "type": "string"
+        },
+        "size": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.CertificateRequestSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "duration": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+        },
+        "extra": {
+          "additionalProperties": {
+            "items": {
+              "default": "",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": "object"
+        },
+        "groups": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
+        },
+        "isCA": {
+          "type": "boolean"
+        },
+        "issuerRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.ObjectReference",
+          "default": {}
+        },
+        "request": {
+          "format": "byte",
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        },
+        "usages": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "issuerRef",
+        "request"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.CertificateSecretTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.CertificateSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "additionalOutputFormats": {
+          "items": {
+            "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.CertificateAdditionalOutputFormat",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "commonName": {
+          "type": "string"
+        },
+        "dnsNames": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "duration": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+        },
+        "emailAddresses": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "encodeUsagesInRequest": {
+          "type": "boolean"
+        },
+        "ipAddresses": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "isCA": {
+          "type": "boolean"
+        },
+        "issuerRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.ObjectReference",
+          "default": {}
+        },
+        "keystores": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.CertificateKeystores"
+        },
+        "literalSubject": {
+          "type": "string"
+        },
+        "nameConstraints": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.NameConstraints"
+        },
+        "otherNames": {
+          "items": {
+            "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.OtherName",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "privateKey": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.CertificatePrivateKey"
+        },
+        "renewBefore": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+        },
+        "revisionHistoryLimit": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "secretName": {
+          "default": "",
+          "type": "string"
+        },
+        "secretTemplate": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.CertificateSecretTemplate"
+        },
+        "subject": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.X509Subject"
+        },
+        "uris": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "usages": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "secretName",
+        "issuerRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.IssuerSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "acme": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ACMEIssuer"
+        },
+        "ca": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.CAIssuer"
+        },
+        "selfSigned": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.SelfSignedIssuer"
+        },
+        "vault": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.VaultIssuer"
+        },
+        "venafi": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.VenafiIssuer"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.JKSKeystore": {
+      "additionalProperties": false,
+      "properties": {
+        "create": {
+          "default": false,
+          "type": "boolean"
+        },
+        "passwordSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "create",
+        "passwordSecretRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.NameConstraintItem": {
+      "additionalProperties": false,
+      "properties": {
+        "dnsDomains": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "emailAddresses": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ipRanges": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "uriDomains": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.NameConstraints": {
+      "additionalProperties": false,
+      "properties": {
+        "critical": {
+          "type": "boolean"
+        },
+        "excluded": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.NameConstraintItem"
+        },
+        "permitted": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.NameConstraintItem"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.OtherName": {
+      "additionalProperties": false,
+      "properties": {
+        "oid": {
+          "type": "string"
+        },
+        "utf8Value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.PKCS12Keystore": {
+      "additionalProperties": false,
+      "properties": {
+        "create": {
+          "default": false,
+          "type": "boolean"
+        },
+        "passwordSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "profile": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "create",
+        "passwordSecretRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.SelfSignedIssuer": {
+      "additionalProperties": false,
+      "properties": {
+        "crlDistributionPoints": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.ServiceAccountRef": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.VaultAppRole": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "default": "",
+          "type": "string"
+        },
+        "roleId": {
+          "default": "",
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "path",
+        "roleId",
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.VaultAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "appRole": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.VaultAppRole"
+        },
+        "kubernetes": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.VaultKubernetesAuth"
+        },
+        "tokenSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.VaultIssuer": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.VaultAuth",
+          "default": {}
+        },
+        "caBundle": {
+          "format": "byte",
+          "type": "string"
+        },
+        "caBundleSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "path": {
+          "default": "",
+          "type": "string"
+        },
+        "server": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth",
+        "server",
+        "path"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.VaultKubernetesAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "mountPath": {
+          "type": "string"
+        },
+        "role": {
+          "default": "",
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.ServiceAccountRef"
+        }
+      },
+      "required": [
+        "role"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.VenafiCloud": {
+      "additionalProperties": false,
+      "properties": {
+        "apiTokenSecretRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "apiTokenSecretRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.VenafiIssuer": {
+      "additionalProperties": false,
+      "properties": {
+        "cloud": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.VenafiCloud"
+        },
+        "tpp": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.VenafiTPP"
+        },
+        "zone": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zone"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.VenafiTPP": {
+      "additionalProperties": false,
+      "properties": {
+        "caBundle": {
+          "format": "byte",
+          "type": "string"
+        },
+        "credentialsRef": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.meta.v1.LocalObjectReference",
+          "default": {}
+        },
+        "url": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "credentialsRef"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.certmanager.v1.X509Subject": {
+      "additionalProperties": false,
+      "properties": {
+        "countries": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "localities": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "organizationalUnits": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "organizations": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "postalCodes": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "provinces": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "serialNumber": {
+          "type": "string"
+        },
+        "streetAddresses": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.meta.v1.LocalObjectReference": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.meta.v1.ObjectReference": {
+      "additionalProperties": false,
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.cert-manager.pkg.apis.meta.v1.SecretKeySelector": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.Affinity": {
+      "additionalProperties": false,
+      "properties": {
+        "nodeAffinity": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.NodeAffinity"
+        },
+        "podAffinity": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodAffinity"
+        },
+        "podAntiAffinity": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodAntiAffinity"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.LocalObjectReference": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.api.core.v1.NodeAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "preferredDuringSchedulingIgnoredDuringExecution": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.PreferredSchedulingTerm",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "requiredDuringSchedulingIgnoredDuringExecution": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.NodeSelector": {
+      "additionalProperties": false,
+      "properties": {
+        "nodeSelectorTerms": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorTerm",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "nodeSelectorTerms"
+      ],
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.api.core.v1.NodeSelectorRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "default": "",
+          "type": "string"
+        },
+        "operator": {
+          "default": "",
+          "enum": [
+            "DoesNotExist",
+            "Exists",
+            "Gt",
+            "In",
+            "Lt",
+            "NotIn"
+          ],
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "key",
+        "operator"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.NodeSelectorTerm": {
+      "additionalProperties": false,
+      "properties": {
+        "matchExpressions": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "matchFields": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.api.core.v1.PodAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "preferredDuringSchedulingIgnoredDuringExecution": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.WeightedPodAffinityTerm",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "requiredDuringSchedulingIgnoredDuringExecution": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.PodAffinityTerm",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PodAffinityTerm": {
+      "additionalProperties": false,
+      "properties": {
+        "labelSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "matchLabelKeys": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
+        },
+        "mismatchLabelKeys": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
+        },
+        "namespaceSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "namespaces": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "topologyKey": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "topologyKey"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PodAntiAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "preferredDuringSchedulingIgnoredDuringExecution": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.WeightedPodAffinityTerm",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "requiredDuringSchedulingIgnoredDuringExecution": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.PodAffinityTerm",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.PreferredSchedulingTerm": {
+      "additionalProperties": false,
+      "properties": {
+        "preference": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorTerm",
+          "default": {}
+        },
+        "weight": {
+          "default": 0,
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "weight",
+        "preference"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.Toleration": {
+      "additionalProperties": false,
+      "properties": {
+        "effect": {
+          "enum": [
+            "NoExecute",
+            "NoSchedule",
+            "PreferNoSchedule"
+          ],
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "operator": {
+          "enum": [
+            "Equal",
+            "Exists"
+          ],
+          "type": "string"
+        },
+        "tolerationSeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.k8s.api.core.v1.WeightedPodAffinityTerm": {
+      "additionalProperties": false,
+      "properties": {
+        "podAffinityTerm": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodAffinityTerm",
+          "default": {}
+        },
+        "weight": {
+          "default": 0,
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "weight",
+        "podAffinityTerm"
+      ],
+      "type": "object"
+    },
+    "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON": {},
+    "io.k8s.apimachinery.pkg.apis.meta.v1.Duration": {
+      "type": "string"
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector": {
+      "additionalProperties": false,
+      "properties": {
+        "matchExpressions": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "matchLabels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "default": "",
+          "type": "string"
+        },
+        "operator": {
+          "default": "",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "key",
+        "operator"
+      ],
+      "type": "object"
+    },
+    "io.k8s.sigs.gateway-api.apis.v1.ParentReference": {
+      "additionalProperties": false,
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "port": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sectionName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "metachart.api.io.cert-manager.pkg.apis.acme.v1.Challenge": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.ChallengeSpec",
+          "default": {}
+        }
+      },
+      "required": [
+        "metadata",
+        "spec"
+      ],
+      "type": "object"
+    },
+    "metachart.api.io.cert-manager.pkg.apis.acme.v1.Order": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.acme.v1.OrderSpec",
+          "default": {}
+        }
+      },
+      "required": [
+        "metadata",
+        "spec"
+      ],
+      "type": "object"
+    },
+    "metachart.api.io.cert-manager.pkg.apis.certmanager.v1.Certificate": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.CertificateSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.cert-manager.pkg.apis.certmanager.v1.CertificateRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.CertificateRequestSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.cert-manager.pkg.apis.certmanager.v1.ClusterIssuer": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.IssuerSpec",
+          "default": {}
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "metachart.api.io.cert-manager.pkg.apis.certmanager.v1.Issuer": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.cert-manager.pkg.apis.certmanager.v1.IssuerSpec",
+          "default": {}
+        }
+      },
+      "required": [
+        "spec"
+      ],
+      "type": "object"
+    },
+    "metachart.api.meta.v1.ObjectMeta": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "checksums": {
+          "$ref": "#/definitions/metachart.interface.checksums"
+        },
+        "finalizers": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "metachart.interface.FQDNitem": {
+      "pattern": "^[a-z][0-9a-z]*(-[0-9a-z]+)*$",
+      "type": "string"
+    },
+    "metachart.interface.boolean": {
+      "type": "boolean"
+    },
+    "metachart.interface.checksumEntryList": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/definitions/metachart.interface.FQDNitem"
+          },
+          "type": "array"
+        },
+        {
+          "enum": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "metachart.interface.checksums": {
+      "properties": {
+        "certificaterequests": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "certificates": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "challenges": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "clusterissuers": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "issuers": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "orders": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "properties": {
+    "certificaterequests": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.cert-manager.pkg.apis.certmanager.v1.CertificateRequest"
+        }
+      },
+      "type": "object"
+    },
+    "certificates": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.cert-manager.pkg.apis.certmanager.v1.Certificate"
+        }
+      },
+      "type": "object"
+    },
+    "challenges": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.cert-manager.pkg.apis.acme.v1.Challenge"
+        }
+      },
+      "type": "object"
+    },
+    "clusterissuers": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.cert-manager.pkg.apis.certmanager.v1.ClusterIssuer"
+        }
+      },
+      "type": "object"
+    },
+    "context": {
+      "description": "Any content which can be used for config rendering without schema defined by the chart",
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/metachart.interface.FQDNitem"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "issuers": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.cert-manager.pkg.apis.certmanager.v1.Issuer"
+        }
+      },
+      "type": "object"
+    },
+    "orders": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.cert-manager.pkg.apis.acme.v1.Order"
+        }
+      },
+      "type": "object"
+    },
+    "settings": {
+      "additionalProperties": false,
+      "properties": {
+        "certificaterequests": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.cert-manager.pkg.apis.certmanager.v1.CertificateRequest"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "certificates": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.cert-manager.pkg.apis.certmanager.v1.Certificate"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "challenges": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.cert-manager.pkg.apis.acme.v1.Challenge"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "clusterissuers": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.cert-manager.pkg.apis.certmanager.v1.ClusterIssuer"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "global": {
+          "additionalProperties": false,
+          "properties": {
+            "annotations": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "labels": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "issuers": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.cert-manager.pkg.apis.certmanager.v1.Issuer"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "orders": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.cert-manager.pkg.apis.acme.v1.Order"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

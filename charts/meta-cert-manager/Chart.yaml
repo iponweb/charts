@@ -1,0 +1,6 @@
+apiVersion: v2
+name: meta-cert-manager
+description: Metachart born Helm Chart for cert-manager resources
+type: application
+version: "1.14.5"
+appVersion: none
