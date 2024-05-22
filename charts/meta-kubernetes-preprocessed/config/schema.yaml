@@ -110,20 +110,91 @@ rules:
   - target: metachart.api.io.k8s.api.core.v1.Service
     source: io.k8s.api.core.v1.Service
     <<: *defaultRootKey
+  #: v1 - Container
+  - target: metachart.api.core.v1.Container
+    source: io.k8s.api.core.v1.Container
+    disallowed:
+      - name
+      - image
+      - imagePullPolicy
+    properties:
+      enabled: metachart.interface.boolean
+      imageRef: metachart.interface.FQDNitem
+    required:
+      - imageRef
+  #: v1 - Pod
   - target: metachart.api.core.v1.Pod
     source: io.k8s.api.core.v1.Pod
-    <<: *defaultRootKey
+    disallowed: *defaultDisallowed
+    properties:
+      <<: *defaultProperties
+      spec: metachart.api.core.v1.PodSpec
+  - target: metachart.api.core.v1.PodSpec
+    source: io.k8s.api.core.v1.PodSpec
+    properties:
+      containers: metachart.api.core.v1.ContainerList
+      initContainers: metachart.api.core.v1.ContainerList
+      metadata: metachart.api.meta.v1.ObjectMeta
 
   #: apps/v1
+  #:
+  #: apps/v1 - Deployment
   - target: metachart.api.io.k8s.api.apps.v1.Deployment
     source: io.k8s.api.apps.v1.Deployment
-    <<: *defaultRootKey
+    disallowed: *defaultDisallowed
+    properties:
+      <<: *defaultProperties
+      spec: metachart.api.io.k8s.api.apps.v1.DeploymentSpec
+    related:
+      services: metachart.api.io.k8s.api.core.v1.Service
+      poddisruptionbudgets: metachart.api.io.k8s.api.policy.v1.PodDisruptionBudget
+  - target: metachart.api.io.k8s.api.apps.v1.DeploymentSpec
+    source: io.k8s.api.apps.v1.DeploymentSpec
+    disallowed:
+      - template
+      - selector
+    properties:
+      pod: metachart.api.core.v1.Pod
+    required:
+      - pod
+  #: apps/v1 - Daemonset
   - target: metachart.api.io.k8s.api.apps.v1.DaemonSet
     source: io.k8s.api.apps.v1.DaemonSet
-    <<: *defaultRootKey
+    disallowed: *defaultDisallowed
+    properties:
+      <<: *defaultProperties
+      spec: metachart.api.io.k8s.api.apps.v1.DaemonSetSpec
+    related:
+      services: metachart.api.io.k8s.api.core.v1.Service
+  - target: metachart.api.io.k8s.api.apps.v1.DaemonSetSpec
+    source: io.k8s.api.apps.v1.DaemonSetSpec
+    disallowed:
+      - template
+      - selector
+    properties:
+      pod: metachart.api.core.v1.Pod
+    required:
+      - pod
+  #: apps/v1 - StatefulSet
   - target: metachart.api.io.k8s.api.apps.v1.StatefulSet
     source: io.k8s.api.apps.v1.StatefulSet
-    <<: *defaultRootKey
+    disallowed: *defaultDisallowed
+    properties:
+      <<: *defaultProperties
+      spec: metachart.api.io.k8s.api.apps.v1.StatefulSetSpec
+    related:
+      services: metachart.api.io.k8s.api.core.v1.Service
+      poddisruptionbudgets: metachart.api.io.k8s.api.policy.v1.PodDisruptionBudget
+  - target: metachart.api.io.k8s.api.apps.v1.StatefulSetSpec
+    source: io.k8s.api.apps.v1.StatefulSetSpec
+    disallowed:
+      - template
+      - selector
+    properties:
+      pod: metachart.api.core.v1.Pod
+      volumeClaimTemplates: metachart.api.internal.volumeClaimTemplates
+    required:
+      - pod
 
   #: autoscaling/v2
   - target: metachart.api.io.k8s.api.autoscaling.v2.HorizontalPodAutoscaler
@@ -131,12 +202,38 @@ rules:
     <<: *defaultRootKey
 
   #: batch/v1
+  #:
+  #: batch/v1 - CronJob
   - target: metachart.api.io.k8s.api.batch.v1.CronJob
     source: io.k8s.api.batch.v1.CronJob
-    <<: *defaultRootKey
+    disallowed: *defaultDisallowed
+    properties:
+      <<: *defaultProperties
+      spec: metachart.api.io.k8s.api.batch.v1.CronJobSpec
+  - target: metachart.api.io.k8s.api.batch.v1.CronJobSpec
+    source: io.k8s.api.batch.v1.CronJobSpec
+    disallowed:
+      - jobTemplate
+      - selector
+    properties:
+      job: metachart.api.io.k8s.api.batch.v1.Job
+    required:
+      - job
+  #: batch/v1 - Job
   - target: metachart.api.io.k8s.api.batch.v1.Job
     source: io.k8s.api.batch.v1.Job
-    <<: *defaultRootKey
+    disallowed: *defaultDisallowed
+    properties:
+      <<: *defaultProperties
+      spec: metachart.api.io.k8s.api.batch.v1.JobSpec
+  - target: metachart.api.io.k8s.api.batch.v1.JobSpec
+    source: io.k8s.api.batch.v1.JobSpec
+    disallowed:
+      - template
+    properties:
+      pod: metachart.api.core.v1.Pod
+    required:
+      - pod
 
   #: certificates.k8s.io/v1
   - target: metachart.api.io.k8s.api.certificates.v1.CertificateSigningRequest

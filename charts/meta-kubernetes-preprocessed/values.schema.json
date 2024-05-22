@@ -219,33 +219,6 @@
       },
       "type": "object"
     },
-    "io.k8s.api.apps.v1.DaemonSetSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "minReadySeconds": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "revisionHistoryLimit": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "selector": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
-        },
-        "template": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec"
-        },
-        "updateStrategy": {
-          "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSetUpdateStrategy"
-        }
-      },
-      "required": [
-        "selector",
-        "template"
-      ],
-      "type": "object"
-    },
     "io.k8s.api.apps.v1.DaemonSetUpdateStrategy": {
       "additionalProperties": false,
       "properties": {
@@ -256,45 +229,6 @@
           "type": "string"
         }
       },
-      "type": "object"
-    },
-    "io.k8s.api.apps.v1.DeploymentSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "minReadySeconds": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "paused": {
-          "type": "boolean"
-        },
-        "progressDeadlineSeconds": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "replicas": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "revisionHistoryLimit": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "selector": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
-        },
-        "strategy": {
-          "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentStrategy",
-          "x-kubernetes-patch-strategy": "retainKeys"
-        },
-        "template": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec"
-        }
-      },
-      "required": [
-        "selector",
-        "template"
-      ],
       "type": "object"
     },
     "io.k8s.api.apps.v1.DeploymentStrategy": {
@@ -366,56 +300,6 @@
           "type": "string"
         }
       },
-      "type": "object"
-    },
-    "io.k8s.api.apps.v1.StatefulSetSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "minReadySeconds": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "ordinals": {
-          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetOrdinals"
-        },
-        "persistentVolumeClaimRetentionPolicy": {
-          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicy"
-        },
-        "podManagementPolicy": {
-          "type": "string"
-        },
-        "replicas": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "revisionHistoryLimit": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "selector": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
-        },
-        "serviceName": {
-          "type": "string"
-        },
-        "template": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec"
-        },
-        "updateStrategy": {
-          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetUpdateStrategy"
-        },
-        "volumeClaimTemplates": {
-          "items": {
-            "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "selector",
-        "template",
-        "serviceName"
-      ],
       "type": "object"
     },
     "io.k8s.api.apps.v1.StatefulSetUpdateStrategy": {
@@ -684,113 +568,6 @@
         "name",
         "target"
       ],
-      "type": "object"
-    },
-    "io.k8s.api.batch.v1.CronJobSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "concurrencyPolicy": {
-          "type": "string"
-        },
-        "failedJobsHistoryLimit": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "jobTemplate": {
-          "$ref": "#/definitions/io.k8s.api.batch.v1.JobTemplateSpec"
-        },
-        "schedule": {
-          "type": "string"
-        },
-        "startingDeadlineSeconds": {
-          "format": "int64",
-          "type": "integer"
-        },
-        "successfulJobsHistoryLimit": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "suspend": {
-          "type": "boolean"
-        },
-        "timeZone": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "schedule",
-        "jobTemplate"
-      ],
-      "type": "object"
-    },
-    "io.k8s.api.batch.v1.JobSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "activeDeadlineSeconds": {
-          "format": "int64",
-          "type": "integer"
-        },
-        "backoffLimit": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "backoffLimitPerIndex": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "completionMode": {
-          "type": "string"
-        },
-        "completions": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "manualSelector": {
-          "type": "boolean"
-        },
-        "maxFailedIndexes": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "parallelism": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "podFailurePolicy": {
-          "$ref": "#/definitions/io.k8s.api.batch.v1.PodFailurePolicy"
-        },
-        "podReplacementPolicy": {
-          "type": "string"
-        },
-        "selector": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
-        },
-        "suspend": {
-          "type": "boolean"
-        },
-        "template": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec"
-        },
-        "ttlSecondsAfterFinished": {
-          "format": "int32",
-          "type": "integer"
-        }
-      },
-      "required": [
-        "template"
-      ],
-      "type": "object"
-    },
-    "io.k8s.api.batch.v1.JobTemplateSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "metadata": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
-        },
-        "spec": {
-          "$ref": "#/definitions/io.k8s.api.batch.v1.JobSpec"
-        }
-      },
       "type": "object"
     },
     "io.k8s.api.batch.v1.PodFailurePolicy": {
@@ -5798,6 +5575,131 @@
       },
       "type": "object"
     },
+    "metachart.api.core.v1.Container": {
+      "additionalProperties": false,
+      "properties": {
+        "args": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "command": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "env": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.EnvVar"
+          },
+          "type": "array",
+          "x-kubernetes-patch-merge-key": "name",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "envFrom": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.EnvFromSource"
+          },
+          "type": "array"
+        },
+        "imageRef": {
+          "$ref": "#/definitions/metachart.interface.FQDNitem"
+        },
+        "lifecycle": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Lifecycle"
+        },
+        "livenessProbe": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Probe"
+        },
+        "ports": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.ContainerPort"
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "containerPort",
+            "protocol"
+          ],
+          "x-kubernetes-list-type": "map",
+          "x-kubernetes-patch-merge-key": "containerPort",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "readinessProbe": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Probe"
+        },
+        "resizePolicy": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.ContainerResizePolicy"
+          },
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
+        },
+        "resources": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements"
+        },
+        "restartPolicy": {
+          "type": "string"
+        },
+        "securityContext": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecurityContext"
+        },
+        "startupProbe": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Probe"
+        },
+        "stdin": {
+          "type": "boolean"
+        },
+        "stdinOnce": {
+          "type": "boolean"
+        },
+        "terminationMessagePath": {
+          "type": "string"
+        },
+        "terminationMessagePolicy": {
+          "type": "string"
+        },
+        "tty": {
+          "type": "boolean"
+        },
+        "volumeDevices": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.VolumeDevice"
+          },
+          "type": "array",
+          "x-kubernetes-patch-merge-key": "devicePath",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "volumeMounts": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.VolumeMount"
+          },
+          "type": "array",
+          "x-kubernetes-patch-merge-key": "mountPath",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "workingDir": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "imageRef"
+      ],
+      "type": "object"
+    },
+    "metachart.api.core.v1.ContainerList": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.core.v1.Container"
+        }
+      },
+      "type": "object"
+    },
     "metachart.api.core.v1.Pod": {
       "additionalProperties": false,
       "properties": {
@@ -5808,7 +5710,7 @@
           "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.PodSpec"
+          "$ref": "#/definitions/metachart.api.core.v1.PodSpec"
         }
       },
       "type": "object",
@@ -5819,6 +5721,232 @@
           "version": "v1"
         }
       ]
+    },
+    "metachart.api.core.v1.PodSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "activeDeadlineSeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "affinity": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.Affinity"
+        },
+        "automountServiceAccountToken": {
+          "type": "boolean"
+        },
+        "containers": {
+          "$ref": "#/definitions/metachart.api.core.v1.ContainerList"
+        },
+        "dnsConfig": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodDNSConfig"
+        },
+        "dnsPolicy": {
+          "type": "string"
+        },
+        "enableServiceLinks": {
+          "type": "boolean"
+        },
+        "ephemeralContainers": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainer"
+          },
+          "type": "array",
+          "x-kubernetes-patch-merge-key": "name",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "hostAliases": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.HostAlias"
+          },
+          "type": "array",
+          "x-kubernetes-patch-merge-key": "ip",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "hostIPC": {
+          "type": "boolean"
+        },
+        "hostNetwork": {
+          "type": "boolean"
+        },
+        "hostPID": {
+          "type": "boolean"
+        },
+        "hostUsers": {
+          "type": "boolean"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "imagePullSecrets": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
+          },
+          "type": "array",
+          "x-kubernetes-patch-merge-key": "name",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "initContainers": {
+          "$ref": "#/definitions/metachart.api.core.v1.ContainerList"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "nodeName": {
+          "type": "string"
+        },
+        "nodeSelector": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object",
+          "x-kubernetes-map-type": "atomic"
+        },
+        "os": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodOS"
+        },
+        "overhead": {
+          "additionalProperties": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+          },
+          "type": "object"
+        },
+        "preemptionPolicy": {
+          "type": "string"
+        },
+        "priority": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "priorityClassName": {
+          "type": "string"
+        },
+        "readinessGates": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.PodReadinessGate"
+          },
+          "type": "array"
+        },
+        "resourceClaims": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.PodResourceClaim"
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "name"
+          ],
+          "x-kubernetes-list-type": "map",
+          "x-kubernetes-patch-merge-key": "name",
+          "x-kubernetes-patch-strategy": "merge,retainKeys"
+        },
+        "restartPolicy": {
+          "type": "string"
+        },
+        "runtimeClassName": {
+          "type": "string"
+        },
+        "schedulerName": {
+          "type": "string"
+        },
+        "schedulingGates": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.PodSchedulingGate"
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "name"
+          ],
+          "x-kubernetes-list-type": "map",
+          "x-kubernetes-patch-merge-key": "name",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "securityContext": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodSecurityContext"
+        },
+        "serviceAccount": {
+          "type": "string"
+        },
+        "serviceAccountName": {
+          "type": "string"
+        },
+        "setHostnameAsFQDN": {
+          "type": "boolean"
+        },
+        "shareProcessNamespace": {
+          "type": "boolean"
+        },
+        "subdomain": {
+          "type": "string"
+        },
+        "terminationGracePeriodSeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "tolerations": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Toleration"
+          },
+          "type": "array"
+        },
+        "topologySpreadConstraints": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.TopologySpreadConstraint"
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "topologyKey",
+            "whenUnsatisfiable"
+          ],
+          "x-kubernetes-list-type": "map",
+          "x-kubernetes-patch-merge-key": "topologyKey",
+          "x-kubernetes-patch-strategy": "merge"
+        },
+        "volumes": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.Volume"
+          },
+          "type": "array",
+          "x-kubernetes-patch-merge-key": "name",
+          "x-kubernetes-patch-strategy": "merge,retainKeys"
+        }
+      },
+      "required": [
+        "containers"
+      ],
+      "type": "object"
+    },
+    "metachart.api.internal.Image": {
+      "additionalProperties": false,
+      "properties": {
+        "pullPolicy": {
+          "enum": [
+            "Always",
+            "IfNotPresent"
+          ],
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "repository",
+        "tag",
+        "pullPolicy"
+      ],
+      "type": "object"
+    },
+    "metachart.api.internal.volumeClaimTemplates": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim"
+        }
+      },
+      "type": "object"
     },
     "metachart.api.io.k8s.api.admissionregistration.v1.MutatingWebhookConfiguration": {
       "additionalProperties": false,
@@ -5883,8 +6011,22 @@
         "metadata": {
           "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
         },
+        "related": {
+          "properties": {
+            "services": {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+                  "$ref": "#/definitions/metachart.api.io.k8s.api.core.v1.Service"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSetSpec"
+          "$ref": "#/definitions/metachart.api.io.k8s.api.apps.v1.DaemonSetSpec"
         }
       },
       "type": "object",
@@ -5896,6 +6038,29 @@
         }
       ]
     },
+    "metachart.api.io.k8s.api.apps.v1.DaemonSetSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "minReadySeconds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pod": {
+          "$ref": "#/definitions/metachart.api.core.v1.Pod"
+        },
+        "revisionHistoryLimit": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "updateStrategy": {
+          "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSetUpdateStrategy"
+        }
+      },
+      "required": [
+        "pod"
+      ],
+      "type": "object"
+    },
     "metachart.api.io.k8s.api.apps.v1.Deployment": {
       "additionalProperties": false,
       "properties": {
@@ -5905,8 +6070,31 @@
         "metadata": {
           "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
         },
+        "related": {
+          "properties": {
+            "poddisruptionbudgets": {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+                  "$ref": "#/definitions/metachart.api.io.k8s.api.policy.v1.PodDisruptionBudget"
+                }
+              },
+              "type": "object"
+            },
+            "services": {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+                  "$ref": "#/definitions/metachart.api.io.k8s.api.core.v1.Service"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentSpec"
+          "$ref": "#/definitions/metachart.api.io.k8s.api.apps.v1.DeploymentSpec"
         }
       },
       "type": "object",
@@ -5918,6 +6106,41 @@
         }
       ]
     },
+    "metachart.api.io.k8s.api.apps.v1.DeploymentSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "minReadySeconds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "paused": {
+          "type": "boolean"
+        },
+        "pod": {
+          "$ref": "#/definitions/metachart.api.core.v1.Pod"
+        },
+        "progressDeadlineSeconds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "replicas": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "revisionHistoryLimit": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "strategy": {
+          "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentStrategy",
+          "x-kubernetes-patch-strategy": "retainKeys"
+        }
+      },
+      "required": [
+        "pod"
+      ],
+      "type": "object"
+    },
     "metachart.api.io.k8s.api.apps.v1.StatefulSet": {
       "additionalProperties": false,
       "properties": {
@@ -5927,8 +6150,31 @@
         "metadata": {
           "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
         },
+        "related": {
+          "properties": {
+            "poddisruptionbudgets": {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+                  "$ref": "#/definitions/metachart.api.io.k8s.api.policy.v1.PodDisruptionBudget"
+                }
+              },
+              "type": "object"
+            },
+            "services": {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+                  "$ref": "#/definitions/metachart.api.io.k8s.api.core.v1.Service"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetSpec"
+          "$ref": "#/definitions/metachart.api.io.k8s.api.apps.v1.StatefulSetSpec"
         }
       },
       "type": "object",
@@ -5939,6 +6185,49 @@
           "version": "v1"
         }
       ]
+    },
+    "metachart.api.io.k8s.api.apps.v1.StatefulSetSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "minReadySeconds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "ordinals": {
+          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetOrdinals"
+        },
+        "persistentVolumeClaimRetentionPolicy": {
+          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicy"
+        },
+        "pod": {
+          "$ref": "#/definitions/metachart.api.core.v1.Pod"
+        },
+        "podManagementPolicy": {
+          "type": "string"
+        },
+        "replicas": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "revisionHistoryLimit": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "serviceName": {
+          "type": "string"
+        },
+        "updateStrategy": {
+          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetUpdateStrategy"
+        },
+        "volumeClaimTemplates": {
+          "$ref": "#/definitions/metachart.api.internal.volumeClaimTemplates"
+        }
+      },
+      "required": [
+        "serviceName",
+        "pod"
+      ],
+      "type": "object"
     },
     "metachart.api.io.k8s.api.autoscaling.v2.HorizontalPodAutoscaler": {
       "additionalProperties": false,
@@ -5972,7 +6261,7 @@
           "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.batch.v1.CronJobSpec"
+          "$ref": "#/definitions/metachart.api.io.k8s.api.batch.v1.CronJobSpec"
         }
       },
       "type": "object",
@@ -5984,6 +6273,43 @@
         }
       ]
     },
+    "metachart.api.io.k8s.api.batch.v1.CronJobSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "concurrencyPolicy": {
+          "type": "string"
+        },
+        "failedJobsHistoryLimit": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "job": {
+          "$ref": "#/definitions/metachart.api.io.k8s.api.batch.v1.Job"
+        },
+        "schedule": {
+          "type": "string"
+        },
+        "startingDeadlineSeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "successfulJobsHistoryLimit": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "suspend": {
+          "type": "boolean"
+        },
+        "timeZone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "schedule",
+        "job"
+      ],
+      "type": "object"
+    },
     "metachart.api.io.k8s.api.batch.v1.Job": {
       "additionalProperties": false,
       "properties": {
@@ -5994,7 +6320,7 @@
           "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.batch.v1.JobSpec"
+          "$ref": "#/definitions/metachart.api.io.k8s.api.batch.v1.JobSpec"
         }
       },
       "type": "object",
@@ -6005,6 +6331,64 @@
           "version": "v1"
         }
       ]
+    },
+    "metachart.api.io.k8s.api.batch.v1.JobSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "activeDeadlineSeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "backoffLimit": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "backoffLimitPerIndex": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "completionMode": {
+          "type": "string"
+        },
+        "completions": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "manualSelector": {
+          "type": "boolean"
+        },
+        "maxFailedIndexes": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "parallelism": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pod": {
+          "$ref": "#/definitions/metachart.api.core.v1.Pod"
+        },
+        "podFailurePolicy": {
+          "$ref": "#/definitions/io.k8s.api.batch.v1.PodFailurePolicy"
+        },
+        "podReplacementPolicy": {
+          "type": "string"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "suspend": {
+          "type": "boolean"
+        },
+        "ttlSecondsAfterFinished": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "pod"
+      ],
+      "type": "object"
     },
     "metachart.api.io.k8s.api.certificates.v1.CertificateSigningRequest": {
       "additionalProperties": false,
@@ -6795,6 +7179,9 @@
         "horizontalpodautoscalers": {
           "$ref": "#/definitions/metachart.interface.checksumEntryList"
         },
+        "images": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
         "ingressclasses": {
           "$ref": "#/definitions/metachart.interface.checksumEntryList"
         },
@@ -6987,6 +7374,15 @@
       "patternProperties": {
         "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
           "$ref": "#/definitions/metachart.api.io.k8s.api.autoscaling.v2.HorizontalPodAutoscaler"
+        }
+      },
+      "type": "object"
+    },
+    "images": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.internal.Image"
         }
       },
       "type": "object"
@@ -7337,6 +7733,15 @@
             "defaults": {
               "$ref": "#/definitions/metachart.api.io.k8s.api.autoscaling.v2.HorizontalPodAutoscaler"
             },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "images": {
+          "properties": {
             "disabled": {
               "description": "Disable all resources of this kind",
               "type": "boolean"

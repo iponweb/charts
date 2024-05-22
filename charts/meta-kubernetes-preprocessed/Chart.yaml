@@ -1,0 +1,6 @@
+apiVersion: v2
+name: meta-kubernetes-preprocessed
+description: Metachart born Helm Chart for Kubernetes resources with preprocessors
+type: application
+version: "1.29.0"
+appVersion: none

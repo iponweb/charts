@@ -2,6 +2,13 @@
 
 A set of resources supported by the chart
 
+## Non-Kubernetes resources
+
+| Values file key | Kind | Preprocessor |
+| --------------- | ---- | ------------ |
+| images   |  | - |
+
+
 ## admissionregistration.k8s.io/v1
 
 | Values file key | Kind | Preprocessor |
@@ -28,9 +35,9 @@ A set of resources supported by the chart
 
 | Values file key | Kind | Preprocessor |
 | --------------- | ---- | ------------ |
-| daemonsets   | DaemonSet | - |
-| deployments   | Deployment | - |
-| statefulsets   | StatefulSet | - |
+| daemonsets   | DaemonSet | [link](templates/preprocess/_daemonsets.tpl) |
+| deployments   | Deployment | [link](templates/preprocess/_deployments.tpl) |
+| statefulsets   | StatefulSet | [link](templates/preprocess/_statefulsets.tpl) |
 
 
 ## autoscaling/v2
@@ -44,8 +51,8 @@ A set of resources supported by the chart
 
 | Values file key | Kind | Preprocessor |
 | --------------- | ---- | ------------ |
-| cronjobs   | CronJob | - |
-| jobs   | Job | - |
+| cronjobs   | CronJob | [link](templates/preprocess/_cronjobs.tpl) |
+| jobs   | Job | [link](templates/preprocess/_jobs.tpl) |
 
 
 ## certificates.k8s.io/v1
@@ -76,7 +83,7 @@ A set of resources supported by the chart
 
 | Values file key | Kind | Preprocessor |
 | --------------- | ---- | ------------ |
-| poddisruptionbudgets   | PodDisruptionBudget | - |
+| poddisruptionbudgets   | PodDisruptionBudget | [link](templates/preprocess/_poddisruptionbudgets.tpl) |
 
 
 ## rbac.authorization.k8s.io/v1
@@ -113,9 +120,9 @@ A set of resources supported by the chart
 | namespaces   | Namespace | - |
 | persistentvolumeclaims   | PersistentVolumeClaim | - |
 | persistentvolumes   | PersistentVolume | - |
-| pods   | Pod | - |
+| pods   | Pod | [link](templates/preprocess/_pods.tpl) |
 | podtemplates   | PodTemplate | - |
 | resourcequotas   | ResourceQuota | - |
 | secrets   | Secret | - |
 | serviceaccounts   | ServiceAccount | - |
-| services   | Service | - |
+| services   | Service | [link](templates/preprocess/_services.tpl) |
