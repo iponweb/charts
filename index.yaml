@@ -115,6 +115,17 @@ entries:
     urls:
     - https://github.com/iponweb/charts/releases/download/meta-kubernetes-1.25.0/meta-kubernetes-1.25.0.tgz
     version: 1.25.0
+  meta-kubernetes-gateway-api:
+  - apiVersion: v2
+    appVersion: none
+    created: "2024-05-22T22:15:54.185209763Z"
+    description: Metachart born Helm Chart for Kubernetes Gateway API
+    digest: 75b88f085007f78a866a92427d01a391e09102d30613280a5d65a252190205ed
+    name: meta-kubernetes-gateway-api
+    type: application
+    urls:
+    - https://github.com/iponweb/charts/releases/download/meta-kubernetes-gateway-api-1.1.0/meta-kubernetes-gateway-api-1.1.0.tgz
+    version: 1.1.0
   meta-kubernetes-preprocessed:
   - apiVersion: v2
     appVersion: none
@@ -229,4 +240,4 @@ entries:
     urls:
     - https://github.com/iponweb/charts/releases/download/simple-0.1.0/simple-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-22T19:05:47.93949741Z"
+generated: "2024-05-22T22:15:54.185248756Z"
