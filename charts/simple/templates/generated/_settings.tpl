@@ -112,6 +112,14 @@ roles:
   apiVersion: rbac.authorization.k8s.io/v1
   kindCamelCase: Role
   preprocess: false
+secretproviderclasses:
+  apiVersion: secrets-store.csi.x-k8s.io
+  kindCamelCase: SecretProviderClass
+  preprocess: false
+secretproviderclasspodstatuses:
+  apiVersion: secrets-store.csi.x-k8s.io
+  kindCamelCase: SecretProviderClassPodStatus
+  preprocess: false
 secrets:
   apiVersion: v1
   kindCamelCase: Secret

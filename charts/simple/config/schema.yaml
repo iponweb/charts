@@ -14,6 +14,7 @@ definitions:
   - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/kubernetes/v1.25.2-strict/_definitions.json
   - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/external-secrets/v0.6.1-strict/_definitions.json
   - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/prometheus-operator/v0.60.1-strict/_definitions.json
+  - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/secrets-store-csi-driver/v1.4.6-strict/_definitions.json
 
 rules:
   #: Common
@@ -265,4 +266,12 @@ rules:
     <<: *defaultRootKey
   - target: metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRule
     source: com.coreos.monitoring.pkg.apis.monitoring.v1.PrometheusRule
+    <<: *defaultRootKey
+
+  #: secrets-store.csi.x-k8s.io/v1
+  - target: metachart.api.io.x-k8s.csi.secrets-store.apis.v1.SecretProviderClass
+    source: io.x-k8s.csi.secrets-store.apis.v1.SecretProviderClass
+    <<: *defaultRootKey
+  - target: metachart.api.io.x-k8s.csi.secrets-store.apis.v1.SecretProviderClassPodStatus
+    source: io.x-k8s.csi.secrets-store.apis.v1.SecretProviderClassPodStatus
     <<: *defaultRootKey

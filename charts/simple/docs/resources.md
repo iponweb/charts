@@ -120,6 +120,14 @@ A set of resources supported by the chart
 | priorityclasses   | PriorityClass | - |
 
 
+## secrets-store.csi.x-k8s.io
+
+| Values file key | Kind | Preprocessor |
+| --------------- | ---- | ------------ |
+| secretproviderclasses   | SecretProviderClass | - |
+| secretproviderclasspodstatuses   | SecretProviderClassPodStatus | - |
+
+
 ## storage.k8s.io/v1
 
 | Values file key | Kind | Preprocessor |

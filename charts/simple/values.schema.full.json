@@ -8657,6 +8657,83 @@
       },
       "type": "object"
     },
+    "io.x-k8s.csi.secrets-store.apis.v1.SecretObject": {
+      "additionalProperties": false,
+      "description": "SecretObject defines the desired state of synced K8s secret objects",
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "description": "annotations of k8s secret object",
+          "type": "object"
+        },
+        "data": {
+          "items": {
+            "$ref": "#/definitions/io.x-k8s.csi.secrets-store.apis.v1.SecretObjectData"
+          },
+          "type": "array"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "description": "labels of K8s secret object",
+          "type": "object"
+        },
+        "secretName": {
+          "description": "name of the K8s secret object",
+          "type": "string"
+        },
+        "type": {
+          "description": "type of K8s secret object",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.x-k8s.csi.secrets-store.apis.v1.SecretObjectData": {
+      "additionalProperties": false,
+      "description": "SecretObjectData defines the desired state of synced K8s secret object data",
+      "properties": {
+        "key": {
+          "description": "data field to populate",
+          "type": "string"
+        },
+        "objectName": {
+          "description": "name of the object to sync",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.x-k8s.csi.secrets-store.apis.v1.SecretProviderClassSpec": {
+      "additionalProperties": false,
+      "description": "SecretProviderClassSpec defines the desired state of SecretProviderClass",
+      "properties": {
+        "parameters": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "description": "Configuration for specific provider",
+          "type": "object"
+        },
+        "provider": {
+          "description": "Configuration for provider name",
+          "type": "string"
+        },
+        "secretObjects": {
+          "items": {
+            "$ref": "#/definitions/io.x-k8s.csi.secrets-store.apis.v1.SecretObject"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
     "metachart.api.com.coreos.monitoring.pkg.apis.monitoring.v1.PodMonitor": {
       "additionalProperties": false,
       "description": "PodMonitor defines monitoring for a set of pods.",
@@ -10282,6 +10359,36 @@
         }
       ]
     },
+    "metachart.api.io.x-k8s.csi.secrets-store.apis.v1.SecretProviderClass": {
+      "additionalProperties": false,
+      "description": "SecretProviderClass is the Schema for the secretproviderclasses API",
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.x-k8s.csi.secrets-store.apis.v1.SecretProviderClassSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.x-k8s.csi.secrets-store.apis.v1.SecretProviderClassPodStatus": {
+      "additionalProperties": false,
+      "description": "SecretProviderClassPodStatus is the Schema for the secretproviderclassespodstatus API",
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        }
+      },
+      "type": "object"
+    },
     "metachart.api.meta.v1.ObjectMeta": {
       "additionalProperties": false,
       "description": "ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.",
@@ -10434,6 +10541,12 @@
           "$ref": "#/definitions/metachart.interface.checksumEntryList"
         },
         "roles": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "secretproviderclasses": {
+          "$ref": "#/definitions/metachart.interface.checksumEntryList"
+        },
+        "secretproviderclasspodstatuses": {
           "$ref": "#/definitions/metachart.interface.checksumEntryList"
         },
         "secrets": {
@@ -10733,6 +10846,24 @@
       "patternProperties": {
         "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
           "$ref": "#/definitions/metachart.api.io.k8s.api.rbac.v1.Role"
+        }
+      },
+      "type": "object"
+    },
+    "secretproviderclasses": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.x-k8s.csi.secrets-store.apis.v1.SecretProviderClass"
+        }
+      },
+      "type": "object"
+    },
+    "secretproviderclasspodstatuses": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.x-k8s.csi.secrets-store.apis.v1.SecretProviderClassPodStatus"
         }
       },
       "type": "object"
@@ -11139,6 +11270,30 @@
           "properties": {
             "defaults": {
               "$ref": "#/definitions/metachart.api.io.k8s.api.rbac.v1.Role"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "secretproviderclasses": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.x-k8s.csi.secrets-store.apis.v1.SecretProviderClass"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "secretproviderclasspodstatuses": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.x-k8s.csi.secrets-store.apis.v1.SecretProviderClassPodStatus"
             },
             "disabled": {
               "description": "Disable all resources of this kind",
