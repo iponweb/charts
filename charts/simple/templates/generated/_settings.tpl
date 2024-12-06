@@ -113,11 +113,11 @@ roles:
   kindCamelCase: Role
   preprocess: false
 secretproviderclasses:
-  apiVersion: secrets-store.csi.x-k8s.io
+  apiVersion: secrets-store.csi.x-k8s.io/v1
   kindCamelCase: SecretProviderClass
   preprocess: false
 secretproviderclasspodstatuses:
-  apiVersion: secrets-store.csi.x-k8s.io
+  apiVersion: secrets-store.csi.x-k8s.io/v1
   kindCamelCase: SecretProviderClassPodStatus
   preprocess: false
 secrets:
