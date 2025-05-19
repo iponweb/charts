@@ -13,7 +13,7 @@ certificatesigningrequests:
   kindCamelCase: CertificateSigningRequest
   preprocess: false
 clusterexternalsecrets:
-  apiVersion: external-secrets.io/v1beta1
+  apiVersion: external-secrets.io/v1
   kindCamelCase: ClusterExternalSecret
   preprocess: false
 clusterrolebindings:
@@ -25,7 +25,7 @@ clusterroles:
   kindCamelCase: ClusterRole
   preprocess: false
 clustersecretstores:
-  apiVersion: external-secrets.io/v1beta1
+  apiVersion: external-secrets.io/v1
   kindCamelCase: ClusterSecretStore
   preprocess: false
 configmaps:
@@ -49,7 +49,7 @@ deployments:
   kindCamelCase: Deployment
   preprocess: true
 externalsecrets:
-  apiVersion: external-secrets.io/v1beta1
+  apiVersion: external-secrets.io/v1
   kindCamelCase: ExternalSecret
   preprocess: false
 horizontalpodautoscalers:
@@ -125,7 +125,7 @@ secrets:
   kindCamelCase: Secret
   preprocess: false
 secretstores:
-  apiVersion: external-secrets.io/v1beta1
+  apiVersion: external-secrets.io/v1
   kindCamelCase: SecretStore
   preprocess: false
 serviceaccounts:

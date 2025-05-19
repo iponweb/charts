@@ -147,23 +147,23 @@ resources:
     kind: PriorityClass
     jsonSchemaRef: metachart.api.io.k8s.api.scheduling.v1.PriorityClass
 
-  #: external-secrets.io/v1beta1
+  #: external-secrets.io/v1
   externalsecrets:
-    apiVersion: external-secrets.io/v1beta1
+    apiVersion: external-secrets.io/v1
     kind: ExternalSecret
-    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1.ExternalSecret
   clusterexternalsecrets:
-    apiVersion: external-secrets.io/v1beta1
+    apiVersion: external-secrets.io/v1
     kind: ClusterExternalSecret
-    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1.ClusterExternalSecret
   secretstores:
-    apiVersion: external-secrets.io/v1beta1
+    apiVersion: external-secrets.io/v1
     kind: SecretStore
-    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.SecretStore
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1.SecretStore
   clustersecretstores:
-    apiVersion: external-secrets.io/v1beta1
+    apiVersion: external-secrets.io/v1
     kind: ClusterSecretStore
-    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1.ClusterSecretStore
 
   #: monitoring.coreos.com/v1alpha1
   alertmanagerconfigs:

@@ -241,18 +241,18 @@ rules:
     source: io.k8s.api.scheduling.v1.PriorityClass
     <<: *defaultRootKey
 
-  #: external-secrets.io/v1beta1
-  - target: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecret
-    source: io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecret
+  #: external-secrets.io/v1
+  - target: metachart.api.io.external-secrets.apis.externalsecrets.v1.ExternalSecret
+    source: io.external-secrets.apis.externalsecrets.v1.ExternalSecret
     <<: *defaultRootKey
-  - target: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecret
-    source: io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecret
+  - target: metachart.api.io.external-secrets.apis.externalsecrets.v1.ClusterExternalSecret
+    source: io.external-secrets.apis.externalsecrets.v1.ClusterExternalSecret
     <<: *defaultRootKey
-  - target: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.SecretStore
-    source: io.external-secrets.apis.externalsecrets.v1beta1.SecretStore
+  - target: metachart.api.io.external-secrets.apis.externalsecrets.v1.SecretStore
+    source: io.external-secrets.apis.externalsecrets.v1.SecretStore
     <<: *defaultRootKey
-  - target: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore
-    source: io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore
+  - target: metachart.api.io.external-secrets.apis.externalsecrets.v1.ClusterSecretStore
+    source: io.external-secrets.apis.externalsecrets.v1.ClusterSecretStore
     <<: *defaultRootKey
 
   #: monitoring.coreos.com/v1alpha1

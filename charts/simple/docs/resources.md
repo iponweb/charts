@@ -62,7 +62,7 @@ A set of resources supported by the chart
 | certificatesigningrequests   | CertificateSigningRequest | - |
 
 
-## external-secrets.io/v1beta1
+## external-secrets.io/v1
 
 | Values file key | Kind | Preprocessor |
 | --------------- | ---- | ------------ |
