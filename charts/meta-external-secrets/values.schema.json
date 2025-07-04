@@ -2,12 +2,2962 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "definitions": {
+    "io.external-secrets.apis.externalsecrets.v1.AWSAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "jwt": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AWSJWTAuth"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AWSAuthSecretRef"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AWSAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "accessKeyIDSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "secretAccessKeySecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "sessionTokenSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AWSJWTAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AWSProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "additionalRoles": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AWSAuth",
+          "default": {}
+        },
+        "externalID": {
+          "type": "string"
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "region": {
+          "default": "",
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "secretsManager": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SecretsManager"
+        },
+        "service": {
+          "default": "",
+          "type": "string"
+        },
+        "sessionTags": {
+          "items": {
+            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.Tag"
+          },
+          "type": "array"
+        },
+        "transitiveTagKeys": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "service",
+        "region"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AkeylessAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "kubernetesAuth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AkeylessKubernetesAuth"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AkeylessAuthSecretRef",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AkeylessAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "accessID": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "accessType": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "accessTypeParam": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AkeylessKubernetesAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "accessID": {
+          "default": "",
+          "type": "string"
+        },
+        "k8sConfName": {
+          "default": "",
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
+        }
+      },
+      "required": [
+        "accessID",
+        "k8sConfName"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AkeylessProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "akeylessGWApiURL": {
+          "type": "string"
+        },
+        "authSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AkeylessAuth"
+        },
+        "caBundle": {
+          "format": "byte",
+          "type": "string"
+        },
+        "caProvider": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.CAProvider"
+        }
+      },
+      "required": [
+        "akeylessGWApiURL",
+        "authSecretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AlibabaAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "rrsa": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AlibabaRRSAAuth"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AlibabaAuthSecretRef"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AlibabaAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "accessKeyIDSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "accessKeySecretSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "accessKeyIDSecretRef",
+        "accessKeySecretSecretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AlibabaProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AlibabaAuth",
+          "default": {}
+        },
+        "regionID": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth",
+        "regionID"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AlibabaRRSAAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "oidcProviderArn": {
+          "default": "",
+          "type": "string"
+        },
+        "oidcTokenFilePath": {
+          "default": "",
+          "type": "string"
+        },
+        "roleArn": {
+          "default": "",
+          "type": "string"
+        },
+        "sessionName": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "oidcProviderArn",
+        "oidcTokenFilePath",
+        "roleArn",
+        "sessionName"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AuthorizationProtocol": {
+      "additionalProperties": false,
+      "properties": {
+        "ntlm": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.NTLMProtocol"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AzureAuthCredentials": {
+      "additionalProperties": false,
+      "properties": {
+        "identityId": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "resource": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "identityId"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AzureKVAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "clientCertificate": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "clientId": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "clientSecret": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "tenantId": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.AzureKVProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "authSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AzureKVAuth"
+        },
+        "authType": {
+          "type": "string"
+        },
+        "environmentType": {
+          "type": "string"
+        },
+        "identityId": {
+          "type": "string"
+        },
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
+        },
+        "tenantId": {
+          "type": "string"
+        },
+        "vaultUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "vaultUrl"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.BeyondTrustProviderSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.BeyondtrustAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "apiKey": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.BeyondTrustProviderSecretRef"
+        },
+        "certificate": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.BeyondTrustProviderSecretRef"
+        },
+        "certificateKey": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.BeyondTrustProviderSecretRef"
+        },
+        "clientId": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.BeyondTrustProviderSecretRef"
+        },
+        "clientSecret": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.BeyondTrustProviderSecretRef"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.BeyondtrustProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.BeyondtrustAuth"
+        },
+        "server": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.BeyondtrustServer"
+        }
+      },
+      "required": [
+        "auth",
+        "server"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.BeyondtrustServer": {
+      "additionalProperties": false,
+      "properties": {
+        "apiUrl": {
+          "default": "",
+          "type": "string"
+        },
+        "apiVersion": {
+          "type": "string"
+        },
+        "clientTimeOutSeconds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "retrievalType": {
+          "type": "string"
+        },
+        "separator": {
+          "type": "string"
+        },
+        "verifyCA": {
+          "default": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "apiUrl",
+        "verifyCA"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.BitwardenSecretsManagerAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.BitwardenSecretsManagerSecretRef",
+          "default": {}
+        }
+      },
+      "required": [
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.BitwardenSecretsManagerProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "apiURL": {
+          "type": "string"
+        },
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.BitwardenSecretsManagerAuth",
+          "default": {}
+        },
+        "bitwardenServerSDKURL": {
+          "type": "string"
+        },
+        "caBundle": {
+          "type": "string"
+        },
+        "caProvider": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.CAProvider"
+        },
+        "identityURL": {
+          "type": "string"
+        },
+        "organizationID": {
+          "default": "",
+          "type": "string"
+        },
+        "projectID": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "organizationID",
+        "projectID",
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.BitwardenSecretsManagerSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "credentials": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "credentials"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.CAProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "type": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.CSMAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.CSMAuthSecretRef"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.CSMAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "accessKeyIDSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "accessKeySecretSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "accessKeyIDSecretRef",
+        "accessKeySecretSecretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.CertAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "clientCert": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "clientKey": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ChefAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ChefAuthSecretRef",
+          "default": {}
+        }
+      },
+      "required": [
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ChefAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "privateKeySecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "privateKeySecretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ChefProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ChefAuth"
+        },
+        "serverUrl": {
+          "default": "",
+          "type": "string"
+        },
+        "username": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth",
+        "username",
+        "serverUrl"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.CloudruSMProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.CSMAuth",
+          "default": {}
+        },
+        "projectID": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ClusterExternalSecretSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "externalSecretMetadata": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretMetadata",
+          "default": {}
+        },
+        "externalSecretName": {
+          "type": "string"
+        },
+        "externalSecretSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretSpec",
+          "default": {}
+        },
+        "namespaceSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "namespaceSelectors": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+          },
+          "type": "array"
+        },
+        "namespaces": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "refreshTime": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+        }
+      },
+      "required": [
+        "externalSecretSpec"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ClusterSecretStoreCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "namespaceRegexes": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "namespaceSelector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+        },
+        "namespaces": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ConjurAPIKey": {
+      "additionalProperties": false,
+      "properties": {
+        "account": {
+          "default": "",
+          "type": "string"
+        },
+        "apiKeyRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "userRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        }
+      },
+      "required": [
+        "account",
+        "userRef",
+        "apiKeyRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ConjurAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "apikey": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ConjurAPIKey"
+        },
+        "jwt": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ConjurJWT"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ConjurJWT": {
+      "additionalProperties": false,
+      "properties": {
+        "account": {
+          "default": "",
+          "type": "string"
+        },
+        "hostId": {
+          "default": "",
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
+        },
+        "serviceID": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "account",
+        "serviceID"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ConjurProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ConjurAuth",
+          "default": {}
+        },
+        "caBundle": {
+          "type": "string"
+        },
+        "caProvider": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.CAProvider"
+        },
+        "url": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.DelineaProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "clientId": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.DelineaProviderSecretRef"
+        },
+        "clientSecret": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.DelineaProviderSecretRef"
+        },
+        "tenant": {
+          "default": "",
+          "type": "string"
+        },
+        "tld": {
+          "type": "string"
+        },
+        "urlTemplate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "clientId",
+        "clientSecret",
+        "tenant"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.DelineaProviderSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.Device42Auth": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.Device42SecretRef",
+          "default": {}
+        }
+      },
+      "required": [
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.Device42Provider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.Device42Auth",
+          "default": {}
+        },
+        "host": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "host",
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.Device42SecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "credentials": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.DopplerAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.DopplerAuthSecretRef",
+          "default": {}
+        }
+      },
+      "required": [
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.DopplerAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "dopplerToken": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "dopplerToken"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.DopplerProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.DopplerAuth"
+        },
+        "config": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "nameTransformer": {
+          "type": "string"
+        },
+        "project": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretData": {
+      "additionalProperties": false,
+      "properties": {
+        "remoteRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretDataRemoteRef",
+          "default": {}
+        },
+        "secretKey": {
+          "default": "",
+          "type": "string"
+        },
+        "sourceRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.StoreSourceRef"
+        }
+      },
+      "required": [
+        "secretKey",
+        "remoteRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretDataFromRemoteRef": {
+      "additionalProperties": false,
+      "properties": {
+        "extract": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretDataRemoteRef"
+        },
+        "find": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretFind"
+        },
+        "rewrite": {
+          "items": {
+            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretRewrite",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "sourceRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.StoreGeneratorSourceRef"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretDataRemoteRef": {
+      "additionalProperties": false,
+      "properties": {
+        "conversionStrategy": {
+          "type": "string"
+        },
+        "decodingStrategy": {
+          "type": "string"
+        },
+        "key": {
+          "default": "",
+          "type": "string"
+        },
+        "metadataPolicy": {
+          "type": "string"
+        },
+        "property": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretFind": {
+      "additionalProperties": false,
+      "properties": {
+        "conversionStrategy": {
+          "type": "string"
+        },
+        "decodingStrategy": {
+          "type": "string"
+        },
+        "name": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.FindName"
+        },
+        "path": {
+          "type": "string"
+        },
+        "tags": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretRewrite": {
+      "additionalProperties": false,
+      "properties": {
+        "merge": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretRewriteMerge"
+        },
+        "regexp": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretRewriteRegexp"
+        },
+        "transform": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretRewriteTransform"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretRewriteMerge": {
+      "additionalProperties": false,
+      "properties": {
+        "conflictPolicy": {
+          "type": "string"
+        },
+        "into": {
+          "type": "string"
+        },
+        "priority": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "strategy": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretRewriteRegexp": {
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "default": "",
+          "type": "string"
+        },
+        "target": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "target"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretRewriteTransform": {
+      "additionalProperties": false,
+      "properties": {
+        "template": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "template"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretData",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "dataFrom": {
+          "items": {
+            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretDataFromRemoteRef",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "refreshInterval": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+        },
+        "refreshPolicy": {
+          "type": "string"
+        },
+        "secretStoreRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SecretStoreRef",
+          "default": {}
+        },
+        "target": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretTarget",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "creationPolicy": {
+          "type": "string"
+        },
+        "deletionPolicy": {
+          "type": "string"
+        },
+        "immutable": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "template": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretTemplate"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "engineVersion": {
+          "type": "string"
+        },
+        "mergePolicy": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretTemplateMetadata",
+          "default": {}
+        },
+        "templateFrom": {
+          "items": {
+            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.TemplateFrom",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ExternalSecretTemplateMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.FakeProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.FakeProviderData",
+            "default": {}
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "data"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.FakeProviderData": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "default": "",
+          "type": "string"
+        },
+        "value": {
+          "default": "",
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.FindName": {
+      "additionalProperties": false,
+      "properties": {
+        "regexp": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.FortanixProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "apiKey": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.FortanixProviderSecretRef"
+        },
+        "apiUrl": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.FortanixProviderSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.GCPSMAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.GCPSMAuthSecretRef"
+        },
+        "workloadIdentity": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.GCPWorkloadIdentity"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.GCPSMAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "secretAccessKeySecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.GCPSMProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.GCPSMAuth",
+          "default": {}
+        },
+        "location": {
+          "type": "string"
+        },
+        "projectID": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.GCPWorkloadIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "clusterLocation": {
+          "type": "string"
+        },
+        "clusterName": {
+          "type": "string"
+        },
+        "clusterProjectID": {
+          "type": "string"
+        },
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "serviceAccountRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.GeneratorRef": {
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "type": "string"
+        },
+        "kind": {
+          "default": "",
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.GithubAppAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "privateKey": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "privateKey"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.GithubProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "appID": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer"
+        },
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.GithubAppAuth",
+          "default": {}
+        },
+        "environment": {
+          "type": "string"
+        },
+        "installationID": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer"
+        },
+        "organization": {
+          "default": "",
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        },
+        "uploadURL": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth",
+        "appID",
+        "installationID",
+        "organization"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.GitlabAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "SecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.GitlabSecretRef",
+          "default": {}
+        }
+      },
+      "required": [
+        "SecretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.GitlabProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.GitlabAuth",
+          "default": {}
+        },
+        "caBundle": {
+          "format": "byte",
+          "type": "string"
+        },
+        "caProvider": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.CAProvider"
+        },
+        "environment": {
+          "type": "string"
+        },
+        "groupIDs": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "inheritFromGroups": {
+          "type": "boolean"
+        },
+        "projectID": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.GitlabSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "accessToken": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.IBMAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "containerAuth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.IBMAuthContainerAuth"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.IBMAuthSecretRef"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.IBMAuthContainerAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "iamEndpoint": {
+          "type": "string"
+        },
+        "profile": {
+          "default": "",
+          "type": "string"
+        },
+        "tokenLocation": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "profile"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.IBMAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "secretApiKeySecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.IBMProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.IBMAuth",
+          "default": {}
+        },
+        "serviceUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.InfisicalAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "azureAuthCredentials": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AzureAuthCredentials"
+        },
+        "universalAuthCredentials": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.UniversalAuthCredentials"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.InfisicalProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.InfisicalAuth",
+          "default": {}
+        },
+        "hostAPI": {
+          "type": "string"
+        },
+        "secretsScope": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.MachineIdentityScopeInWorkspace",
+          "default": {}
+        }
+      },
+      "required": [
+        "auth",
+        "secretsScope"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.IntegrationInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.KeeperSecurityProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "authRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "folderID": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "authRef",
+        "folderID"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.KubernetesAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "cert": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.CertAuth"
+        },
+        "serviceAccount": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
+        },
+        "token": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.TokenAuth"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.KubernetesProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.KubernetesAuth",
+          "default": {}
+        },
+        "authRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "remoteNamespace": {
+          "type": "string"
+        },
+        "server": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.KubernetesServer",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.KubernetesServer": {
+      "additionalProperties": false,
+      "properties": {
+        "caBundle": {
+          "format": "byte",
+          "type": "string"
+        },
+        "caProvider": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.CAProvider"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.MachineIdentityScopeInWorkspace": {
+      "additionalProperties": false,
+      "properties": {
+        "environmentSlug": {
+          "default": "",
+          "type": "string"
+        },
+        "expandSecretReferences": {
+          "type": "boolean"
+        },
+        "projectSlug": {
+          "default": "",
+          "type": "string"
+        },
+        "recursive": {
+          "type": "boolean"
+        },
+        "secretsPath": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "environmentSlug",
+        "projectSlug"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.NTLMProtocol": {
+      "additionalProperties": false,
+      "properties": {
+        "passwordSecret": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "usernameSecret": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "usernameSecret",
+        "passwordSecret"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.OnboardbaseAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "apiKeyRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "passcodeRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "apiKeyRef",
+        "passcodeRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.OnboardbaseProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "apiHost": {
+          "default": "",
+          "type": "string"
+        },
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.OnboardbaseAuthSecretRef"
+        },
+        "environment": {
+          "default": "",
+          "type": "string"
+        },
+        "project": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth",
+        "apiHost",
+        "project",
+        "environment"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.OnePasswordAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.OnePasswordAuthSecretRef"
+        }
+      },
+      "required": [
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.OnePasswordAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "connectTokenSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "connectTokenSecretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.OnePasswordProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.OnePasswordAuth"
+        },
+        "connectHost": {
+          "default": "",
+          "type": "string"
+        },
+        "vaults": {
+          "additionalProperties": {
+            "default": 0,
+            "format": "int32",
+            "type": "integer"
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "auth",
+        "connectHost",
+        "vaults"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.OnePasswordSDKAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "serviceAccountSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "serviceAccountSecretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.OnePasswordSDKProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.OnePasswordSDKAuth"
+        },
+        "integrationInfo": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.IntegrationInfo"
+        },
+        "vault": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "vault",
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.OracleAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.OracleSecretRef",
+          "default": {}
+        },
+        "tenancy": {
+          "default": "",
+          "type": "string"
+        },
+        "user": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tenancy",
+        "user",
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.OracleProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.OracleAuth"
+        },
+        "compartment": {
+          "type": "string"
+        },
+        "encryptionKey": {
+          "type": "string"
+        },
+        "principalType": {
+          "type": "string"
+        },
+        "region": {
+          "default": "",
+          "type": "string"
+        },
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
+        },
+        "vault": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "region",
+        "vault"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.OracleSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "fingerprint": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "privatekey": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "privatekey",
+        "fingerprint"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.PassboltAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "passwordSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "privateKeySecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        }
+      },
+      "required": [
+        "passwordSecretRef",
+        "privateKeySecretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.PassboltProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.PassboltAuth"
+        },
+        "host": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth",
+        "host"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.PasswordDepotAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.PasswordDepotSecretRef",
+          "default": {}
+        }
+      },
+      "required": [
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.PasswordDepotProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.PasswordDepotAuth",
+          "default": {}
+        },
+        "database": {
+          "default": "",
+          "type": "string"
+        },
+        "host": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "host",
+        "database",
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.PasswordDepotSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "credentials": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.PreviderAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.PreviderAuthSecretRef"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.PreviderAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "accessToken": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "accessToken"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.PreviderProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.PreviderAuth",
+          "default": {}
+        },
+        "baseUri": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.PulumiProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "accessToken": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.PulumiProviderSecretRef"
+        },
+        "apiUrl": {
+          "type": "string"
+        },
+        "environment": {
+          "default": "",
+          "type": "string"
+        },
+        "organization": {
+          "default": "",
+          "type": "string"
+        },
+        "project": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "accessToken",
+        "organization",
+        "project",
+        "environment"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.PulumiProviderSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ScalewayProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "accessKey": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ScalewayProviderSecretRef"
+        },
+        "apiUrl": {
+          "type": "string"
+        },
+        "projectId": {
+          "default": "",
+          "type": "string"
+        },
+        "region": {
+          "default": "",
+          "type": "string"
+        },
+        "secretKey": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ScalewayProviderSecretRef"
+        }
+      },
+      "required": [
+        "region",
+        "projectId",
+        "accessKey",
+        "secretKey"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.ScalewayProviderSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.SecretServerProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "password": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SecretServerProviderRef"
+        },
+        "serverURL": {
+          "default": "",
+          "type": "string"
+        },
+        "username": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SecretServerProviderRef"
+        }
+      },
+      "required": [
+        "username",
+        "password",
+        "serverURL"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.SecretServerProviderRef": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.SecretStoreProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "akeyless": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AkeylessProvider"
+        },
+        "alibaba": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AlibabaProvider"
+        },
+        "aws": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AWSProvider"
+        },
+        "azurekv": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AzureKVProvider"
+        },
+        "beyondtrust": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.BeyondtrustProvider"
+        },
+        "bitwardensecretsmanager": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.BitwardenSecretsManagerProvider"
+        },
+        "chef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ChefProvider"
+        },
+        "cloudrusm": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.CloudruSMProvider"
+        },
+        "conjur": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ConjurProvider"
+        },
+        "delinea": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.DelineaProvider"
+        },
+        "device42": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.Device42Provider"
+        },
+        "doppler": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.DopplerProvider"
+        },
+        "fake": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.FakeProvider"
+        },
+        "fortanix": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.FortanixProvider"
+        },
+        "gcpsm": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.GCPSMProvider"
+        },
+        "github": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.GithubProvider"
+        },
+        "gitlab": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.GitlabProvider"
+        },
+        "ibm": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.IBMProvider"
+        },
+        "infisical": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.InfisicalProvider"
+        },
+        "keepersecurity": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.KeeperSecurityProvider"
+        },
+        "kubernetes": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.KubernetesProvider"
+        },
+        "onboardbase": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.OnboardbaseProvider"
+        },
+        "onepassword": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.OnePasswordProvider"
+        },
+        "onepasswordSDK": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.OnePasswordSDKProvider"
+        },
+        "oracle": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.OracleProvider"
+        },
+        "passbolt": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.PassboltProvider"
+        },
+        "passworddepot": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.PasswordDepotProvider"
+        },
+        "previder": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.PreviderProvider"
+        },
+        "pulumi": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.PulumiProvider"
+        },
+        "scaleway": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ScalewayProvider"
+        },
+        "secretserver": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SecretServerProvider"
+        },
+        "senhasegura": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SenhaseguraProvider"
+        },
+        "vault": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultProvider"
+        },
+        "webhook": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.WebhookProvider"
+        },
+        "yandexcertificatemanager": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.YandexCertificateManagerProvider"
+        },
+        "yandexlockbox": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.YandexLockboxProvider"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.SecretStoreRef": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.SecretStoreRetrySettings": {
+      "additionalProperties": false,
+      "properties": {
+        "maxRetries": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "retryInterval": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.SecretStoreSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "conditions": {
+          "items": {
+            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ClusterSecretStoreCondition",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "controller": {
+          "type": "string"
+        },
+        "provider": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SecretStoreProvider"
+        },
+        "refreshInterval": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "retrySettings": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SecretStoreRetrySettings"
+        }
+      },
+      "required": [
+        "provider"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.SecretsManager": {
+      "additionalProperties": false,
+      "properties": {
+        "forceDeleteWithoutRecovery": {
+          "type": "boolean"
+        },
+        "recoveryWindowInDays": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.SenhaseguraAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "clientId": {
+          "default": "",
+          "type": "string"
+        },
+        "clientSecretSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "clientId",
+        "clientSecretSecretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.SenhaseguraProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SenhaseguraAuth",
+          "default": {}
+        },
+        "ignoreSslCertificate": {
+          "type": "boolean"
+        },
+        "module": {
+          "default": "",
+          "type": "string"
+        },
+        "url": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "module",
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.StoreGeneratorSourceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "generatorRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.GeneratorRef"
+        },
+        "storeRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SecretStoreRef"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.StoreSourceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "generatorRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.GeneratorRef"
+        },
+        "storeRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SecretStoreRef",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.Tag": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "default": "",
+          "type": "string"
+        },
+        "value": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.TemplateFrom": {
+      "additionalProperties": false,
+      "properties": {
+        "configMap": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.TemplateRef"
+        },
+        "literal": {
+          "type": "string"
+        },
+        "secret": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.TemplateRef"
+        },
+        "target": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.TemplateRef": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.TemplateRefItem",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "items"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.TemplateRefItem": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "default": "",
+          "type": "string"
+        },
+        "templateAs": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.TokenAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "bearerToken": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.UniversalAuthCredentials": {
+      "additionalProperties": false,
+      "properties": {
+        "clientId": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "clientSecret": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "clientId",
+        "clientSecret"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultAppRole": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "default": "",
+          "type": "string"
+        },
+        "roleId": {
+          "type": "string"
+        },
+        "roleRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "path",
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "appRole": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultAppRole"
+        },
+        "cert": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultCertAuth"
+        },
+        "iam": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultIamAuth"
+        },
+        "jwt": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultJwtAuth"
+        },
+        "kubernetes": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultKubernetesAuth"
+        },
+        "ldap": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultLdapAuth"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "tokenSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "userPass": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultUserPassAuth"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultAwsAuthSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "accessKeyIDSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "secretAccessKeySecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "sessionTokenSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultAwsJWTAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultCertAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "clientCert": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultClientTLS": {
+      "additionalProperties": false,
+      "properties": {
+        "certSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "keySecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultIamAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "externalID": {
+          "type": "string"
+        },
+        "jwt": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultAwsJWTAuth"
+        },
+        "path": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultAwsAuthSecretRef"
+        },
+        "vaultAwsIamServerID": {
+          "type": "string"
+        },
+        "vaultRole": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "vaultRole"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultJwtAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "kubernetesServiceAccountToken": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultKubernetesServiceAccountTokenAuth"
+        },
+        "path": {
+          "default": "",
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultKubernetesAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "mountPath": {
+          "default": "",
+          "type": "string"
+        },
+        "role": {
+          "default": "",
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
+        },
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
+        }
+      },
+      "required": [
+        "mountPath",
+        "role"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultKubernetesServiceAccountTokenAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "audiences": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "expirationSeconds": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "serviceAccountRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultLdapAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "default": "",
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "username": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "username"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultAuth"
+        },
+        "caBundle": {
+          "format": "byte",
+          "type": "string"
+        },
+        "caProvider": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.CAProvider"
+        },
+        "forwardInconsistent": {
+          "type": "boolean"
+        },
+        "headers": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "readYourWrites": {
+          "type": "boolean"
+        },
+        "server": {
+          "default": "",
+          "type": "string"
+        },
+        "tls": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultClientTLS",
+          "default": {}
+        },
+        "version": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "server",
+        "version"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.VaultUserPassAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "default": "",
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "username": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "username"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.WebhookCAProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "type": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.WebhookProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.AuthorizationProtocol"
+        },
+        "body": {
+          "type": "string"
+        },
+        "caBundle": {
+          "format": "byte",
+          "type": "string"
+        },
+        "caProvider": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.WebhookCAProvider"
+        },
+        "headers": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "method": {
+          "type": "string"
+        },
+        "result": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.WebhookResult",
+          "default": {}
+        },
+        "secrets": {
+          "items": {
+            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.WebhookSecret",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "timeout": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+        },
+        "url": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "result"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.WebhookResult": {
+      "additionalProperties": false,
+      "properties": {
+        "jsonPath": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.WebhookSecret": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "name",
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.YandexCertificateManagerAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "authorizedKeySecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.YandexCertificateManagerCAProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "certSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.YandexCertificateManagerProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "apiEndpoint": {
+          "type": "string"
+        },
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.YandexCertificateManagerAuth",
+          "default": {}
+        },
+        "caProvider": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.YandexCertificateManagerCAProvider"
+        }
+      },
+      "required": [
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.YandexLockboxAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "authorizedKeySecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.YandexLockboxCAProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "certSecretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1.YandexLockboxProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "apiEndpoint": {
+          "type": "string"
+        },
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.YandexLockboxAuth",
+          "default": {}
+        },
+        "caProvider": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.YandexLockboxCAProvider"
+        }
+      },
+      "required": [
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1alpha1.ClusterPushSecretSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "namespaceSelectors": {
+          "items": {
+            "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+          },
+          "type": "array"
+        },
+        "pushSecretMetadata": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretMetadata",
+          "default": {}
+        },
+        "pushSecretName": {
+          "type": "string"
+        },
+        "pushSecretSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretSpec",
+          "default": {}
+        },
+        "refreshTime": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+        }
+      },
+      "required": [
+        "pushSecretSpec"
+      ],
+      "type": "object"
+    },
     "io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretData": {
       "additionalProperties": false,
       "properties": {
+        "conversionStrategy": {
+          "type": "string"
+        },
         "match": {
           "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretMatch",
           "default": {}
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON"
         }
       },
       "required": [
@@ -23,19 +2973,40 @@
           "default": {}
         },
         "secretKey": {
-          "default": "",
           "type": "string"
         }
       },
       "required": [
-        "secretKey",
         "remoteRef"
       ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "labels": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
       "type": "object"
     },
     "io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretRemoteRef": {
       "additionalProperties": false,
       "properties": {
+        "property": {
+          "type": "string"
+        },
         "remoteKey": {
           "default": "",
           "type": "string"
@@ -50,26 +3021,24 @@
       "additionalProperties": false,
       "properties": {
         "name": {
-          "default": "",
           "type": "string"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
         }
       },
-      "required": [
-        "name"
-      ],
       "type": "object"
     },
     "io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretSelector": {
       "additionalProperties": false,
       "properties": {
+        "generatorRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.GeneratorRef"
+        },
         "secret": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretSecret",
-          "default": {}
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretSecret"
         }
       },
-      "required": [
-        "secret"
-      ],
       "type": "object"
     },
     "io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretSpec": {
@@ -98,6 +3067,12 @@
         "selector": {
           "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.PushSecretSelector",
           "default": {}
+        },
+        "template": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretTemplate"
+        },
+        "updatePolicy": {
+          "type": "string"
         }
       },
       "required": [
@@ -116,1622 +3091,9 @@
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
         },
         "name": {
-          "default": "",
           "type": "string"
         }
       },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AWSAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "jwt": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AWSJWTAuth"
-        },
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AWSAuthSecretRef"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AWSAuthSecretRef": {
-      "additionalProperties": false,
-      "properties": {
-        "accessKeyIDSecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        },
-        "secretAccessKeySecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        },
-        "sessionTokenSecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AWSJWTAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "serviceAccountRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AWSProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "additionalRoles": {
-          "items": {
-            "default": "",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AWSAuth",
-          "default": {}
-        },
-        "region": {
-          "default": "",
-          "type": "string"
-        },
-        "role": {
-          "type": "string"
-        },
-        "service": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "service",
-        "region"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AkeylessAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "kubernetesAuth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AkeylessKubernetesAuth"
-        },
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AkeylessAuthSecretRef",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AkeylessAuthSecretRef": {
-      "additionalProperties": false,
-      "properties": {
-        "accessID": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        },
-        "accessType": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        },
-        "accessTypeParam": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AkeylessKubernetesAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "accessID": {
-          "default": "",
-          "type": "string"
-        },
-        "k8sConfName": {
-          "default": "",
-          "type": "string"
-        },
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
-        },
-        "serviceAccountRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
-        }
-      },
-      "required": [
-        "accessID",
-        "k8sConfName"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AkeylessProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "akeylessGWApiURL": {
-          "type": "string"
-        },
-        "authSecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AkeylessAuth"
-        }
-      },
-      "required": [
-        "akeylessGWApiURL",
-        "authSecretRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AlibabaAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AlibabaAuthSecretRef",
-          "default": {}
-        }
-      },
-      "required": [
-        "secretRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AlibabaAuthSecretRef": {
-      "additionalProperties": false,
-      "properties": {
-        "accessKeyIDSecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        },
-        "accessKeySecretSecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "required": [
-        "accessKeyIDSecretRef",
-        "accessKeySecretSecretRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AlibabaProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AlibabaAuth"
-        },
-        "endpoint": {
-          "default": "",
-          "type": "string"
-        },
-        "regionID": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "auth",
-        "regionID"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AzureKVAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "clientId": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
-        },
-        "clientSecret": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.AzureKVProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "authSecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AzureKVAuth"
-        },
-        "authType": {
-          "type": "string"
-        },
-        "environmentType": {
-          "type": "string"
-        },
-        "identityId": {
-          "type": "string"
-        },
-        "serviceAccountRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
-        },
-        "tenantId": {
-          "type": "string"
-        },
-        "vaultUrl": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "vaultUrl"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.CAProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "name": {
-          "default": "",
-          "type": "string"
-        },
-        "namespace": {
-          "type": "string"
-        },
-        "type": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "type",
-        "name"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.CertAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "clientCert": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        },
-        "clientKey": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecretSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "externalSecretName": {
-          "default": "",
-          "type": "string"
-        },
-        "externalSecretSpec": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretSpec",
-          "default": {}
-        },
-        "namespaceSelector": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-          "default": {}
-        },
-        "refreshTime": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
-        }
-      },
-      "required": [
-        "externalSecretSpec",
-        "namespaceSelector"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStoreCondition": {
-      "additionalProperties": false,
-      "properties": {
-        "namespaceSelector": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
-        },
-        "namespaces": {
-          "items": {
-            "default": "",
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.DopplerAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.DopplerAuthSecretRef",
-          "default": {}
-        }
-      },
-      "required": [
-        "secretRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.DopplerAuthSecretRef": {
-      "additionalProperties": false,
-      "properties": {
-        "dopplerToken": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "required": [
-        "dopplerToken"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.DopplerProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.DopplerAuth"
-        },
-        "config": {
-          "type": "string"
-        },
-        "format": {
-          "type": "string"
-        },
-        "nameTransformer": {
-          "type": "string"
-        },
-        "project": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "auth"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretData": {
-      "additionalProperties": false,
-      "properties": {
-        "remoteRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretDataRemoteRef",
-          "default": {}
-        },
-        "secretKey": {
-          "default": "",
-          "type": "string"
-        },
-        "sourceRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SourceRef"
-        }
-      },
-      "required": [
-        "secretKey",
-        "remoteRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretDataFromRemoteRef": {
-      "additionalProperties": false,
-      "properties": {
-        "extract": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretDataRemoteRef"
-        },
-        "find": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretFind"
-        },
-        "rewrite": {
-          "items": {
-            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretRewrite",
-            "default": {}
-          },
-          "type": "array"
-        },
-        "sourceRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SourceRef"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretDataRemoteRef": {
-      "additionalProperties": false,
-      "properties": {
-        "conversionStrategy": {
-          "type": "string"
-        },
-        "decodingStrategy": {
-          "type": "string"
-        },
-        "key": {
-          "default": "",
-          "type": "string"
-        },
-        "metadataPolicy": {
-          "type": "string"
-        },
-        "property": {
-          "type": "string"
-        },
-        "version": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "key"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretFind": {
-      "additionalProperties": false,
-      "properties": {
-        "conversionStrategy": {
-          "type": "string"
-        },
-        "decodingStrategy": {
-          "type": "string"
-        },
-        "name": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.FindName"
-        },
-        "path": {
-          "type": "string"
-        },
-        "tags": {
-          "additionalProperties": {
-            "default": "",
-            "type": "string"
-          },
-          "type": "object"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretRewrite": {
-      "additionalProperties": false,
-      "properties": {
-        "regexp": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretRewriteRegexp"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretRewriteRegexp": {
-      "additionalProperties": false,
-      "properties": {
-        "source": {
-          "default": "",
-          "type": "string"
-        },
-        "target": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "source",
-        "target"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretData",
-            "default": {}
-          },
-          "type": "array"
-        },
-        "dataFrom": {
-          "items": {
-            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretDataFromRemoteRef",
-            "default": {}
-          },
-          "type": "array"
-        },
-        "refreshInterval": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
-        },
-        "secretStoreRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SecretStoreRef",
-          "default": {}
-        },
-        "target": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretTarget",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretTarget": {
-      "additionalProperties": false,
-      "properties": {
-        "creationPolicy": {
-          "type": "string"
-        },
-        "deletionPolicy": {
-          "type": "string"
-        },
-        "immutable": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "template": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretTemplate"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretTemplate": {
-      "additionalProperties": false,
-      "properties": {
-        "data": {
-          "additionalProperties": {
-            "default": "",
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "engineVersion": {
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretTemplateMetadata",
-          "default": {}
-        },
-        "templateFrom": {
-          "items": {
-            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.TemplateFrom",
-            "default": {}
-          },
-          "type": "array"
-        },
-        "type": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretTemplateMetadata": {
-      "additionalProperties": false,
-      "properties": {
-        "annotations": {
-          "additionalProperties": {
-            "default": "",
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "labels": {
-          "additionalProperties": {
-            "default": "",
-            "type": "string"
-          },
-          "type": "object"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.FakeProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.FakeProviderData",
-            "default": {}
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "data"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.FakeProviderData": {
-      "additionalProperties": false,
-      "properties": {
-        "key": {
-          "default": "",
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        },
-        "valueMap": {
-          "additionalProperties": {
-            "default": "",
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "version": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "key"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.FindName": {
-      "additionalProperties": false,
-      "properties": {
-        "regexp": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.GCPSMAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.GCPSMAuthSecretRef"
-        },
-        "workloadIdentity": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.GCPWorkloadIdentity"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.GCPSMAuthSecretRef": {
-      "additionalProperties": false,
-      "properties": {
-        "secretAccessKeySecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.GCPSMProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.GCPSMAuth",
-          "default": {}
-        },
-        "projectID": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.GCPWorkloadIdentity": {
-      "additionalProperties": false,
-      "properties": {
-        "clusterLocation": {
-          "default": "",
-          "type": "string"
-        },
-        "clusterName": {
-          "default": "",
-          "type": "string"
-        },
-        "clusterProjectID": {
-          "type": "string"
-        },
-        "serviceAccountRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector",
-          "default": {}
-        }
-      },
-      "required": [
-        "serviceAccountRef",
-        "clusterLocation",
-        "clusterName"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.GeneratorRef": {
-      "additionalProperties": false,
-      "properties": {
-        "apiVersion": {
-          "type": "string"
-        },
-        "kind": {
-          "default": "",
-          "type": "string"
-        },
-        "name": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "kind",
-        "name"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.GitlabAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "SecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.GitlabSecretRef",
-          "default": {}
-        }
-      },
-      "required": [
-        "SecretRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.GitlabProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.GitlabAuth",
-          "default": {}
-        },
-        "environment": {
-          "type": "string"
-        },
-        "groupIDs": {
-          "items": {
-            "default": "",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "inheritFromGroups": {
-          "type": "boolean"
-        },
-        "projectID": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "auth"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.GitlabSecretRef": {
-      "additionalProperties": false,
-      "properties": {
-        "accessToken": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.IBMAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "containerAuth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.IBMAuthContainerAuth",
-          "default": {}
-        },
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.IBMAuthSecretRef",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.IBMAuthContainerAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "iamEndpoint": {
-          "type": "string"
-        },
-        "profile": {
-          "default": "",
-          "type": "string"
-        },
-        "tokenLocation": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "profile"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.IBMAuthSecretRef": {
-      "additionalProperties": false,
-      "properties": {
-        "secretApiKeySecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.IBMProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.IBMAuth",
-          "default": {}
-        },
-        "serviceUrl": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "auth"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.KubernetesAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "cert": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.CertAuth"
-        },
-        "serviceAccount": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
-        },
-        "token": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.TokenAuth"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.KubernetesProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.KubernetesAuth",
-          "default": {}
-        },
-        "remoteNamespace": {
-          "default": "",
-          "type": "string"
-        },
-        "server": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.KubernetesServer",
-          "default": {}
-        }
-      },
-      "required": [
-        "auth"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.KubernetesServer": {
-      "additionalProperties": false,
-      "properties": {
-        "caBundle": {
-          "format": "byte",
-          "type": "string"
-        },
-        "caProvider": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.CAProvider"
-        },
-        "url": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.OnePasswordAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.OnePasswordAuthSecretRef"
-        }
-      },
-      "required": [
-        "secretRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.OnePasswordAuthSecretRef": {
-      "additionalProperties": false,
-      "properties": {
-        "connectTokenSecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "required": [
-        "connectTokenSecretRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.OnePasswordProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.OnePasswordAuth"
-        },
-        "connectHost": {
-          "default": "",
-          "type": "string"
-        },
-        "vaults": {
-          "additionalProperties": {
-            "default": 0,
-            "format": "int32",
-            "type": "integer"
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "auth",
-        "connectHost",
-        "vaults"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.OracleAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.OracleSecretRef",
-          "default": {}
-        },
-        "tenancy": {
-          "default": "",
-          "type": "string"
-        },
-        "user": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "tenancy",
-        "user",
-        "secretRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.OracleProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.OracleAuth"
-        },
-        "region": {
-          "default": "",
-          "type": "string"
-        },
-        "vault": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "region",
-        "vault"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.OracleSecretRef": {
-      "additionalProperties": false,
-      "properties": {
-        "fingerprint": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        },
-        "privatekey": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "required": [
-        "privatekey",
-        "fingerprint"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.SecretStoreProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "akeyless": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AkeylessProvider"
-        },
-        "alibaba": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AlibabaProvider"
-        },
-        "aws": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AWSProvider"
-        },
-        "azurekv": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.AzureKVProvider"
-        },
-        "doppler": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.DopplerProvider"
-        },
-        "fake": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.FakeProvider"
-        },
-        "gcpsm": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.GCPSMProvider"
-        },
-        "gitlab": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.GitlabProvider"
-        },
-        "ibm": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.IBMProvider"
-        },
-        "kubernetes": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.KubernetesProvider"
-        },
-        "onepassword": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.OnePasswordProvider"
-        },
-        "oracle": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.OracleProvider"
-        },
-        "senhasegura": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SenhaseguraProvider"
-        },
-        "vault": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.VaultProvider"
-        },
-        "webhook": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.WebhookProvider"
-        },
-        "yandexcertificatemanager": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.YandexCertificateManagerProvider"
-        },
-        "yandexlockbox": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.YandexLockboxProvider"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.SecretStoreRef": {
-      "additionalProperties": false,
-      "properties": {
-        "kind": {
-          "type": "string"
-        },
-        "name": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "name"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.SecretStoreRetrySettings": {
-      "additionalProperties": false,
-      "properties": {
-        "maxRetries": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "retryInterval": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.SecretStoreSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "conditions": {
-          "items": {
-            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStoreCondition",
-            "default": {}
-          },
-          "type": "array"
-        },
-        "controller": {
-          "default": "",
-          "type": "string"
-        },
-        "provider": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SecretStoreProvider"
-        },
-        "refreshInterval": {
-          "default": 0,
-          "format": "int32",
-          "type": "integer"
-        },
-        "retrySettings": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SecretStoreRetrySettings"
-        }
-      },
-      "required": [
-        "provider"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.SenhaseguraAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "clientId": {
-          "default": "",
-          "type": "string"
-        },
-        "clientSecretSecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "required": [
-        "clientId",
-        "clientSecretSecretRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.SenhaseguraProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SenhaseguraAuth",
-          "default": {}
-        },
-        "ignoreSslCertificate": {
-          "type": "boolean"
-        },
-        "module": {
-          "default": "",
-          "type": "string"
-        },
-        "url": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "url",
-        "module",
-        "auth"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.SourceRef": {
-      "additionalProperties": false,
-      "properties": {
-        "generatorRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.GeneratorRef"
-        },
-        "storeRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SecretStoreRef"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.TemplateFrom": {
-      "additionalProperties": false,
-      "properties": {
-        "configMap": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.TemplateRef"
-        },
-        "literal": {
-          "type": "string"
-        },
-        "secret": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.TemplateRef"
-        },
-        "target": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.TemplateRef": {
-      "additionalProperties": false,
-      "properties": {
-        "items": {
-          "items": {
-            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.TemplateRefItem",
-            "default": {}
-          },
-          "type": "array"
-        },
-        "name": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "name",
-        "items"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.TemplateRefItem": {
-      "additionalProperties": false,
-      "properties": {
-        "key": {
-          "default": "",
-          "type": "string"
-        },
-        "templateAs": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "key"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.TokenAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "bearerToken": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.VaultAppRole": {
-      "additionalProperties": false,
-      "properties": {
-        "path": {
-          "default": "",
-          "type": "string"
-        },
-        "roleId": {
-          "default": "",
-          "type": "string"
-        },
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "required": [
-        "path",
-        "roleId",
-        "secretRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.VaultAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "appRole": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.VaultAppRole"
-        },
-        "cert": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.VaultCertAuth"
-        },
-        "jwt": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.VaultJwtAuth"
-        },
-        "kubernetes": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.VaultKubernetesAuth"
-        },
-        "ldap": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.VaultLdapAuth"
-        },
-        "tokenSecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.VaultCertAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "clientCert": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        },
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.VaultJwtAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "kubernetesServiceAccountToken": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.VaultKubernetesServiceAccountTokenAuth"
-        },
-        "path": {
-          "default": "",
-          "type": "string"
-        },
-        "role": {
-          "default": "",
-          "type": "string"
-        },
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
-        }
-      },
-      "required": [
-        "path"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.VaultKubernetesAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "mountPath": {
-          "default": "",
-          "type": "string"
-        },
-        "role": {
-          "default": "",
-          "type": "string"
-        },
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector"
-        },
-        "serviceAccountRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector"
-        }
-      },
-      "required": [
-        "mountPath",
-        "role"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.VaultKubernetesServiceAccountTokenAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "audiences": {
-          "items": {
-            "default": "",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "expirationSeconds": {
-          "format": "int64",
-          "type": "integer"
-        },
-        "serviceAccountRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector",
-          "default": {}
-        }
-      },
-      "required": [
-        "serviceAccountRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.VaultLdapAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "path": {
-          "default": "",
-          "type": "string"
-        },
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        },
-        "username": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "path",
-        "username"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.VaultProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.VaultAuth",
-          "default": {}
-        },
-        "caBundle": {
-          "format": "byte",
-          "type": "string"
-        },
-        "caProvider": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.CAProvider"
-        },
-        "forwardInconsistent": {
-          "type": "boolean"
-        },
-        "namespace": {
-          "type": "string"
-        },
-        "path": {
-          "type": "string"
-        },
-        "readYourWrites": {
-          "type": "boolean"
-        },
-        "server": {
-          "default": "",
-          "type": "string"
-        },
-        "version": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "auth",
-        "server",
-        "version"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.WebhookCAProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "name": {
-          "default": "",
-          "type": "string"
-        },
-        "namespace": {
-          "type": "string"
-        },
-        "type": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "type",
-        "name"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.WebhookProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "body": {
-          "type": "string"
-        },
-        "caBundle": {
-          "format": "byte",
-          "type": "string"
-        },
-        "caProvider": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.WebhookCAProvider"
-        },
-        "headers": {
-          "additionalProperties": {
-            "default": "",
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "method": {
-          "type": "string"
-        },
-        "result": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.WebhookResult",
-          "default": {}
-        },
-        "secrets": {
-          "items": {
-            "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.WebhookSecret",
-            "default": {}
-          },
-          "type": "array"
-        },
-        "timeout": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
-        },
-        "url": {
-          "default": "",
-          "type": "string"
-        }
-      },
-      "required": [
-        "url",
-        "result"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.WebhookResult": {
-      "additionalProperties": false,
-      "properties": {
-        "jsonPath": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.WebhookSecret": {
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "default": "",
-          "type": "string"
-        },
-        "secretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "required": [
-        "name",
-        "secretRef"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.YandexCertificateManagerAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "authorizedKeySecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.YandexCertificateManagerCAProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "certSecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.YandexCertificateManagerProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "apiEndpoint": {
-          "type": "string"
-        },
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.YandexCertificateManagerAuth",
-          "default": {}
-        },
-        "caProvider": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.YandexCertificateManagerCAProvider"
-        }
-      },
-      "required": [
-        "auth"
-      ],
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.YandexLockboxAuth": {
-      "additionalProperties": false,
-      "properties": {
-        "authorizedKeySecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.YandexLockboxCAProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "certSecretRef": {
-          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "io.external-secrets.apis.externalsecrets.v1beta1.YandexLockboxProvider": {
-      "additionalProperties": false,
-      "properties": {
-        "apiEndpoint": {
-          "type": "string"
-        },
-        "auth": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.YandexLockboxAuth",
-          "default": {}
-        },
-        "caProvider": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.YandexLockboxCAProvider"
-        }
-      },
-      "required": [
-        "auth"
-      ],
       "type": "object"
     },
     "io.external-secrets.apis.generators.v1alpha1.ACRAccessTokenSpec": {
@@ -1814,6 +3176,15 @@
       },
       "type": "object"
     },
+    "io.external-secrets.apis.generators.v1alpha1.AuthorizationProtocol": {
+      "additionalProperties": false,
+      "properties": {
+        "ntlm": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.NTLMProtocol"
+        }
+      },
+      "type": "object"
+    },
     "io.external-secrets.apis.generators.v1alpha1.AzureACRManagedIdentityAuth": {
       "additionalProperties": false,
       "properties": {
@@ -1859,6 +3230,24 @@
       },
       "type": "object"
     },
+    "io.external-secrets.apis.generators.v1alpha1.ClusterGeneratorSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "generator": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GeneratorSpec",
+          "default": {}
+        },
+        "kind": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "generator"
+      ],
+      "type": "object"
+    },
     "io.external-secrets.apis.generators.v1alpha1.ECRAuthorizationTokenSpec": {
       "additionalProperties": false,
       "properties": {
@@ -1871,7 +3260,9 @@
           "type": "string"
         },
         "role": {
-          "default": "",
+          "type": "string"
+        },
+        "scope": {
           "type": "string"
         }
       },
@@ -1883,6 +3274,9 @@
     "io.external-secrets.apis.generators.v1alpha1.FakeSpec": {
       "additionalProperties": false,
       "properties": {
+        "controller": {
+          "type": "string"
+        },
         "data": {
           "additionalProperties": {
             "default": "",
@@ -1959,6 +3353,233 @@
       ],
       "type": "object"
     },
+    "io.external-secrets.apis.generators.v1alpha1.GeneratorSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "acrAccessTokenSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.ACRAccessTokenSpec"
+        },
+        "ecrAuthorizationTokenSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.ECRAuthorizationTokenSpec"
+        },
+        "fakeSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.FakeSpec"
+        },
+        "gcrAccessTokenSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GCRAccessTokenSpec"
+        },
+        "githubAccessTokenSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GithubAccessTokenSpec"
+        },
+        "grafanaSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GrafanaSpec"
+        },
+        "mfaSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.MFASpec"
+        },
+        "passwordSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.PasswordSpec"
+        },
+        "quayAccessTokenSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.QuayAccessTokenSpec"
+        },
+        "stsSessionTokenSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.STSSessionTokenSpec"
+        },
+        "uuidSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.UUIDSpec"
+        },
+        "vaultDynamicSecretSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.VaultDynamicSecretSpec"
+        },
+        "webhookSpec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.WebhookSpec"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.GithubAccessTokenSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "appID": {
+          "default": "",
+          "type": "string"
+        },
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GithubAuth",
+          "default": {}
+        },
+        "installID": {
+          "default": "",
+          "type": "string"
+        },
+        "permissions": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "repositories": {
+          "items": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "appID",
+        "installID",
+        "auth"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.GithubAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "privateKey": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GithubSecretRef",
+          "default": {}
+        }
+      },
+      "required": [
+        "privateKey"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.GithubSecretRef": {
+      "additionalProperties": false,
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.GrafanaAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "basic": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GrafanaBasicAuth"
+        },
+        "token": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.SecretKeySelector"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.GrafanaBasicAuth": {
+      "additionalProperties": false,
+      "properties": {
+        "password": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.SecretKeySelector",
+          "default": {}
+        },
+        "username": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.GrafanaServiceAccount": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "role": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "role"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.GrafanaSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GrafanaAuth",
+          "default": {}
+        },
+        "serviceAccount": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GrafanaServiceAccount",
+          "default": {}
+        },
+        "url": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "auth",
+        "serviceAccount"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.MFASpec": {
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "type": "string"
+        },
+        "length": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "secret": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "timePeriod": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "when": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+        }
+      },
+      "required": [
+        "secret"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.NTLMProtocol": {
+      "additionalProperties": false,
+      "properties": {
+        "passwordSecret": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        },
+        "usernameSecret": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "usernameSecret",
+        "passwordSecret"
+      ],
+      "type": "object"
+    },
     "io.external-secrets.apis.generators.v1alpha1.PasswordSpec": {
       "additionalProperties": false,
       "properties": {
@@ -1991,6 +3612,218 @@
         "length",
         "noUpper",
         "allowRepeat"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.QuayAccessTokenSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "robotAccount": {
+          "default": "",
+          "type": "string"
+        },
+        "serviceAccountRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.meta.v1.ServiceAccountSelector",
+          "default": {}
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "robotAccount",
+        "serviceAccountRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.RequestParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "serialNumber": {
+          "type": "string"
+        },
+        "sessionDuration": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "tokenCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.STSSessionTokenSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.AWSAuth",
+          "default": {}
+        },
+        "region": {
+          "default": "",
+          "type": "string"
+        },
+        "requestParameters": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.RequestParameters"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "region"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.SecretKeySelector": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.UUIDSpec": {
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.VaultDynamicSecretSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "allowEmptyResponse": {
+          "type": "boolean"
+        },
+        "controller": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON"
+        },
+        "path": {
+          "default": "",
+          "type": "string"
+        },
+        "provider": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.VaultProvider"
+        },
+        "resultType": {
+          "type": "string"
+        },
+        "retrySettings": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SecretStoreRetrySettings"
+        }
+      },
+      "required": [
+        "provider",
+        "path"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.WebhookCAProvider": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "type": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "name"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.WebhookResult": {
+      "additionalProperties": false,
+      "properties": {
+        "jsonPath": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.WebhookSecret": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "default": "",
+          "type": "string"
+        },
+        "secretRef": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.SecretKeySelector",
+          "default": {}
+        }
+      },
+      "required": [
+        "name",
+        "secretRef"
+      ],
+      "type": "object"
+    },
+    "io.external-secrets.apis.generators.v1alpha1.WebhookSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.AuthorizationProtocol"
+        },
+        "body": {
+          "type": "string"
+        },
+        "caBundle": {
+          "format": "byte",
+          "type": "string"
+        },
+        "caProvider": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.WebhookCAProvider"
+        },
+        "headers": {
+          "additionalProperties": {
+            "default": "",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "method": {
+          "type": "string"
+        },
+        "result": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.WebhookResult",
+          "default": {}
+        },
+        "secrets": {
+          "items": {
+            "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.WebhookSecret",
+            "default": {}
+          },
+          "type": "array"
+        },
+        "timeout": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+        },
+        "url": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "result"
       ],
       "type": "object"
     },
@@ -2032,6 +3865,7 @@
       ],
       "type": "object"
     },
+    "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON": {},
     "io.k8s.apimachinery.pkg.apis.meta.v1.Duration": {
       "type": "string"
     },
@@ -2043,7 +3877,8 @@
             "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement",
             "default": {}
           },
-          "type": "array"
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
         },
         "matchLabels": {
           "additionalProperties": {
@@ -2061,9 +3896,7 @@
       "properties": {
         "key": {
           "default": "",
-          "type": "string",
-          "x-kubernetes-patch-merge-key": "key",
-          "x-kubernetes-patch-strategy": "merge"
+          "type": "string"
         },
         "operator": {
           "default": "",
@@ -2074,13 +3907,98 @@
             "default": "",
             "type": "string"
           },
-          "type": "array"
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
         }
       },
       "required": [
         "key",
         "operator"
       ],
+      "type": "object"
+    },
+    "io.k8s.apimachinery.pkg.apis.meta.v1.Time": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "metachart.api.io.external-secrets.apis.externalsecrets.v1.ClusterExternalSecret": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ClusterExternalSecretSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.externalsecrets.v1.ClusterSecretStore": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SecretStoreSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.externalsecrets.v1.ExternalSecret": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.ExternalSecretSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.externalsecrets.v1.SecretStore": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1.SecretStoreSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.externalsecrets.v1alpha1.ClusterPushSecret": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1alpha1.ClusterPushSecretSpec",
+          "default": {}
+        }
+      },
       "type": "object"
     },
     "metachart.api.io.external-secrets.apis.externalsecrets.v1alpha1.PushSecret": {
@@ -2099,70 +4017,6 @@
       },
       "type": "object"
     },
-    "metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecret": {
-      "additionalProperties": false,
-      "properties": {
-        "enabled": {
-          "$ref": "#/definitions/metachart.interface.boolean"
-        },
-        "metadata": {
-          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
-        },
-        "spec": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecretSpec",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore": {
-      "additionalProperties": false,
-      "properties": {
-        "enabled": {
-          "$ref": "#/definitions/metachart.interface.boolean"
-        },
-        "metadata": {
-          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
-        },
-        "spec": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SecretStoreSpec",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecret": {
-      "additionalProperties": false,
-      "properties": {
-        "enabled": {
-          "$ref": "#/definitions/metachart.interface.boolean"
-        },
-        "metadata": {
-          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
-        },
-        "spec": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecretSpec",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
-    "metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.SecretStore": {
-      "additionalProperties": false,
-      "properties": {
-        "enabled": {
-          "$ref": "#/definitions/metachart.interface.boolean"
-        },
-        "metadata": {
-          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
-        },
-        "spec": {
-          "$ref": "#/definitions/io.external-secrets.apis.externalsecrets.v1beta1.SecretStoreSpec",
-          "default": {}
-        }
-      },
-      "type": "object"
-    },
     "metachart.api.io.external-secrets.apis.generators.v1alpha1.ACRAccessToken": {
       "additionalProperties": false,
       "properties": {
@@ -2174,6 +4028,22 @@
         },
         "spec": {
           "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.ACRAccessTokenSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.ClusterGenerator": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.ClusterGeneratorSpec",
           "default": {}
         }
       },
@@ -2227,6 +4097,54 @@
       },
       "type": "object"
     },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.GithubAccessToken": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GithubAccessTokenSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.Grafana": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.GrafanaSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.MFA": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.MFASpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
     "metachart.api.io.external-secrets.apis.generators.v1alpha1.Password": {
       "additionalProperties": false,
       "properties": {
@@ -2238,6 +4156,86 @@
         },
         "spec": {
           "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.PasswordSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.QuayAccessToken": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.QuayAccessTokenSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.STSSessionToken": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.STSSessionTokenSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.UUID": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.UUIDSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.VaultDynamicSecret": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.VaultDynamicSecretSpec",
+          "default": {}
+        }
+      },
+      "type": "object"
+    },
+    "metachart.api.io.external-secrets.apis.generators.v1alpha1.Webhook": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "$ref": "#/definitions/metachart.interface.boolean"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metachart.api.meta.v1.ObjectMeta"
+        },
+        "spec": {
+          "$ref": "#/definitions/io.external-secrets.apis.generators.v1alpha1.WebhookSpec",
           "default": {}
         }
       },
@@ -2259,6 +4257,7 @@
             "type": "string"
           },
           "type": "array",
+          "x-kubernetes-list-type": "set",
           "x-kubernetes-patch-strategy": "merge"
         },
         "labels": {
@@ -2299,7 +4298,25 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
-          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecret"
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1.ClusterExternalSecret"
+        }
+      },
+      "type": "object"
+    },
+    "clustergenerators": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.ClusterGenerator"
+        }
+      },
+      "type": "object"
+    },
+    "clusterpushsecrets": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1alpha1.ClusterPushSecret"
         }
       },
       "type": "object"
@@ -2308,7 +4325,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
-          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore"
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1.ClusterSecretStore"
         }
       },
       "type": "object"
@@ -2330,7 +4347,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
-          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecret"
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1.ExternalSecret"
         }
       },
       "type": "object"
@@ -2354,11 +4371,38 @@
         }
       ]
     },
-    "gcraccesstoken": {
+    "gcraccesstokens": {
       "additionalProperties": false,
       "patternProperties": {
         "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
           "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.GCRAccessToken"
+        }
+      },
+      "type": "object"
+    },
+    "githubaccesstokens": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.GithubAccessToken"
+        }
+      },
+      "type": "object"
+    },
+    "grafanas": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.Grafana"
+        }
+      },
+      "type": "object"
+    },
+    "mfas": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.MFA"
         }
       },
       "type": "object"
@@ -2381,11 +4425,20 @@
       },
       "type": "object"
     },
+    "quayaccesstokens": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.QuayAccessToken"
+        }
+      },
+      "type": "object"
+    },
     "secretstores": {
       "additionalProperties": false,
       "patternProperties": {
         "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
-          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.SecretStore"
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1.SecretStore"
         }
       },
       "type": "object"
@@ -2408,7 +4461,31 @@
         "clusterexternalsecrets": {
           "properties": {
             "defaults": {
-              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecret"
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1.ClusterExternalSecret"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "clustergenerators": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.ClusterGenerator"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "clusterpushsecrets": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1alpha1.ClusterPushSecret"
             },
             "disabled": {
               "description": "Disable all resources of this kind",
@@ -2420,7 +4497,7 @@
         "clustersecretstores": {
           "properties": {
             "defaults": {
-              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore"
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1.ClusterSecretStore"
             },
             "disabled": {
               "description": "Disable all resources of this kind",
@@ -2444,7 +4521,7 @@
         "externalsecrets": {
           "properties": {
             "defaults": {
-              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecret"
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1.ExternalSecret"
             },
             "disabled": {
               "description": "Disable all resources of this kind",
@@ -2465,10 +4542,22 @@
           },
           "type": "object"
         },
-        "gcraccesstoken": {
+        "gcraccesstokens": {
           "properties": {
             "defaults": {
               "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.GCRAccessToken"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "githubaccesstokens": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.GithubAccessToken"
             },
             "disabled": {
               "description": "Disable all resources of this kind",
@@ -2491,6 +4580,30 @@
                 "type": "string"
               },
               "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "grafanas": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.Grafana"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "mfas": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.MFA"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -2519,10 +4632,10 @@
           },
           "type": "object"
         },
-        "secretstores": {
+        "quayaccesstokens": {
           "properties": {
             "defaults": {
-              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.SecretStore"
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.QuayAccessToken"
             },
             "disabled": {
               "description": "Disable all resources of this kind",
@@ -2530,6 +4643,102 @@
             }
           },
           "type": "object"
+        },
+        "secretstores": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.externalsecrets.v1.SecretStore"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "stssessiontokens": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.STSSessionToken"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "uuids": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.UUID"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "vaultdynamicsecrets": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.VaultDynamicSecret"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "webhooks": {
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.Webhook"
+            },
+            "disabled": {
+              "description": "Disable all resources of this kind",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "stssessiontokens": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.STSSessionToken"
+        }
+      },
+      "type": "object"
+    },
+    "uuids": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.UUID"
+        }
+      },
+      "type": "object"
+    },
+    "vaultdynamicsecrets": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.VaultDynamicSecret"
+        }
+      },
+      "type": "object"
+    },
+    "webhooks": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][0-9a-z]*(-[0-9a-z]+)*$": {
+          "$ref": "#/definitions/metachart.api.io.external-secrets.apis.generators.v1alpha1.Webhook"
         }
       },
       "type": "object"
