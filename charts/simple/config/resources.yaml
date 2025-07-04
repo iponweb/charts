@@ -147,23 +147,91 @@ resources:
     kind: PriorityClass
     jsonSchemaRef: metachart.api.io.k8s.api.scheduling.v1.PriorityClass
 
-  #: external-secrets.io/v1beta1
-  externalsecrets:
-    apiVersion: external-secrets.io/v1beta1
-    kind: ExternalSecret
-    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ExternalSecret
+  #: external-secrets.io/v1
   clusterexternalsecrets:
-    apiVersion: external-secrets.io/v1beta1
+    apiVersion: external-secrets.io/v1
     kind: ClusterExternalSecret
-    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterExternalSecret
-  secretstores:
-    apiVersion: external-secrets.io/v1beta1
-    kind: SecretStore
-    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.SecretStore
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1.ClusterExternalSecret
   clustersecretstores:
-    apiVersion: external-secrets.io/v1beta1
+    apiVersion: external-secrets.io/v1
     kind: ClusterSecretStore
-    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1beta1.ClusterSecretStore
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1.ClusterSecretStore
+  externalsecrets:
+    apiVersion: external-secrets.io/v1
+    kind: ExternalSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1.ExternalSecret
+  secretstores:
+    apiVersion: external-secrets.io/v1
+    kind: SecretStore
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1.SecretStore
+
+  #: external-secrets.io/v1alpha1
+  pushsecrets:
+    apiVersion: external-secrets.io/v1alpha1
+    kind: PushSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1alpha1.PushSecret
+  clusterpushsecrets:
+    apiVersion: external-secrets.io/v1alpha1
+    kind: PushSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.externalsecrets.v1alpha1.ClusterPushSecret
+
+  #: generators.external-secrets.io/v1alpha1
+  acraccesstokens:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: ACRAccessToken
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.ACRAccessToken
+  clustergenerators:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: ClusterGenerator
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.ClusterGenerator
+  ecrauthorizationtokens:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: ECRAuthorizationToken
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.ECRAuthorizationToken
+  fakes:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: Fake
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.Fake
+  gcraccesstokens:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: GCRAccessToken
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.GCRAccessToken
+  githubaccesstokens:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: GithubAccessToken
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.GithubAccessToken
+  grafanas:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: Grafana
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.Grafana
+  mfas:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: MFA
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.MFA
+  passwords:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: Password
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.Password
+  quayaccesstokens:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: QuayAccessToken
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.QuayAccessToken
+  stssessiontokens:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: STSSessionToken
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.STSSessionToken
+  uuids:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: UUID
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.UUID
+  vaultdynamicsecrets:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: VaultDynamicSecret
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.VaultDynamicSecret
+  webhooks:
+    apiVersion: generators.external-secrets.io/v1alpha1
+    kind: Webhook
+    jsonSchemaRef: metachart.api.io.external-secrets.apis.generators.v1alpha1.Webhook
 
   #: monitoring.coreos.com/v1alpha1
   alertmanagerconfigs:
