@@ -1,5 +1,9 @@
 {{- /* Resources definition */}}
 {{- define "metachart.settings" }}
+acraccesstokens:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: ACRAccessToken
+  preprocess: false
 alertmanagerconfigs:
   apiVersion: monitoring.coreos.com/v1alpha1
   kindCamelCase: AlertmanagerConfig
@@ -13,8 +17,16 @@ certificatesigningrequests:
   kindCamelCase: CertificateSigningRequest
   preprocess: false
 clusterexternalsecrets:
-  apiVersion: external-secrets.io/v1beta1
+  apiVersion: external-secrets.io/v1
   kindCamelCase: ClusterExternalSecret
+  preprocess: false
+clustergenerators:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: ClusterGenerator
+  preprocess: false
+clusterpushsecrets:
+  apiVersion: external-secrets.io/v1alpha1
+  kindCamelCase: PushSecret
   preprocess: false
 clusterrolebindings:
   apiVersion: rbac.authorization.k8s.io/v1
@@ -25,7 +37,7 @@ clusterroles:
   kindCamelCase: ClusterRole
   preprocess: false
 clustersecretstores:
-  apiVersion: external-secrets.io/v1beta1
+  apiVersion: external-secrets.io/v1
   kindCamelCase: ClusterSecretStore
   preprocess: false
 configmaps:
@@ -48,9 +60,29 @@ deployments:
   apiVersion: apps/v1
   kindCamelCase: Deployment
   preprocess: true
+ecrauthorizationtokens:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: ECRAuthorizationToken
+  preprocess: false
 externalsecrets:
-  apiVersion: external-secrets.io/v1beta1
+  apiVersion: external-secrets.io/v1
   kindCamelCase: ExternalSecret
+  preprocess: false
+fakes:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: Fake
+  preprocess: false
+gcraccesstokens:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: GCRAccessToken
+  preprocess: false
+githubaccesstokens:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: GithubAccessToken
+  preprocess: false
+grafanas:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: Grafana
   preprocess: false
 horizontalpodautoscalers:
   apiVersion: autoscaling/v1
@@ -68,6 +100,10 @@ jobs:
   apiVersion: batch/v1
   kindCamelCase: Job
   preprocess: true
+mfas:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: MFA
+  preprocess: false
 mutatingwebhookconfigurations:
   apiVersion: admissionregistration.k8s.io/v1
   kindCamelCase: MutatingWebhookConfiguration
@@ -75,6 +111,10 @@ mutatingwebhookconfigurations:
 networkpolicies:
   apiVersion: networking.k8s.io/v1
   kindCamelCase: Ingress
+  preprocess: false
+passwords:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: Password
   preprocess: false
 persistentvolumeclaims:
   apiVersion: v1
@@ -104,6 +144,14 @@ prometheusrules:
   apiVersion: monitoring.coreos.com/v1
   kindCamelCase: PrometheusRule
   preprocess: false
+pushsecrets:
+  apiVersion: external-secrets.io/v1alpha1
+  kindCamelCase: PushSecret
+  preprocess: false
+quayaccesstokens:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: QuayAccessToken
+  preprocess: false
 rolebindings:
   apiVersion: rbac.authorization.k8s.io/v1
   kindCamelCase: RoleBinding
@@ -125,7 +173,7 @@ secrets:
   kindCamelCase: Secret
   preprocess: false
 secretstores:
-  apiVersion: external-secrets.io/v1beta1
+  apiVersion: external-secrets.io/v1
   kindCamelCase: SecretStore
   preprocess: false
 serviceaccounts:
@@ -144,8 +192,24 @@ storageclasses:
   apiVersion: storage.k8s.io/v1
   kindCamelCase: StorageClass
   preprocess: false
+stssessiontokens:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: STSSessionToken
+  preprocess: false
+uuids:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: UUID
+  preprocess: false
 validatingwebhookconfigurations:
   apiVersion: admissionregistration.k8s.io/v1
   kindCamelCase: ValidatingWebhookConfiguration
+  preprocess: false
+vaultdynamicsecrets:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: VaultDynamicSecret
+  preprocess: false
+webhooks:
+  apiVersion: generators.external-secrets.io/v1alpha1
+  kindCamelCase: Webhook
   preprocess: false
 {{- end }}

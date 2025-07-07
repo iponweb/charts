@@ -185,6 +185,7 @@ Params:
   nameSuffix : string - Suffix to be added to the resource name
   withName : bool - Whether name key must be added (default: true)
   withNameFullnamePrefix : bool - Whether fullname prefix must be added to the name (default: true)
+  withSelectorLabelsOnly : bool - Use Only Selector labels instead of complete Resource labels
 
 Return: dict in json format
 */}}
@@ -198,6 +199,7 @@ Return: dict in json format
 {{- $nameSuffix := $params.nameSuffix }}
 {{- $withName := (hasKey $params "withName" | ternary $params.withName true) }}
 {{- $withNameFullnamePrefix := (hasKey $params "withNameFullnamePrefix" | ternary $params.withNameFullnamePrefix true) }}
+{{- $withSelectorLabelsOnly := (hasKey $params "withSelectorLabelsOnly" | ternary $params.withSelectorLabelsOnly false) }}
 {{- /* Execution */}}
 {{- $resourceMeta := default dict $definition.metadata }}
 {{- /* Execution */}}
@@ -223,8 +225,12 @@ Return: dict in json format
     {{- end }}
   {{- end }}
 {{- end }}
-{{- $_ := set $result "labels" (include "metachart.resourceLabels" (merge (dict "params" $params) $context) | fromJson) }}
-{{- $_ = set $result "annotations" (include "metachart.resourceAnnotations" (merge (dict "params" $params) $context) | fromJson) }}
+{{- if $withSelectorLabelsOnly }}
+    {{- $_ := set $result "labels" (include "metachart.selectorLabels" (merge (dict "params" $params) $context) | fromJson) }}
+{{- else }}
+    {{- $_ := set $result "labels" (include "metachart.resourceLabels" (merge (dict "params" $params) $context) | fromJson) }}
+{{- end }}
+{{- $_ := set $result "annotations" (include "metachart.resourceAnnotations" (merge (dict "params" $params) $context) | fromJson) }}
 {{- /* Return */}}
 {{- $result | toJson }}
 {{- end }}
@@ -491,8 +497,10 @@ Return: dict in json format
       "relatedComponent" $relatedComponent
     )) $context) | fromJson }}
 {{- end }}
+{{- /* Resource for context */}}
+{{- $metachartAdditionalContext := dict "ResourcePreRendered" ($preprocessed | deepCopy) }}
 {{- /* Render */}}
-{{- $result := include "metachart.deepRender" (merge (dict "params" (dict "data" $preprocessed)) $) | fromJson }}
+{{- $result := include "metachart.deepRender" (merge (dict "params" (dict "data" $preprocessed) "Metachart" $metachartAdditionalContext) $) | fromJson }}
 {{- /* Return */}}
 {{- $result | toJson }}
 {{- end }}

@@ -48,6 +48,7 @@
         "name" $volumeClaimTemplateName
         "component" (printf "%s-%s" $component $volumeClaimTemplateName)
         "withNameFullnamePrefix" false
+        "withSelectorLabelsOnly" true
       )) $context) | fromJson
     )
     "spec" $persistentVolumeClaim.spec
