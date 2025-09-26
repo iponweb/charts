@@ -208,6 +208,17 @@ entries:
     urls:
     - https://github.com/iponweb/charts/releases/download/meta-prometheus-operator-0.60.1/meta-prometheus-operator-0.60.1.tgz
     version: 0.60.1
+  meta-victoriametrics-operator:
+  - apiVersion: v2
+    appVersion: none
+    created: "2025-09-26T20:49:30.545439905Z"
+    description: Metachart born Helm Chart for victoriametrics-operator resources
+    digest: dfc9de74d9b73b5a8630bba94c1a2b294664b827fc7051ddbd7e425ac814aab7
+    name: meta-victoriametrics-operator
+    type: application
+    urls:
+    - https://github.com/iponweb/charts/releases/download/meta-victoriametrics-operator-0.63.0/meta-victoriametrics-operator-0.63.0.tgz
+    version: 0.63.0
   metachart:
   - apiVersion: v2
     appVersion: none
@@ -330,4 +341,4 @@ entries:
     urls:
     - https://github.com/iponweb/charts/releases/download/simple-0.1.0/simple-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-07T12:04:45.319522667Z"
+generated: "2025-09-26T20:49:30.545518061Z"
