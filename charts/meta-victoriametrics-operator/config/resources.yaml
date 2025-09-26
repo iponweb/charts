@@ -1,0 +1,92 @@
+resources:
+  #: operator.victoriametrics.com/v1
+  vlagents:
+    apiVersion: operator.victoriametrics.com/v1
+    kind: VLAgent
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1.VLAgent
+  vlclusters:
+    apiVersion: operator.victoriametrics.com/v1
+    kind: VLCluster
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1.VLCluster
+  vlsingles:
+    apiVersion: operator.victoriametrics.com/v1
+    kind: VLSingle
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1.VLSingle
+  vmanomalies:
+    apiVersion: operator.victoriametrics.com/v1
+    kind: VMAnomaly
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1.VMAnomaly
+  vtclusters:
+    apiVersion: operator.victoriametrics.com/v1
+    kind: VTCluster
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1.VTCluster
+  vtsingles:
+    apiVersion: operator.victoriametrics.com/v1
+    kind: VTSingle
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1.VTSingle
+
+  #: operator.victoriametrics.com/v1beta1
+  vlogs:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VLogs
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VLogs
+  vmagents:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMAgent
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMAgent
+  vmalertmanagerconfigs:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMAlertmanagerConfig
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMAlertmanagerConfig
+  vmalertmanagers:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMAlertmanager
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMAlertmanager
+  vmalerts:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMAlert
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMAlert
+  vmauths:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMAuth
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMAuth
+  vmclusters:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMCluster
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMCluster
+  vmnodescrapes:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMNodeScrape
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMNodeScrape
+  vmpodscrapes:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMPodScrape
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMPodScrape
+  vmprobes:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMProbe
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMProbe
+  vmrules:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMRule
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMRule
+  vmscrapeconfigs:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMScrapeConfig
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMScrapeConfig
+  vmservicescrapes:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMServiceScrape
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMServiceScrape
+  vmsingles:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMSingle
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMSingle
+  vmstaticscrapes:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMStaticScrape
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMStaticScrape
+  vmusers:
+    apiVersion: operator.victoriametrics.com/v1beta1
+    kind: VMUser
+    jsonSchemaRef: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMUser

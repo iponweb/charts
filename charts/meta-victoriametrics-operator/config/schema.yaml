@@ -1,0 +1,100 @@
+.defaults:
+  disallowed: &defaultDisallowed
+    - status
+    - kind
+    - apiVersion
+  properties: &defaultProperties
+    enabled: metachart.interface.boolean
+    metadata: metachart.api.meta.v1.ObjectMeta
+  rootKey: &defaultRootKey
+    disallowed: *defaultDisallowed
+    properties: *defaultProperties
+
+definitions:
+  - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/victoriametrics-operator/v0.63.0-strict/_definitions.json
+  - https://raw.githubusercontent.com/iponweb/schemas/main/json-schemas/kubernetes/v1.34.1-strict/_definitions.json
+
+rules:
+  #: Common
+  #:
+  #: meta.v1.ObjectMeta
+  - target: metachart.api.meta.v1.ObjectMeta
+    source: io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta
+    allowed:
+      - annotations
+      - labels
+      - finalizers
+      - namespace
+      - name
+    properties:
+      checksums: metachart.interface.checksums
+
+  #: operator.victoriametrics.com/v1
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1.VLAgent
+    source: com.victoriametrics.operator.api.operator.v1.VLAgent
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1.VLCluster
+    source: com.victoriametrics.operator.api.operator.v1.VLCluster
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1.VLSingle
+    source: com.victoriametrics.operator.api.operator.v1.VLSingle
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1.VMAnomaly
+    source: com.victoriametrics.operator.api.operator.v1.VMAnomaly
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1.VTCluster
+    source: com.victoriametrics.operator.api.operator.v1.VTCluster
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1.VTSingle
+    source: com.victoriametrics.operator.api.operator.v1.VTSingle
+    <<: *defaultRootKey
+
+  #: operator.victoriametrics.com/v1beta1
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VLogs
+    source: com.victoriametrics.operator.api.operator.v1beta1.VLogs
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMAgent
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMAgent
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMAlertmanagerConfig
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMAlertmanagerConfig
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMAlertmanager
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMAlertmanager
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMAlert
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMAlert
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMAuth
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMAuth
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMCluster
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMCluster
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMNodeScrape
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMNodeScrape
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMPodScrape
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMPodScrape
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMProbe
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMProbe
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMRule
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMRule
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMScrapeConfig
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMScrapeConfig
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMServiceScrape
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMServiceScrape
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMSingle
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMSingle
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMStaticScrape
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMStaticScrape
+    <<: *defaultRootKey
+  - target: metachart.api.com.victoriametrics.operator.api.operator.v1beta1.VMUser
+    source: com.victoriametrics.operator.api.operator.v1beta1.VMUser
+    <<: *defaultRootKey
